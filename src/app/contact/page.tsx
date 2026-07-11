@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
-import { Phone, MessageCircle, Mail, MapPin } from "lucide-react";
+import { Phone, MessageCircle, Mail, MapPin, Clock } from "lucide-react";
 import { PageHero } from "@/components/PageHero";
-import { PHONE_DISPLAY, TEL_HREF, whatsappHref, DEFAULT_WHATSAPP_MESSAGE } from "@/lib/whatsapp";
+import { getSiteSettings } from "@/lib/data";
+import { telHref, whatsappHref } from "@/lib/whatsapp";
+
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "تواصل معنا",
@@ -10,7 +13,9 @@ export const metadata: Metadata = {
   alternates: { canonical: "/contact" },
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const settings = await getSiteSettings();
+
   return (
     <>
       <PageHero
@@ -22,7 +27,7 @@ export default function ContactPage() {
       />
       <section className="mx-auto grid max-w-4xl gap-6 px-5 py-16 md:grid-cols-2">
         <a
-          href={TEL_HREF}
+          href={telHref(settings.phone)}
           className="flex items-start gap-4 rounded-2xl border border-ice bg-white p-6 shadow-card transition hover:shadow-glass"
         >
           <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-navy/10 text-navy">
@@ -31,13 +36,13 @@ export default function ContactPage() {
           <div>
             <div className="text-lg font-black text-navy">اتصل بنا</div>
             <div dir="ltr" className="ltr font-bold text-navy/90">
-              {PHONE_DISPLAY}
+              {settings.phone}
             </div>
           </div>
         </a>
 
         <a
-          href={whatsappHref(DEFAULT_WHATSAPP_MESSAGE)}
+          href={whatsappHref(settings.defaultWhatsappMessage, settings.whatsapp)}
           target="_blank"
           rel="noreferrer"
           className="flex items-start gap-4 rounded-2xl border border-ice bg-white p-6 shadow-card transition hover:shadow-glass"
@@ -48,32 +53,41 @@ export default function ContactPage() {
           <div>
             <div className="text-lg font-black text-navy">واتساب</div>
             <div dir="ltr" className="ltr font-bold text-navy/90">
-              {PHONE_DISPLAY}
+              {settings.phone}
             </div>
           </div>
         </a>
 
-        <div className="flex items-start gap-4 rounded-2xl border border-ice bg-white p-6 shadow-card">
-          <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-navy/10 text-navy">
-            <Mail className="h-5 w-5" aria-hidden />
+        {settings.email && (
+          <div className="flex items-start gap-4 rounded-2xl border border-ice bg-white p-6 shadow-card">
+            <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-navy/10 text-navy">
+              <Mail className="h-5 w-5" aria-hidden />
+            </div>
+            <div>
+              <div className="text-lg font-black text-navy">بريد إلكتروني</div>
+              <a href={`mailto:${settings.email}`} className="font-bold text-navy/90">
+                {settings.email}
+              </a>
+            </div>
           </div>
-          <div>
-            <div className="text-lg font-black text-navy">بريد إلكتروني</div>
-            <a href="mailto:info@elbakri.travel" className="font-bold text-navy/90">
-              info@elbakri.travel
-            </a>
-          </div>
-        </div>
+        )}
 
-        <div className="flex items-start gap-4 rounded-2xl border border-ice bg-white p-6 shadow-card">
-          <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-navy/10 text-navy">
-            <MapPin className="h-5 w-5" aria-hidden />
+        {settings.locationAr && (
+          <div className="flex items-start gap-4 rounded-2xl border border-ice bg-white p-6 shadow-card">
+            <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-navy/10 text-navy">
+              <MapPin className="h-5 w-5" aria-hidden />
+            </div>
+            <div>
+              <div className="text-lg font-black text-navy">مقرنا</div>
+              <div className="font-bold text-navy/90">{settings.locationAr}</div>
+              {settings.workingHoursAr && (
+                <div className="mt-1 flex items-center gap-1 text-xs text-muted">
+                  <Clock className="h-3 w-3" aria-hidden /> {settings.workingHoursAr}
+                </div>
+              )}
+            </div>
           </div>
-          <div>
-            <div className="text-lg font-black text-navy">مقرنا</div>
-            <div className="font-bold text-navy/90">القاهرة، مصر</div>
-          </div>
-        </div>
+        )}
       </section>
     </>
   );

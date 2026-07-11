@@ -26,6 +26,19 @@ const nextConfig = {
     // Legacy TanStack/Lovable routes -> canonical routes (real 308s).
     return legacyRedirects;
   },
+  async headers() {
+    // Keep the hidden admin area out of indexes and caches.
+    return [
+      {
+        source: "/internal/:path*",
+        headers: [
+          { key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" },
+          { key: "Cache-Control", value: "no-store, max-age=0, must-revalidate" },
+          { key: "Referrer-Policy", value: "no-referrer" },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;

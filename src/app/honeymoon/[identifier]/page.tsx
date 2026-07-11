@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Gift, CalendarDays, ChevronLeft, Heart } from "lucide-react";
-import { getHoneymoons, getHoneymoonBySlug } from "@/lib/catalog";
+import { getHoneymoons, getHoneymoonBySlug, getSiteSettings } from "@/lib/data";
 import { PageHero } from "@/components/PageHero";
 import { BookingCard } from "@/components/BookingCard";
 import { Price } from "@/components/Price";
@@ -12,14 +12,15 @@ type Params = Promise<{ identifier: string }>;
 
 // Numeric legacy indices are redirected by next.config; unknown slugs 404.
 export const dynamicParams = false;
+export const revalidate = 300;
 
-export function generateStaticParams() {
-  return getHoneymoons().map((d) => ({ identifier: d.slug }));
+export async function generateStaticParams() {
+  return (await getHoneymoons()).map((d) => ({ identifier: d.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { identifier } = await params;
-  const d = getHoneymoonBySlug(identifier);
+  const d = await getHoneymoonBySlug(identifier);
   if (!d) return { title: "الباقة غير موجودة", robots: { index: false } };
   return {
     title: `${d.nameAr} — شهر عسل`,
@@ -35,7 +36,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 
 export default async function HoneymoonDetailPage({ params }: { params: Params }) {
   const { identifier } = await params;
-  const deal = getHoneymoonBySlug(identifier);
+  const [deal, settings] = await Promise.all([getHoneymoonBySlug(identifier), getSiteSettings()]);
   if (!deal) notFound();
 
   return (
@@ -132,6 +133,8 @@ export default async function HoneymoonDetailPage({ params }: { params: Params }
             hotelName={deal.nameAr}
             minPrice={deal.minPrice}
             contextLine={`${deal.region} — شهر عسل`}
+            whatsapp={settings.whatsapp}
+            phone={settings.phone}
           />
         </div>
       </section>

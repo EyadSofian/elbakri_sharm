@@ -9,10 +9,12 @@ import {
   BadgeCheck,
   CalendarClock,
 } from "lucide-react";
-import { getDestinations, getFeaturedHotels } from "@/lib/catalog";
+import { getDestinations, getFeaturedHotels } from "@/lib/data";
 import { DestinationCard } from "@/components/DestinationCard";
 import { HotelCard } from "@/components/HotelCard";
 import { OrganizationJsonLd } from "@/components/JsonLd";
+
+export const revalidate = 300;
 
 const HOME_HERO = "/images/destinations/home.webp";
 const HONEYMOON_HERO = "/images/destinations/honeymoon.webp";
@@ -30,9 +32,8 @@ const STEPS = [
   { n: "٣", title: "أكّد مع فريقنا", text: "نؤكد التوافر والسعر النهائي ونكمل الحجز." },
 ];
 
-export default function HomePage() {
-  const destinations = getDestinations();
-  const featured = getFeaturedHotels(6);
+export default async function HomePage() {
+  const [destinations, featured] = await Promise.all([getDestinations(), getFeaturedHotels(6)]);
 
   return (
     <>

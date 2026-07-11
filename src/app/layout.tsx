@@ -4,7 +4,7 @@ import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
-import { getDestinations } from "@/lib/catalog";
+import { getDestinations, getSiteSettings } from "@/lib/data";
 
 const arabic = Noto_Sans_Arabic({
   subsets: ["arabic"],
@@ -41,8 +41,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const navDestinations = getDestinations().map((d) => ({ slug: d.slug, name: d.nameAr }));
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const [destinations, settings] = await Promise.all([getDestinations(), getSiteSettings()]);
+  const navDestinations = destinations.map((d) => ({ slug: d.slug, name: d.nameAr }));
   return (
     <html lang="ar" dir="rtl" className={`${arabic.variable} ${latin.variable}`}>
       <body className="flex min-h-screen flex-col">
@@ -57,7 +58,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
         </main>
         <Footer />
-        <FloatingWhatsApp />
+        <FloatingWhatsApp whatsapp={settings.whatsapp} message={settings.defaultWhatsappMessage} />
       </body>
     </html>
   );

@@ -14,15 +14,17 @@ const SELF = "check-no-lovable.ts";
 
 // Tokens assembled from parts so this scanner file never matches itself.
 const L = "lovable";
-const forbidden: { name: string; re: RegExp }[] = [
+// `codeOnly` patterns are skipped for Markdown/docs (prose legitimately mentions
+// href="#" and image URLs when describing the rules).
+const forbidden: { name: string; re: RegExp; codeOnly?: boolean }[] = [
   { name: "@lovable.dev dependency", re: new RegExp(`@${L}\\.dev`) },
   { name: "Lovable __l5e asset path", re: /__l5e/ },
   { name: "lovable.app preview host", re: new RegExp(`${L}\\.app`) },
   { name: ".lovable metadata dir", re: new RegExp(`\\.${L}/`) },
   { name: "Lovable R2 preview key", re: /assets-v1\/[0-9a-f-]{36}/ },
-  { name: "remote image src (http)", re: /(?:src=|image:\s*|url\()\s*["'{(]?https?:\/\/[^"')\s]+\.(?:png|jpe?g|webp|gif|svg)/i },
+  { name: "remote image src (http)", re: /(?:src=|image:\s*|url\()\s*["'{(]?https?:\/\/[^"')\s]+\.(?:png|jpe?g|webp|gif|svg)/i, codeOnly: true },
   { name: "unsplash remote image", re: /images\.unsplash\.com/ },
-  { name: 'placeholder link href="#"', re: /href=["']#["']/ },
+  { name: 'placeholder link href="#"', re: /href=["']#["']/, codeOnly: true },
 ];
 
 const violations: string[] = [];
@@ -61,8 +63,10 @@ function scanFile(file: string) {
   }
   const text = readFileSync(file, "utf8");
   const rel = relative(ROOT, file);
+  const isMd = extname(file) === ".md";
   text.split(/\r?\n/).forEach((line, i) => {
     for (const f of forbidden) {
+      if (isMd && f.codeOnly) continue;
       if (f.re.test(line)) {
         violations.push(`${rel}:${i + 1}  [${f.name}]  ${line.trim().slice(0, 120)}`);
       }

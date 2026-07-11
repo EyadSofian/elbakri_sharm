@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
-import { getHoneymoons, getHoneymoonRegions } from "@/lib/catalog";
+import { getHoneymoons, getHoneymoonRegions } from "@/lib/data";
 import { PageHero } from "@/components/PageHero";
 import { HoneymoonExplorer } from "./HoneymoonExplorer";
+
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "باقات شهر العسل 2026",
@@ -17,9 +19,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default function HoneymoonPage() {
-  const deals = getHoneymoons();
-  const regions = getHoneymoonRegions();
+export default async function HoneymoonPage() {
+  const [deals, regions] = await Promise.all([getHoneymoons(), getHoneymoonRegions()]);
 
   return (
     <>

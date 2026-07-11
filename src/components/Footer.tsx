@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { Phone, MessageCircle, Mail, MapPin } from "lucide-react";
-import { getDestinations } from "@/lib/catalog";
-import { PHONE_DISPLAY, TEL_HREF, whatsappHref, DEFAULT_WHATSAPP_MESSAGE } from "@/lib/whatsapp";
+import { Phone, MessageCircle, Mail, MapPin, Instagram, Facebook } from "lucide-react";
+import { getDestinations, getSiteSettings } from "@/lib/data";
+import { telHref, whatsappHref } from "@/lib/whatsapp";
 import { Logo } from "@/components/Logo";
 
-export function Footer() {
-  const destinations = getDestinations();
+export async function Footer() {
+  const [destinations, settings] = await Promise.all([getDestinations(), getSiteSettings()]);
   const year = new Date().getFullYear();
 
   return (
@@ -64,14 +64,14 @@ export function Footer() {
           <ul className="space-y-3 text-sm">
             <li className="flex items-center gap-2">
               <Phone className="h-4 w-4 text-champagne" aria-hidden />
-              <a href={TEL_HREF} dir="ltr" className="hover:text-champagne">
-                {PHONE_DISPLAY}
+              <a href={telHref(settings.phone)} dir="ltr" className="hover:text-champagne">
+                {settings.phone}
               </a>
             </li>
             <li className="flex items-center gap-2">
               <MessageCircle className="h-4 w-4 text-champagne" aria-hidden />
               <a
-                href={whatsappHref(DEFAULT_WHATSAPP_MESSAGE)}
+                href={whatsappHref(settings.defaultWhatsappMessage, settings.whatsapp)}
                 target="_blank"
                 rel="noreferrer"
                 className="hover:text-champagne"
@@ -79,17 +79,47 @@ export function Footer() {
                 واتساب مباشر
               </a>
             </li>
-            <li className="flex items-center gap-2">
-              <Mail className="h-4 w-4 text-champagne" aria-hidden />
-              <a href="mailto:info@elbakri.travel" className="hover:text-champagne">
-                info@elbakri.travel
-              </a>
-            </li>
-            <li className="flex items-center gap-2">
-              <MapPin className="h-4 w-4 text-champagne" aria-hidden />
-              <span>القاهرة، مصر</span>
-            </li>
+            {settings.email && (
+              <li className="flex items-center gap-2">
+                <Mail className="h-4 w-4 text-champagne" aria-hidden />
+                <a href={`mailto:${settings.email}`} className="hover:text-champagne">
+                  {settings.email}
+                </a>
+              </li>
+            )}
+            {settings.locationAr && (
+              <li className="flex items-center gap-2">
+                <MapPin className="h-4 w-4 text-champagne" aria-hidden />
+                <span>{settings.locationAr}</span>
+              </li>
+            )}
           </ul>
+          {(settings.socialInstagram || settings.socialFacebook) && (
+            <div className="mt-4 flex gap-3">
+              {settings.socialInstagram && (
+                <a
+                  href={settings.socialInstagram}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="إنستغرام"
+                  className="grid h-9 w-9 place-items-center rounded-full bg-white/10 transition hover:bg-champagne hover:text-midnight"
+                >
+                  <Instagram className="h-4 w-4" aria-hidden />
+                </a>
+              )}
+              {settings.socialFacebook && (
+                <a
+                  href={settings.socialFacebook}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="فيسبوك"
+                  className="grid h-9 w-9 place-items-center rounded-full bg-white/10 transition hover:bg-champagne hover:text-midnight"
+                >
+                  <Facebook className="h-4 w-4" aria-hidden />
+                </a>
+              )}
+            </div>
+          )}
         </div>
       </div>
 

@@ -15,12 +15,17 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "seed:supabase": "tsx scripts/seed-supabase.ts",
+    "validate:db": "tsx scripts/validate-db-parity.ts",
     "validate:catalog": "tsx scripts/validate-catalog.ts",
     "validate:images": "tsx scripts/validate-images.ts",
     "check:no-lovable": "tsx scripts/check-no-lovable.ts",
     "images:optimize": "python scripts/optimize_images.py"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.5.2",
+    "@supabase/supabase-js": "^2.47.10",
     "clsx": "^2.1.1",
     "framer-motion": "^11.15.0",
     "lucide-react": "^0.469.0",
@@ -31,6 +36,8 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.10.1",
+    "@playwright/test": "^1.49.1",
     "@tailwindcss/postcss": "^4.0.0",
     "@types/node": "^22.10.5",
     "@types/react": "^19.0.6",

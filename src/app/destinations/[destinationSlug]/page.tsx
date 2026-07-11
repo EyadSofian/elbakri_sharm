@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
-import { getDestinations, getDestinationBySlug } from "@/lib/catalog";
+import { getDestinations, getDestinationBySlug } from "@/lib/data";
 import { PageHero } from "@/components/PageHero";
 import { DestinationExplorer } from "./DestinationExplorer";
 
@@ -11,14 +11,15 @@ type Params = Promise<{ destinationSlug: string }>;
 // Only canonical slugs are valid; legacy ids are handled by next.config redirects,
 // and any other param returns a real 404.
 export const dynamicParams = false;
+export const revalidate = 300;
 
-export function generateStaticParams() {
-  return getDestinations().map((d) => ({ destinationSlug: d.slug }));
+export async function generateStaticParams() {
+  return (await getDestinations()).map((d) => ({ destinationSlug: d.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { destinationSlug } = await params;
-  const d = getDestinationBySlug(destinationSlug);
+  const d = await getDestinationBySlug(destinationSlug);
   if (!d) return { title: "الوجهة غير موجودة" };
   return {
     title: `${d.nameAr} — عروض 2026`,
@@ -34,7 +35,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 
 export default async function DestinationPage({ params }: { params: Params }) {
   const { destinationSlug } = await params;
-  const destination = getDestinationBySlug(destinationSlug);
+  const destination = await getDestinationBySlug(destinationSlug);
   if (!destination) notFound();
 
   return (

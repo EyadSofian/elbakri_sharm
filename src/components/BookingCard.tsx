@@ -1,5 +1,5 @@
 import { MessageCircle, Phone } from "lucide-react";
-import { whatsappHref, TEL_HREF } from "@/lib/whatsapp";
+import { whatsappHref, telHref } from "@/lib/whatsapp";
 import { Price } from "@/components/Price";
 
 export function BookingCard({
@@ -7,11 +7,15 @@ export function BookingCard({
   minPrice,
   unitLabel,
   contextLine,
+  whatsapp,
+  phone,
 }: {
   hotelName: string;
   minPrice: number | null;
   unitLabel?: string;
   contextLine?: string;
+  whatsapp?: string;
+  phone?: string;
 }) {
   const msg = `مرحباً، أرغب في حجز ${hotelName}${contextLine ? ` — ${contextLine}` : ""} عبر البكري أوفرسيز`;
 
@@ -25,7 +29,7 @@ export function BookingCard({
       {unitLabel && <div className="mb-5 text-xs text-muted">{unitLabel}</div>}
 
       <a
-        href={whatsappHref(msg)}
+        href={whatsappHref(msg, whatsapp)}
         target="_blank"
         rel="noreferrer"
         className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#25D366] px-5 py-3.5 font-bold text-white transition hover:brightness-95"
@@ -34,7 +38,7 @@ export function BookingCard({
         احجز الآن عبر واتساب
       </a>
       <a
-        href={TEL_HREF}
+        href={telHref(phone)}
         className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl border-2 border-navy px-5 py-3 font-bold text-navy transition hover:bg-navy hover:text-white"
       >
         <Phone className="h-4 w-4" aria-hidden />

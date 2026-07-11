@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Utensils, CalendarDays, ChevronLeft, MapPin, Info } from "lucide-react";
-import { getAllHotels, getHotelBySlug } from "@/lib/catalog";
+import { getAllHotels, getHotelBySlug, getSiteSettings } from "@/lib/data";
 import { PageHero } from "@/components/PageHero";
 import { BookingCard } from "@/components/BookingCard";
 import { Price } from "@/components/Price";
@@ -12,14 +12,15 @@ type Params = Promise<{ hotelSlug: string }>;
 
 // Legacy /hotel/:dest/:cat/:idx URLs are redirected by next.config; unknown slugs 404.
 export const dynamicParams = false;
+export const revalidate = 300;
 
-export function generateStaticParams() {
-  return getAllHotels().map((h) => ({ hotelSlug: h.slug }));
+export async function generateStaticParams() {
+  return (await getAllHotels()).map((h) => ({ hotelSlug: h.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { hotelSlug } = await params;
-  const h = getHotelBySlug(hotelSlug);
+  const h = await getHotelBySlug(hotelSlug);
   if (!h) return { title: "الفندق غير موجود", robots: { index: false } };
   return {
     title: `${h.nameAr} — ${h.destinationNameAr}`,
@@ -35,7 +36,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 
 export default async function HotelPage({ params }: { params: Params }) {
   const { hotelSlug } = await params;
-  const hotel = getHotelBySlug(hotelSlug);
+  const [hotel, settings] = await Promise.all([getHotelBySlug(hotelSlug), getSiteSettings()]);
   if (!hotel) notFound();
 
   const board = hotel.periods[0]?.board;
@@ -150,6 +151,8 @@ export default async function HotelPage({ params }: { params: Params }) {
             minPrice={hotel.minPrice}
             unitLabel={hotel.unitLabel}
             contextLine={`${hotel.destinationNameAr} — ${hotel.categoryName}`}
+            whatsapp={settings.whatsapp}
+            phone={settings.phone}
           />
         </div>
       </section>
