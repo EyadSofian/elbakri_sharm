@@ -16,13 +16,19 @@ const SELF = "check-no-lovable.ts";
 const L = "lovable";
 // `codeOnly` patterns are skipped for Markdown/docs (prose legitimately mentions
 // href="#" and image URLs when describing the rules).
-const forbidden: { name: string; re: RegExp; codeOnly?: boolean }[] = [
+const forbidden: { name: string; re: RegExp; codeOnly?: boolean; allowRe?: RegExp }[] = [
   { name: "@lovable.dev dependency", re: new RegExp(`@${L}\\.dev`) },
   { name: "Lovable __l5e asset path", re: /__l5e/ },
   { name: "lovable.app preview host", re: new RegExp(`${L}\\.app`) },
   { name: ".lovable metadata dir", re: new RegExp(`\\.${L}/`) },
   { name: "Lovable R2 preview key", re: /assets-v1\/[0-9a-f-]{36}/ },
-  { name: "remote image src (http)", re: /(?:src=|image:\s*|url\()\s*["'{(]?https?:\/\/[^"')\s]+\.(?:png|jpe?g|webp|gif|svg)/i, codeOnly: true },
+  {
+    name: "remote image src (http)",
+    re: /(?:src=|image:\s*|url\()\s*["'{(]?https?:\/\/[^"')\s]+\.(?:png|jpe?g|webp|gif|svg)/i,
+    codeOnly: true,
+    // Approved exception: this project's Supabase Storage (admin uploads).
+    allowRe: /supabase\.co\/storage\//,
+  },
   { name: "unsplash remote image", re: /images\.unsplash\.com/ },
   { name: 'placeholder link href="#"', re: /href=["']#["']/, codeOnly: true },
 ];
@@ -67,6 +73,7 @@ function scanFile(file: string) {
   text.split(/\r?\n/).forEach((line, i) => {
     for (const f of forbidden) {
       if (isMd && f.codeOnly) continue;
+      if (f.allowRe && f.allowRe.test(line)) continue;
       if (f.re.test(line)) {
         violations.push(`${rel}:${i + 1}  [${f.name}]  ${line.trim().slice(0, 120)}`);
       }

@@ -96,7 +96,7 @@ export default async function HomePage() {
       {/* Destinations */}
       <section id="destinations" className="mx-auto max-w-6xl scroll-mt-24 px-5 py-20 md:py-28">
         <div className="mb-12 max-w-2xl">
-          <div className="mb-3 text-sm font-bold uppercase tracking-wider text-champagne">وجهاتنا</div>
+          <div className="mb-3 text-sm font-bold uppercase tracking-wider text-champagne-ink">وجهاتنا</div>
           <h2 className="mb-4 text-3xl font-extrabold leading-tight text-navy md:text-5xl">
             اختر وجهتك المثالية
           </h2>
@@ -116,7 +116,7 @@ export default async function HomePage() {
         <div className="mx-auto max-w-6xl px-5 py-20">
           <div className="mb-10 flex items-end justify-between gap-4">
             <div>
-              <div className="mb-3 text-sm font-bold uppercase tracking-wider text-champagne">
+              <div className="mb-3 text-sm font-bold uppercase tracking-wider text-champagne-ink">
                 عروض مختارة
               </div>
               <h2 className="text-3xl font-extrabold text-navy md:text-4xl">أقل الأسعار لكل وجهة</h2>

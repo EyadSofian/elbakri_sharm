@@ -77,10 +77,20 @@ redirects to the canonical URLs (generated into `src/data/legacy-redirects.json`
 
 ## Images
 
-Destination heroes are project-owned and rights-cleared. **No hotel-specific photo is
-published** — a wrong photo is worse than an honest destination fallback — so every hotel
-uses its destination hero. See **[README-IMAGES.md](README-IMAGES.md)** and `reports/` for the
-manifest, sources, and the list of images that need rights clearance.
+Destination heroes are project-owned. **22 hotels** now use real, identity-verified hero
+photos downloaded from their official resort pages (all Pickalbatros/Albatros properties;
+`npm run images:optimize` and `scripts/fetch_hotel_images.py` reproduce them). The remaining
+37 hotels use an honest destination fallback — never a wrong photo — and are best filled via
+the admin's per-hotel upload. See **[README-IMAGES.md](README-IMAGES.md)** and `reports/`.
+
+## Admin CMS (optional, Supabase)
+
+The site runs on the static seed catalog by default. Configure Supabase to switch the source
+of truth to Postgres and unlock the hidden admin at `/internal/elbakri-admin` (absent from
+nav/footer/sitemap/search, `noindex`, server-side admin allowlist + RLS). Admins edit prices,
+publish/archive packages, manage destinations/honeymoon, and site settings — changes revalidate
+the public pages. Full setup: **[docs/SUPABASE.md](docs/SUPABASE.md)**. Extra scripts:
+`seed:supabase`, `validate:db`, `test:rls`, `test:e2e`.
 
 ## Deployment (Vercel)
 
@@ -92,8 +102,13 @@ manifest, sources, and the list of images that need rights clearance.
 
 ## Known blockers (require input)
 
+- **Git remote / Vercel** — no verified push target or Vercel project was available locally.
+- **Supabase project** — needed to run the admin CMS + DB-backed catalog and to execute the
+  seed/parity/RLS/authenticated-admin tests (all code is ready). See `docs/SUPABASE.md`.
 - **Transparent logo** — the approved `elbakri-logo-transparent.png` was not in the export;
   the site uses a margin-trimmed copy of the opaque logo as interim.
-- **Git remote / Vercel** — no verified push target or Vercel project was available locally.
-- **Contact details** — phone & WhatsApp come from the data; email/location/hours need
-  confirmation before production sign-off.
+- **37 hotel images** — independent/multi-platform properties whose official photos can't be
+  auto-verified safely; fill via the admin per-hotel upload (see
+  `reports/missing-or-uncertain-images.md`).
+- **Contact details** — phone & WhatsApp come from the data; email/location/hours are editable
+  in admin settings and need confirmation before production sign-off.

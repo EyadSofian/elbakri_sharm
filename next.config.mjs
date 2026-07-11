@@ -1,5 +1,16 @@
 import { readFileSync } from "node:fs";
 
+/** Approved image host: the project's Supabase Storage (future admin uploads only). */
+const supabaseHost = (() => {
+  try {
+    return process.env.NEXT_PUBLIC_SUPABASE_URL
+      ? new URL(process.env.NEXT_PUBLIC_SUPABASE_URL).host
+      : null;
+  } catch {
+    return null;
+  }
+})();
+
 /** Legacy URL redirects, generated from the catalog by scripts/build-redirects.ts. */
 let legacyRedirects = [];
 try {
@@ -18,9 +29,12 @@ const nextConfig = {
   // home directory, which would otherwise be inferred as the workspace root).
   outputFileTracingRoot: import.meta.dirname,
   images: {
-    // All content imagery is local and rights-cleared or an explicit fallback.
-    // Remote image sources are intentionally disallowed (no remotePatterns).
+    // Launch imagery is local & rights-cleared. The ONLY permitted remote host is
+    // this project's Supabase Storage bucket (future admin uploads) — nothing else.
     formats: ["image/webp"],
+    remotePatterns: supabaseHost
+      ? [{ protocol: "https", hostname: supabaseHost, pathname: "/storage/v1/object/public/**" }]
+      : [],
   },
   async redirects() {
     // Legacy TanStack/Lovable routes -> canonical routes (real 308s).

@@ -11,6 +11,8 @@
   --color-ice: #dce6ff;
   --color-mist: #f7f9fc;
   --color-champagne: #c89b3c;
+  /* Darker gold for small text on LIGHT surfaces (WCAG AA ≥4.5:1). */
+  --color-champagne-ink: #8a5a00;
   --color-muted: #5b667a;
   --color-success: #15803d;
   --color-error: #b91c1c;

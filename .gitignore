@@ -35,3 +35,9 @@ yarn-error.log*
 /artifacts/*.zip
 /reports/.tmp
 /.image-work
+
+# playwright
+/test-results
+/playwright-report
+/blob-report
+/.playwright
