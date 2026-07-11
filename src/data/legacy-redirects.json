@@ -1,0 +1,382 @@
+[
+  {
+    "source": "/destinations/sharm",
+    "destination": "/destinations/sharm-el-sheikh",
+    "permanent": true
+  },
+  {
+    "source": "/destinations/marsaalam",
+    "destination": "/destinations/marsa-alam",
+    "permanent": true
+  },
+  {
+    "source": "/destinations/northcoast",
+    "destination": "/destinations/north-coast",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/sharm/select/0",
+    "destination": "/hotels/falcon-naama-star",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/sharm/select/1",
+    "destination": "/hotels/falcon-hills",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/sharm/select/2",
+    "destination": "/hotels/sharm-holiday",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/sharm/premium/0",
+    "destination": "/hotels/san-george",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/sharm/premium/1",
+    "destination": "/hotels/dreams-vacation",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/sharm/premium/2",
+    "destination": "/hotels/gafy-resort",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/sharm/premium/3",
+    "destination": "/hotels/regency-plaza-aqua-park",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/sharm/premium/4",
+    "destination": "/hotels/sheraton-sharm",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/sharm/elite/0",
+    "destination": "/hotels/dreams-beach",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/sharm/elite/1",
+    "destination": "/hotels/promenade-mountain",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/sharm/elite/2",
+    "destination": "/hotels/naama-bay",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/sharm/elite/3",
+    "destination": "/hotels/sharmillion-club-aqua-park",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/sharm/elite/4",
+    "destination": "/hotels/kiroseiz-parkland",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/sharm/elite/5",
+    "destination": "/hotels/tamra-beach",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/sharm/albatros/0",
+    "destination": "/hotels/pickalbatros-royal-grand",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/sharm/albatros/1",
+    "destination": "/hotels/pickalbatros-aqua-park-sharm-el-sheikh",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/sharm/albatros/2",
+    "destination": "/hotels/pickalbatros-aqua-blu-sharm-el-sheikh",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/sharm/albatros/3",
+    "destination": "/hotels/pickalbatros-sharm",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/sharm/albatros/4",
+    "destination": "/hotels/pickalbatros-laguna-club",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/sharm/albatros/5",
+    "destination": "/hotels/pickalbatros-palace",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/sharm/albatros/6",
+    "destination": "/hotels/pickalbatros-laguna-vista",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/sharm/albatros/7",
+    "destination": "/hotels/pickalbatros-royal-moderna",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/dahab/dahab-offers/0",
+    "destination": "/hotels/downtown-dahab",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/dahab/dahab-offers/1",
+    "destination": "/hotels/nesima-dahab",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/dahab/dahab-offers/2",
+    "destination": "/hotels/dahab-lagoon",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/dahab/dahab-offers/3",
+    "destination": "/hotels/swiss-inn-dahab",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/dahab/dahab-offers/4",
+    "destination": "/hotels/tropitel-dahab",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/hurghada/h-select/0",
+    "destination": "/hotels/minamark",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/hurghada/h-select/1",
+    "destination": "/hotels/marlin-inn",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/hurghada/h-select/2",
+    "destination": "/hotels/sunny-days-mirette-family",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/hurghada/h-select/3",
+    "destination": "/hotels/giftun-azur",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/hurghada/h-premium/0",
+    "destination": "/hotels/pharaoh-azur",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/hurghada/h-premium/1",
+    "destination": "/hotels/sunny-days-el-palacio",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/hurghada/h-premium/2",
+    "destination": "/hotels/sindbad-club",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/hurghada/h-premium/3",
+    "destination": "/hotels/seagull",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/hurghada/h-premium/4",
+    "destination": "/hotels/three-corners-sunny-beach",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/hurghada/h-elite/0",
+    "destination": "/hotels/gravity-aqua-park",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/hurghada/h-elite/1",
+    "destination": "/hotels/desert-rose",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/hurghada/h-elite/2",
+    "destination": "/hotels/sheraton-soma-bay",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/hurghada/h-albatros/0",
+    "destination": "/hotels/pickalbatros-white-beach",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/hurghada/h-albatros/1",
+    "destination": "/hotels/pickalbatros-dana-beach",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/hurghada/h-albatros/2",
+    "destination": "/hotels/pickalbatros-plus-hurghada",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/hurghada/h-albatros/3",
+    "destination": "/hotels/beach-albatros",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/hurghada/h-albatros/4",
+    "destination": "/hotels/pickalbatros-aqua-blu-hurghada",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/hurghada/h-albatros/5",
+    "destination": "/hotels/pickalbatros-aqua-park-hurghada",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/hurghada/h-albatros/6",
+    "destination": "/hotels/pickalbatros-aqua-vista",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/hurghada/h-nefarland/0",
+    "destination": "/hotels/pickalbatros-water-valley",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/hurghada/h-nefarland/1",
+    "destination": "/hotels/pickalbatros-jungle-aqua-park",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/hurghada/h-nefarland/2",
+    "destination": "/hotels/pickalbatros-alf-leila-wa-leila",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/marsaalam/m-albatros/0",
+    "destination": "/hotels/pickalbatros-sea-world",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/marsaalam/m-albatros/1",
+    "destination": "/hotels/pickalbatros-plus-marsa-alam",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/marsaalam/m-albatros/2",
+    "destination": "/hotels/pickalbatros-oasis",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/marsaalam/m-albatros/3",
+    "destination": "/hotels/pickalbatros-sands",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/marsaalam/m-albatros/4",
+    "destination": "/hotels/pickalbatros-porto-fino",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/marsaalam/m-albatros/5",
+    "destination": "/hotels/pickalbatros-vita",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/northcoast/nc/0",
+    "destination": "/hotels/jiwan-resort",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/northcoast/nc/1",
+    "destination": "/hotels/jiwan-beach",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/northcoast/nc/2",
+    "destination": "/hotels/azur-one",
+    "permanent": true
+  },
+  {
+    "source": "/hotel/northcoast/nc/3",
+    "destination": "/hotels/porto-marina",
+    "permanent": true
+  },
+  {
+    "source": "/honeymoon/0",
+    "destination": "/honeymoon/pickalbatros-royal-moderna",
+    "permanent": true
+  },
+  {
+    "source": "/honeymoon/1",
+    "destination": "/honeymoon/lido-sharm",
+    "permanent": true
+  },
+  {
+    "source": "/honeymoon/2",
+    "destination": "/honeymoon/pickalbatros-royal-grand",
+    "permanent": true
+  },
+  {
+    "source": "/honeymoon/3",
+    "destination": "/honeymoon/tropitel-sahl-hasheesh",
+    "permanent": true
+  },
+  {
+    "source": "/honeymoon/4",
+    "destination": "/honeymoon/swiss-inn-hurghada",
+    "permanent": true
+  },
+  {
+    "source": "/honeymoon/5",
+    "destination": "/honeymoon/pickalbatros-sea-world",
+    "permanent": true
+  },
+  {
+    "source": "/honeymoon/6",
+    "destination": "/honeymoon/pickalbatros-citadel",
+    "permanent": true
+  },
+  {
+    "source": "/honeymoon/7",
+    "destination": "/honeymoon/continental-hurghada",
+    "permanent": true
+  },
+  {
+    "source": "/honeymoon/8",
+    "destination": "/honeymoon/kaisol-romance",
+    "permanent": true
+  },
+  {
+    "source": "/honeymoon/9",
+    "destination": "/honeymoon/jaz-costa-mares",
+    "permanent": true
+  },
+  {
+    "source": "/honeymoon/10",
+    "destination": "/honeymoon/sataya",
+    "permanent": true
+  },
+  {
+    "source": "/honeymoon/11",
+    "destination": "/honeymoon/happy-life",
+    "permanent": true
+  },
+  {
+    "source": "/honeymoon/12",
+    "destination": "/honeymoon/tropitel-dahab-oasis",
+    "permanent": true
+  },
+  {
+    "source": "/honeymoon/13",
+    "destination": "/honeymoon/premier-le-reve",
+    "permanent": true
+  }
+]
