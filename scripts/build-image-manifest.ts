@@ -10,6 +10,7 @@ import { join } from "node:path";
 import { getAllHotels, getDestinations, getHoneymoons } from "@/lib/catalog";
 import { DESTINATION_NAMES, HOTEL_ALIASES } from "@/data/hotel-names";
 import { destinationHeroPath } from "@/lib/images";
+import hotelImageMap from "@/data/hotel-image-map";
 
 const ROOT = process.cwd();
 const REPORTS = join(ROOT, "reports");
@@ -48,6 +49,31 @@ const honeymoons = getHoneymoons();
 const hotelRecords = hotels.map((h) => {
   const known = KNOWN_SOURCES[h.slug.replace(/-(sharm-el-sheikh|hurghada|marsa-alam)$/, "")] ?? KNOWN_SOURCES[h.slug];
   const destSlug = DESTINATION_NAMES[h.destinationId]!.slug;
+  const verified = hotelImageMap[h.slug];
+  if (verified && verified.status === "verified_local") {
+    return {
+      id: h.slug,
+      slug: h.slug,
+      hotel_name_ar: h.nameAr,
+      hotel_name_en: h.nameEn,
+      destination: h.destinationNameAr,
+      destination_slug: destSlug,
+      package_names: h.categoryName,
+      image: verified.image,
+      thumbnail: verified.thumbnail ?? `/images/thumbnails/${h.slug}.webp`,
+      alt_ar: `فندق ${h.nameAr} في ${h.destinationNameAr}`,
+      official_page_url: verified.sourceUrl ?? known?.url ?? "",
+      original_image_url: verified.sourceUrl ?? "",
+      rights_evidence_url: "",
+      source_type: "official-hotel-group",
+      identity_status: "verified",
+      license_status: "cleared",
+      asset_status: "verified_local",
+      photographer_or_owner: "",
+      attribution: "",
+      notes: "Real hero photo from the official resort page (ELBAKRI OVERSEAS authorized); optimized locally.",
+    };
+  }
   return {
     id: h.slug,
     slug: h.slug,
@@ -178,6 +204,8 @@ writeFileSync(join(REPORTS, "image-manifest.csv"), [csvRow(manHeader), ...manRow
 /* ---------- reports ---------- */
 const verifiedIdentity = hotelRecords.filter((h) => h.identity_status === "verified").length;
 const needsReview = hotelRecords.filter((h) => h.identity_status === "needs_review").length;
+const verifiedLocal = hotelRecords.filter((h) => h.asset_status === "verified_local").length;
+const fallbackCount = hotelRecords.filter((h) => h.asset_status === "destination_fallback").length;
 
 writeFileSync(
   join(REPORTS, "image-summary.md"),
@@ -189,8 +217,8 @@ _Generated from the catalog; reflects the real files on disk._
 - **Destination hotel entries:** ${hotels.length}
 - **Unique physical properties:** ${uniqueProperties} (${hotels.length} destination hotels + ${honeymoonOnly} honeymoon-only; ${honeymoons.length - honeymoonOnly} honeymoon deals alias to destination properties)
 - **Honeymoon deals:** ${honeymoons.length}
-- **Verified local hotel images (rights-cleared, hotel-specific):** 0
-- **Rights-pending hotel images (destination fallback in use):** ${hotels.length}
+- **Verified local hotel images (real hotel-specific photos):** ${verifiedLocal}
+- **Hotels still on destination fallback:** ${fallbackCount}
 - **Hotels with verified identity (official source recorded):** ${verifiedIdentity}
 - **Hotels needing identity review:** ${needsReview}
 - **Destination hero images (project-owned, rights-cleared):** 5 (+ home + honeymoon = 7)
@@ -274,5 +302,5 @@ record attribution.
 console.log(
   `✓ image manifest + reports written:\n` +
     `  hotels: ${hotels.length}  honeymoon: ${honeymoons.length}  unique properties: ${uniqueProperties}\n` +
-    `  identity-verified: ${verifiedIdentity}  needs-review: ${needsReview}  verified_local photos: 0`,
+    `  identity-verified: ${verifiedIdentity}  needs-review: ${needsReview}  verified_local photos: ${verifiedLocal}  fallback: ${fallbackCount}`,
 );
