@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Utensils, CalendarDays, ArrowLeft } from "lucide-react";
+import { ArrowLeft, CalendarDays, MapPin, Utensils } from "lucide-react";
 import type { Hotel } from "@/lib/catalog";
 import { Price } from "@/components/Price";
 
@@ -8,59 +8,69 @@ export function HotelCard({ hotel }: { hotel: Hotel }) {
   const board = hotel.periods[0]?.board;
   const first = hotel.periods[0]?.period;
   const extra = hotel.periods.length - 1;
-  // Real hotel photos get descriptive alt; destination fallbacks stay decorative.
   const isRealPhoto = hotel.image.startsWith("/images/hotels/");
 
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-[20px] bg-white shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-glass">
-      <div className="relative overflow-hidden bg-ice" style={{ aspectRatio: "10 / 7" }}>
-        <Image
-          src={hotel.image}
-          alt={isRealPhoto ? `فندق ${hotel.nameAr} في ${hotel.destinationNameAr}` : ""}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
-        />
-        <span className="absolute right-3 top-3 rounded-full bg-ice px-2.5 py-1 text-[11px] font-bold text-navy">
-          {hotel.categoryName}
-        </span>
-      </div>
-      <div className="flex flex-1 flex-col p-5">
-        <h3 className="mb-2 line-clamp-2 min-h-[3.2rem] text-[19px] font-bold leading-snug text-navy">
-          {hotel.nameAr}
-        </h3>
-        <div className="mb-3 flex flex-wrap items-center gap-1.5">
-          {board && (
-            <span className="inline-flex items-center gap-1 rounded-full bg-[#EEF8F5] px-2 py-0.5 text-[11px] font-bold text-success">
-              <Utensils className="h-3 w-3" aria-hidden /> {board}
-            </span>
-          )}
-        </div>
-        <div className="mb-4 flex items-center gap-1.5 text-xs text-muted">
-          <CalendarDays className="h-3.5 w-3.5 shrink-0" aria-hidden />
-          <span dir="ltr" className="ltr line-clamp-1">
-            {first}
+    <Link
+      href={"/hotels/" + hotel.slug}
+      className="tap-target group flex h-full min-w-0 flex-col overflow-hidden rounded-[22px] border border-ice/80 bg-white shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-card-hover active:scale-[0.995]"
+    >
+      <div className="grid grid-cols-[8.5rem_minmax(0,1fr)] sm:block">
+        <div className="relative min-h-[170px] overflow-hidden bg-ice sm:aspect-[10/7] sm:min-h-0">
+          <Image
+            src={hotel.image}
+            alt={isRealPhoto ? "فندق " + hotel.nameAr + " في " + hotel.destinationNameAr : ""}
+            fill
+            sizes="(max-width: 640px) 136px, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+          />
+          <span className="absolute right-2 top-2 rounded-full border border-white/35 bg-white/90 px-2 py-1 text-[10px] font-extrabold text-navy shadow-sm backdrop-blur sm:right-3 sm:top-3 sm:px-2.5 sm:text-[11px]">
+            {hotel.categoryName}
           </span>
-          {extra > 0 && <span className="font-bold text-navy">+{extra}</span>}
         </div>
 
-        <div className="mt-auto flex items-end justify-between gap-3 border-t border-ice pt-4">
-          <div className="min-w-0">
-            <div className="text-[11px] text-muted">تبدأ من</div>
-            <div className="text-[24px] font-extrabold leading-none text-navy">
-              <Price value={hotel.minPrice} />
-              <span className="mr-1 text-xs font-semibold text-muted">ج.م</span>
-            </div>
-            <div className="mt-1 text-[10px] text-muted">{hotel.unitLabel}</div>
+        <div className="flex min-w-0 flex-col p-4 sm:p-5 sm:pb-4">
+          <div className="mb-2 flex items-center gap-1 text-[11px] font-bold text-muted">
+            <MapPin className="h-3.5 w-3.5 text-champagne-ink" aria-hidden />
+            {hotel.destinationNameAr}
           </div>
-          <Link
-            href={`/hotels/${hotel.slug}`}
-            className="inline-flex shrink-0 items-center gap-1 rounded-full bg-navy px-4 py-2.5 text-sm font-bold text-white transition hover:bg-blue group-hover:gap-2"
-          >
-            عرض التفاصيل <ArrowLeft className="h-4 w-4" aria-hidden />
-          </Link>
+          <h3 className="line-clamp-2 text-lg font-extrabold leading-snug text-navy sm:min-h-[3.2rem] sm:text-[19px]">
+            {hotel.nameAr}
+          </h3>
+
+          {board ? (
+            <div className="mt-3">
+              <span className="inline-flex items-center gap-1 rounded-full bg-success/10 px-2 py-1 text-[10px] font-extrabold text-success sm:text-[11px]">
+                <Utensils className="h-3 w-3" aria-hidden />
+                {board}
+              </span>
+            </div>
+          ) : null}
+
+          <div className="mt-auto flex items-center gap-1.5 pt-3 text-[11px] text-muted sm:text-xs">
+            <CalendarDays className="h-3.5 w-3.5 shrink-0 text-blue" aria-hidden />
+            <span dir="ltr" className="ltr line-clamp-1">
+              {first}
+            </span>
+            {extra > 0 ? <span className="font-extrabold text-navy">+{extra}</span> : null}
+          </div>
         </div>
       </div>
-    </article>
+
+      <div className="mt-auto flex items-center justify-between gap-3 border-t border-ice px-4 py-3.5 sm:mx-5 sm:px-0 sm:py-4">
+        <div className="min-w-0">
+          <div className="text-[10px] font-semibold text-muted">يبدأ من</div>
+          <div className="text-[23px] font-black leading-none text-navy">
+            <Price value={hotel.minPrice} />
+            <span className="mr-1 text-[10px] font-bold text-muted">ج.م</span>
+          </div>
+          <div className="mt-1 line-clamp-1 text-[9px] text-muted sm:text-[10px]">{hotel.unitLabel}</div>
+        </div>
+        <span className="tap-target inline-flex shrink-0 items-center gap-2 rounded-full bg-navy px-4 text-xs font-extrabold text-white transition group-hover:bg-blue sm:text-sm">
+          عرض التفاصيل
+          <ArrowLeft className="h-4 w-4" aria-hidden />
+        </span>
+      </div>
+    </Link>
   );
 }

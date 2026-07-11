@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { Gift, CalendarDays, ChevronLeft, Heart } from "lucide-react";
+import { Gift, ChevronLeft, Heart } from "lucide-react";
 import { getHoneymoons, getHoneymoonBySlug, getSiteSettings } from "@/lib/data";
 import { PageHero } from "@/components/PageHero";
 import { BookingCard } from "@/components/BookingCard";
-import { Price } from "@/components/Price";
-import { parsePrice } from "@/lib/slug";
+import { HoneymoonPricePeriods } from "@/components/HoneymoonPricePeriods";
+import { MotionReveal } from "@/components/MotionReveal";
 
 type Params = Promise<{ identifier: string }>;
 
@@ -45,7 +45,7 @@ export default async function HoneymoonDetailPage({ params }: { params: Params }
 
       <nav
         aria-label="مسار التنقل"
-        className="mx-auto flex max-w-6xl flex-wrap items-center gap-1 px-5 pt-6 text-sm text-muted"
+        className="mx-auto flex max-w-7xl flex-wrap items-center gap-1 px-4 pt-5 text-xs text-muted sm:px-6 sm:text-sm"
       >
         <Link href="/" className="hover:text-navy">
           الرئيسية
@@ -58,67 +58,32 @@ export default async function HoneymoonDetailPage({ params }: { params: Params }
         <span className="line-clamp-1 font-semibold text-navy">{deal.nameAr}</span>
       </nav>
 
-      <section className="mx-auto grid max-w-6xl gap-10 px-5 py-10 lg:grid-cols-[1fr_360px]">
-        <div>
+      <section className="mx-auto grid max-w-7xl gap-8 px-4 py-8 sm:px-6 md:py-12 lg:grid-cols-[minmax(0,1fr)_370px]">
+        <MotionReveal>
           <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-champagne/20 px-3 py-1.5 text-xs font-bold text-navy">
             <Heart className="h-3.5 w-3.5 fill-navy" aria-hidden /> باقة رومانسية حصرية
           </div>
 
-          <p className="mb-8 leading-loose text-navy/80">
+          <p className="surface mb-8 rounded-[20px] p-5 text-sm leading-[1.9] text-navy/80 sm:p-6 sm:text-base">
             استمتعا ببداية استثنائية لحياتكما في <strong>{deal.nameAr}</strong> بـ{deal.region}. تشمل
             الباقة مزايا مجانية للعروسين وفترات متعددة. تواصلا معنا لتأكيد التوافر والسعر النهائي.
           </p>
 
           {/* Price periods */}
           <div className="mb-10">
-            <h2 className="mb-4 text-2xl font-extrabold text-navy">فترات الأسعار</h2>
-            <div className="overflow-x-auto rounded-2xl border border-ice">
-              <table className="w-full min-w-[480px] border-collapse text-sm">
-                <caption className="sr-only">جدول أسعار وفترات باقة شهر العسل في {deal.nameAr}</caption>
-                <thead>
-                  <tr className="bg-navy text-white">
-                    <th scope="col" className="p-3 text-right font-bold">
-                      الفترة
-                    </th>
-                    <th scope="col" className="p-3 text-right font-bold">
-                      الإقامة
-                    </th>
-                    <th scope="col" className="p-3 text-center font-bold">
-                      السعر
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {deal.periods.map((p, i) => (
-                    <tr key={i} className={i % 2 ? "bg-mist" : "bg-white"}>
-                      <td className="p-3 text-navy">
-                        <span className="inline-flex items-center gap-1.5">
-                          <CalendarDays className="h-4 w-4 shrink-0 text-blue" aria-hidden />
-                          <span dir="ltr" className="ltr">
-                            {p.period}
-                          </span>
-                        </span>
-                      </td>
-                      <td className="p-3 text-muted">{p.board ?? "—"}</td>
-                      <td className="p-3 text-center font-bold text-navy">
-                        <Price value={parsePrice(p.price)} />
-                        <span className="mr-1 text-[10px] font-normal text-muted">{p.unit}</span>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            <div className="mb-1 text-xs font-extrabold text-champagne-ink">تفاصيل العرض</div>
+            <h2 className="mb-4 text-2xl font-extrabold text-navy sm:text-3xl">فترات الأسعار</h2>
+            <HoneymoonPricePeriods dealName={deal.nameAr} periods={deal.periods} />
           </div>
 
           {/* Perks (verbatim from source) */}
           <div>
-            <h2 className="mb-4 text-2xl font-extrabold text-navy">مزايا الباقة</h2>
+            <h2 className="mb-4 text-2xl font-extrabold text-navy sm:text-3xl">مزايا الباقة</h2>
             <div className="grid gap-3 sm:grid-cols-2">
               {deal.perks.map((perk) => (
                 <div
                   key={perk}
-                  className="flex items-center gap-2 rounded-lg border border-champagne/20 bg-champagne/10 p-3"
+                  className="flex min-h-[52px] items-center gap-3 rounded-[16px] border border-champagne/25 bg-champagne/10 p-3.5"
                 >
                   <Gift className="h-5 w-5 shrink-0 text-champagne" aria-hidden />
                   <span className="text-sm font-semibold text-navy">{perk}</span>
@@ -126,9 +91,9 @@ export default async function HoneymoonDetailPage({ params }: { params: Params }
               ))}
             </div>
           </div>
-        </div>
+        </MotionReveal>
 
-        <div>
+        <MotionReveal delay={0.08}>
           <BookingCard
             hotelName={deal.nameAr}
             minPrice={deal.minPrice}
@@ -136,7 +101,7 @@ export default async function HoneymoonDetailPage({ params }: { params: Params }
             whatsapp={settings.whatsapp}
             phone={settings.phone}
           />
-        </div>
+        </MotionReveal>
       </section>
     </>
   );

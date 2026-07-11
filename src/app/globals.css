@@ -16,6 +16,7 @@
   --color-muted: #5b667a;
   --color-success: #15803d;
   --color-error: #b91c1c;
+  --color-whatsapp: #128c4a;
 
   /* Fonts (wired via next/font in layout.tsx) */
   --font-sans: var(--font-arabic), "Segoe UI", system-ui, sans-serif;
@@ -27,6 +28,7 @@
   /* Shadows */
   --shadow-glass: 0 18px 50px rgba(3, 9, 24, 0.2);
   --shadow-card: 0 8px 24px rgba(3, 9, 24, 0.08);
+  --shadow-card-hover: 0 22px 48px rgba(3, 9, 24, 0.16);
 }
 
 /* ============================================================
@@ -42,6 +44,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 88px;
 }
 
 body {
@@ -51,6 +54,8 @@ body {
   line-height: 1.65; /* Arabic body */
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  font-kerning: normal;
+  overflow-x: clip;
 }
 
 /* Never letter-space Arabic. Headings tighter line-height. */
@@ -58,6 +63,11 @@ h1, h2, h3, h4 {
   line-height: 1.25;
   font-weight: 700;
   letter-spacing: 0;
+}
+
+::selection {
+  background: rgba(200, 155, 60, 0.3);
+  color: var(--color-midnight);
 }
 
 /* Latin/numeric runs stay directionally isolated to avoid bidi errors. */
@@ -94,6 +104,54 @@ h1, h2, h3, h4 {
   color: #fff;
 }
 
+.surface {
+  border: 1px solid rgba(220, 230, 255, 0.9);
+  background: #fff;
+  box-shadow: var(--shadow-card);
+}
+
+.tap-target {
+  min-height: 44px;
+  min-width: 44px;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.section-kicker {
+  color: var(--color-champagne-ink);
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.section-title {
+  color: var(--color-navy);
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.section-copy {
+  max-width: 65ch;
+  color: var(--color-muted);
+  font-size: clamp(0.95rem, 1.6vw, 1.1rem);
+  line-height: 1.75;
+}
+
+.mobile-snap {
+  scrollbar-width: none;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-inline: contain;
+}
+
+.mobile-snap::-webkit-scrollbar {
+  display: none;
+}
+
+.mobile-snap > * {
+  scroll-snap-align: start;
+}
+
 @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .glass-dark {
     background-color: var(--glass-dark);
@@ -108,6 +166,10 @@ h1, h2, h3, h4 {
   .glass-dark {
     backdrop-filter: saturate(120%) blur(12px);
     -webkit-backdrop-filter: saturate(120%) blur(12px);
+  }
+
+  body {
+    padding-bottom: calc(72px + env(safe-area-inset-bottom));
   }
 }
 

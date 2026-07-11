@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { Utensils, CalendarDays, ChevronLeft, MapPin, Info } from "lucide-react";
+import { Utensils, ChevronLeft, MapPin, Info } from "lucide-react";
 import { getAllHotels, getHotelBySlug, getSiteSettings } from "@/lib/data";
 import { PageHero } from "@/components/PageHero";
 import { BookingCard } from "@/components/BookingCard";
-import { Price } from "@/components/Price";
-import { parsePrice } from "@/lib/slug";
+import { HotelPricePeriods } from "@/components/HotelPricePeriods";
+import { MotionReveal } from "@/components/MotionReveal";
 
 type Params = Promise<{ hotelSlug: string }>;
 
@@ -47,7 +47,7 @@ export default async function HotelPage({ params }: { params: Params }) {
 
       <nav
         aria-label="مسار التنقل"
-        className="mx-auto flex max-w-6xl flex-wrap items-center gap-1 px-5 pt-6 text-sm text-muted"
+        className="mx-auto flex max-w-7xl flex-wrap items-center gap-1 px-4 pt-5 text-xs text-muted sm:px-6 sm:text-sm"
       >
         <Link href="/" className="hover:text-navy">
           الرئيسية
@@ -60,8 +60,8 @@ export default async function HotelPage({ params }: { params: Params }) {
         <span className="font-semibold text-navy">{hotel.nameAr}</span>
       </nav>
 
-      <section className="mx-auto grid max-w-6xl gap-10 px-5 py-10 lg:grid-cols-[1fr_360px]">
-        <div>
+      <section className="mx-auto grid max-w-7xl gap-8 px-4 py-8 sm:px-6 md:py-12 lg:grid-cols-[minmax(0,1fr)_370px]">
+        <MotionReveal>
           {/* Meta chips */}
           <div className="mb-6 flex flex-wrap gap-2">
             <span className="inline-flex items-center gap-1 rounded-full bg-navy/10 px-3 py-1.5 text-xs font-bold text-navy">
@@ -78,7 +78,7 @@ export default async function HotelPage({ params }: { params: Params }) {
           </div>
 
           {/* Description (marketing copy, no fabricated facilities) */}
-          <p className="mb-8 text-base leading-loose text-navy/80">
+          <p className="surface mb-8 max-w-3xl rounded-[20px] p-5 text-sm leading-[1.9] text-navy/80 sm:p-6 sm:text-base">
             استمتع بإقامة مميزة في <strong>{hotel.nameAr}</strong> بـ{hotel.destinationNameAr} ضمن
             باقة {hotel.categoryName}، بفترات متعددة تناسب برنامج سفرك. تواصل معنا لتأكيد التوافر
             والحصول على السعر النهائي.
@@ -86,66 +86,27 @@ export default async function HotelPage({ params }: { params: Params }) {
 
           {/* Price periods */}
           <div className="mb-10">
-            <h2 className="mb-4 text-2xl font-extrabold text-navy">الأسعار والفترات</h2>
-            <div className="overflow-x-auto rounded-2xl border border-ice">
-              <table className="w-full min-w-[520px] border-collapse text-sm">
-                <caption className="sr-only">
-                  جدول أسعار وفترات {hotel.nameAr} — الأسعار {hotel.unitLabel}
-                </caption>
-                <thead>
-                  <tr className="bg-navy text-white">
-                    <th scope="col" className="p-3 text-right font-bold">
-                      الفترة
-                    </th>
-                    <th scope="col" className="p-3 text-right font-bold">
-                      الإقامة
-                    </th>
-                    <th scope="col" className="p-3 text-center font-bold">
-                      مزدوجة
-                    </th>
-                    <th scope="col" className="p-3 text-center font-bold">
-                      ثلاثية
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {hotel.periods.map((p, i) => (
-                    <tr key={i} className={i % 2 ? "bg-mist" : "bg-white"}>
-                      <td className="p-3 text-navy">
-                        <span className="inline-flex items-center gap-1.5">
-                          <CalendarDays className="h-4 w-4 shrink-0 text-blue" aria-hidden />
-                          <span dir="ltr" className="ltr">
-                            {p.period}
-                          </span>
-                        </span>
-                      </td>
-                      <td className="p-3 text-muted">{p.board ?? "—"}</td>
-                      <td className="p-3 text-center font-bold text-navy">
-                        <Price value={parsePrice(p.double)} />
-                      </td>
-                      <td className="p-3 text-center font-bold text-navy">
-                        <Price value={parsePrice(p.triple)} />
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <p className="mt-2 text-xs text-muted">الأسعار {hotel.unitLabel}.</p>
+            <div className="mb-1 text-xs font-extrabold text-champagne-ink">تفاصيل العرض</div>
+            <h2 className="mb-4 text-2xl font-extrabold text-navy sm:text-3xl">الأسعار والفترات</h2>
+            <HotelPricePeriods
+              hotelName={hotel.nameAr}
+              periods={hotel.periods}
+              unitLabel={hotel.unitLabel}
+            />
           </div>
 
           {/* Category note (verbatim from source) */}
           {hotel.categoryNote && (
-            <div className="rounded-xl border border-champagne/30 bg-champagne/10 p-5">
+            <div className="rounded-[20px] border border-champagne/35 bg-champagne/10 p-5 sm:p-6">
               <h3 className="mb-2 flex items-center gap-2 font-bold text-navy">
                 <Info className="h-4 w-4 text-champagne" aria-hidden /> ملاحظات مهمة
               </h3>
               <p className="text-sm leading-relaxed text-navy/80">{hotel.categoryNote}</p>
             </div>
           )}
-        </div>
+        </MotionReveal>
 
-        <div>
+        <MotionReveal delay={0.08}>
           <BookingCard
             hotelName={hotel.nameAr}
             minPrice={hotel.minPrice}
@@ -154,7 +115,7 @@ export default async function HotelPage({ params }: { params: Params }) {
             whatsapp={settings.whatsapp}
             phone={settings.phone}
           />
-        </div>
+        </MotionReveal>
       </section>
     </>
   );

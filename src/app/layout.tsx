@@ -4,6 +4,7 @@ import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
+import { MobileActionDock } from "@/components/MobileActionDock";
 import { getDestinations, getSiteSettings } from "@/lib/data";
 
 const arabic = Noto_Sans_Arabic({
@@ -53,12 +54,21 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         >
           تخطَّ إلى المحتوى
         </a>
-        <Navbar destinations={navDestinations} />
+        <Navbar
+          destinations={navDestinations}
+          whatsapp={settings.whatsapp}
+          whatsappMessage={settings.defaultWhatsappMessage}
+        />
         <main id="main" className="flex-1">
           {children}
         </main>
         <Footer />
         <FloatingWhatsApp whatsapp={settings.whatsapp} message={settings.defaultWhatsappMessage} />
+        <MobileActionDock
+          whatsapp={settings.whatsapp}
+          phone={settings.phone}
+          message={settings.defaultWhatsappMessage}
+        />
       </body>
     </html>
   );
