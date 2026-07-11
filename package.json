@@ -16,6 +16,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
+    "test:rls": "tsx scripts/test-rls.ts",
     "seed:supabase": "tsx scripts/seed-supabase.ts",
     "validate:db": "tsx scripts/validate-db-parity.ts",
     "validate:catalog": "tsx scripts/validate-catalog.ts",
