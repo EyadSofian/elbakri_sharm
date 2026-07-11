@@ -104,19 +104,20 @@
       "destination": "شرم الشيخ",
       "destination_slug": "sharm-el-sheikh",
       "package_names": "باقة Select",
-      "image": "/images/destinations/sharm-el-sheikh.webp",
-      "thumbnail": "/images/thumbnails/sharm-el-sheikh.webp",
-      "alt_ar": "منظر من شرم الشيخ",
-      "official_page_url": "https://falcon-hotels.com/",
-      "original_image_url": "",
+      "image": "/images/hotels/sharm-el-sheikh/falcon-naama-star.webp",
+      "thumbnail": "/images/thumbnails/falcon-naama-star.webp",
+      "alt_ar": "فندق فالكون نعمة ستار في شرم الشيخ",
+      "official_page_url": "https://falcon-hotels.com/naamastar/",
+      "original_image_url": "https://falcon-hotels.com/naamastar/",
       "rights_evidence_url": "",
       "source_type": "official-hotel-group",
       "identity_status": "verified",
-      "license_status": "pending",
-      "asset_status": "destination_fallback",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
+      "asset_status": "verified_local",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "Identity confirmed via official page. Photo NOT republished (rights pending) — destination fallback in use."
+      "notes": "Real hero photo from the official resort page; optimized locally."
     },
     {
       "id": "falcon-hills",
@@ -134,11 +135,12 @@
       "rights_evidence_url": "",
       "source_type": "official-hotel-group",
       "identity_status": "verified",
-      "license_status": "pending",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "destination_fallback",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "Identity confirmed via official page. Photo NOT republished (rights pending) — destination fallback in use."
+      "notes": "No suitable official photo sourced yet — destination fallback shown at runtime. Add the real photo via the admin upload."
     },
     {
       "id": "sharm-holiday",
@@ -156,11 +158,12 @@
       "rights_evidence_url": "",
       "source_type": "none",
       "identity_status": "needs_review",
-      "license_status": "pending",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "destination_fallback",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "No official source confirmed yet. Destination fallback in use; needs identity + rights review."
+      "notes": "No suitable official photo sourced yet — destination fallback shown at runtime. Add the real photo via the admin upload."
     },
     {
       "id": "san-george",
@@ -178,11 +181,12 @@
       "rights_evidence_url": "",
       "source_type": "none",
       "identity_status": "needs_review",
-      "license_status": "pending",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "destination_fallback",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "No official source confirmed yet. Destination fallback in use; needs identity + rights review."
+      "notes": "No suitable official photo sourced yet — destination fallback shown at runtime. Add the real photo via the admin upload."
     },
     {
       "id": "dreams-vacation",
@@ -200,11 +204,12 @@
       "rights_evidence_url": "",
       "source_type": "none",
       "identity_status": "needs_review",
-      "license_status": "pending",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "destination_fallback",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "No official source confirmed yet. Destination fallback in use; needs identity + rights review."
+      "notes": "No suitable official photo sourced yet — destination fallback shown at runtime. Add the real photo via the admin upload."
     },
     {
       "id": "gafy-resort",
@@ -214,19 +219,20 @@
       "destination": "شرم الشيخ",
       "destination_slug": "sharm-el-sheikh",
       "package_names": "باقة Premium",
-      "image": "/images/destinations/sharm-el-sheikh.webp",
-      "thumbnail": "/images/thumbnails/sharm-el-sheikh.webp",
-      "alt_ar": "منظر من شرم الشيخ",
-      "official_page_url": "",
-      "original_image_url": "",
+      "image": "/images/hotels/sharm-el-sheikh/gafy-resort.webp",
+      "thumbnail": "/images/thumbnails/gafy-resort.webp",
+      "alt_ar": "فندق الجافي في شرم الشيخ",
+      "official_page_url": "https://gafyresort.southsinaihotels.com/en/",
+      "original_image_url": "https://gafyresort.southsinaihotels.com/en/",
       "rights_evidence_url": "",
-      "source_type": "none",
-      "identity_status": "needs_review",
-      "license_status": "pending",
-      "asset_status": "destination_fallback",
+      "source_type": "official-hotel-group",
+      "identity_status": "verified",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
+      "asset_status": "verified_local",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "No official source confirmed yet. Destination fallback in use; needs identity + rights review."
+      "notes": "Real hero photo from the official resort page; optimized locally."
     },
     {
       "id": "regency-plaza-aqua-park",
@@ -244,11 +250,12 @@
       "rights_evidence_url": "",
       "source_type": "none",
       "identity_status": "needs_review",
-      "license_status": "pending",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "destination_fallback",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "No official source confirmed yet. Destination fallback in use; needs identity + rights review."
+      "notes": "No suitable official photo sourced yet — destination fallback shown at runtime. Add the real photo via the admin upload."
     },
     {
       "id": "sheraton-sharm",
@@ -266,11 +273,12 @@
       "rights_evidence_url": "",
       "source_type": "none",
       "identity_status": "needs_review",
-      "license_status": "pending",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "destination_fallback",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "No official source confirmed yet. Destination fallback in use; needs identity + rights review."
+      "notes": "No suitable official photo sourced yet — destination fallback shown at runtime. Add the real photo via the admin upload."
     },
     {
       "id": "dreams-beach",
@@ -288,11 +296,12 @@
       "rights_evidence_url": "",
       "source_type": "official-hotel-site",
       "identity_status": "verified",
-      "license_status": "pending",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "destination_fallback",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "Identity confirmed via official page. Photo NOT republished (rights pending) — destination fallback in use."
+      "notes": "No suitable official photo sourced yet — destination fallback shown at runtime. Add the real photo via the admin upload."
     },
     {
       "id": "promenade-mountain",
@@ -310,11 +319,12 @@
       "rights_evidence_url": "",
       "source_type": "none",
       "identity_status": "needs_review",
-      "license_status": "pending",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "destination_fallback",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "No official source confirmed yet. Destination fallback in use; needs identity + rights review."
+      "notes": "No suitable official photo sourced yet — destination fallback shown at runtime. Add the real photo via the admin upload."
     },
     {
       "id": "naama-bay",
@@ -332,11 +342,12 @@
       "rights_evidence_url": "",
       "source_type": "none",
       "identity_status": "needs_review",
-      "license_status": "pending",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "destination_fallback",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "No official source confirmed yet. Destination fallback in use; needs identity + rights review."
+      "notes": "No suitable official photo sourced yet — destination fallback shown at runtime. Add the real photo via the admin upload."
     },
     {
       "id": "sharmillion-club-aqua-park",
@@ -346,19 +357,20 @@
       "destination": "شرم الشيخ",
       "destination_slug": "sharm-el-sheikh",
       "package_names": "باقة Elite",
-      "image": "/images/destinations/sharm-el-sheikh.webp",
-      "thumbnail": "/images/thumbnails/sharm-el-sheikh.webp",
-      "alt_ar": "منظر من شرم الشيخ",
-      "official_page_url": "",
-      "original_image_url": "",
+      "image": "/images/hotels/sharm-el-sheikh/sharmillion-club-aqua-park.webp",
+      "thumbnail": "/images/thumbnails/sharmillion-club-aqua-park.webp",
+      "alt_ar": "فندق شارمليون كلوب اكوا بارك في شرم الشيخ",
+      "official_page_url": "https://charmillionresorts.com/home/clubaquapark/",
+      "original_image_url": "https://charmillionresorts.com/home/clubaquapark/",
       "rights_evidence_url": "",
-      "source_type": "none",
-      "identity_status": "needs_review",
-      "license_status": "pending",
-      "asset_status": "destination_fallback",
+      "source_type": "official-hotel-group",
+      "identity_status": "verified",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
+      "asset_status": "verified_local",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "No official source confirmed yet. Destination fallback in use; needs identity + rights review."
+      "notes": "Real hero photo from the official resort page; optimized locally."
     },
     {
       "id": "kiroseiz-parkland",
@@ -368,19 +380,20 @@
       "destination": "شرم الشيخ",
       "destination_slug": "sharm-el-sheikh",
       "package_names": "باقة Elite",
-      "image": "/images/destinations/sharm-el-sheikh.webp",
-      "thumbnail": "/images/thumbnails/sharm-el-sheikh.webp",
-      "alt_ar": "منظر من شرم الشيخ",
-      "official_page_url": "",
-      "original_image_url": "",
+      "image": "/images/hotels/sharm-el-sheikh/kiroseiz-parkland.webp",
+      "thumbnail": "/images/thumbnails/kiroseiz-parkland.webp",
+      "alt_ar": "فندق كيروسيز بارك لاند في شرم الشيخ",
+      "official_page_url": "https://xperience-hotels.com/our-resorts/xperience-kiroseiz-parkland/",
+      "original_image_url": "https://xperience-hotels.com/our-resorts/xperience-kiroseiz-parkland/",
       "rights_evidence_url": "",
-      "source_type": "none",
-      "identity_status": "needs_review",
-      "license_status": "pending",
-      "asset_status": "destination_fallback",
+      "source_type": "official-hotel-group",
+      "identity_status": "verified",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
+      "asset_status": "verified_local",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "No official source confirmed yet. Destination fallback in use; needs identity + rights review."
+      "notes": "Real hero photo from the official resort page; optimized locally."
     },
     {
       "id": "tamra-beach",
@@ -398,11 +411,12 @@
       "rights_evidence_url": "",
       "source_type": "none",
       "identity_status": "needs_review",
-      "license_status": "pending",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "destination_fallback",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "No official source confirmed yet. Destination fallback in use; needs identity + rights review."
+      "notes": "No suitable official photo sourced yet — destination fallback shown at runtime. Add the real photo via the admin upload."
     },
     {
       "id": "pickalbatros-royal-grand",
@@ -421,10 +435,11 @@
       "source_type": "official-hotel-group",
       "identity_status": "verified",
       "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "verified_local",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "Real hero photo from the official resort page (ELBAKRI OVERSEAS authorized); optimized locally."
+      "notes": "Real hero photo from the official resort page; optimized locally."
     },
     {
       "id": "pickalbatros-aqua-park-sharm-el-sheikh",
@@ -443,10 +458,11 @@
       "source_type": "official-hotel-group",
       "identity_status": "verified",
       "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "verified_local",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "Real hero photo from the official resort page (ELBAKRI OVERSEAS authorized); optimized locally."
+      "notes": "Real hero photo from the official resort page; optimized locally."
     },
     {
       "id": "pickalbatros-aqua-blu-sharm-el-sheikh",
@@ -465,10 +481,11 @@
       "source_type": "official-hotel-group",
       "identity_status": "verified",
       "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "verified_local",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "Real hero photo from the official resort page (ELBAKRI OVERSEAS authorized); optimized locally."
+      "notes": "Real hero photo from the official resort page; optimized locally."
     },
     {
       "id": "pickalbatros-sharm",
@@ -487,10 +504,11 @@
       "source_type": "official-hotel-group",
       "identity_status": "verified",
       "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "verified_local",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "Real hero photo from the official resort page (ELBAKRI OVERSEAS authorized); optimized locally."
+      "notes": "Real hero photo from the official resort page; optimized locally."
     },
     {
       "id": "pickalbatros-laguna-club",
@@ -509,10 +527,11 @@
       "source_type": "official-hotel-group",
       "identity_status": "verified",
       "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "verified_local",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "Real hero photo from the official resort page (ELBAKRI OVERSEAS authorized); optimized locally."
+      "notes": "Real hero photo from the official resort page; optimized locally."
     },
     {
       "id": "pickalbatros-palace",
@@ -531,10 +550,11 @@
       "source_type": "official-hotel-group",
       "identity_status": "verified",
       "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "verified_local",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "Real hero photo from the official resort page (ELBAKRI OVERSEAS authorized); optimized locally."
+      "notes": "Real hero photo from the official resort page; optimized locally."
     },
     {
       "id": "pickalbatros-laguna-vista",
@@ -553,10 +573,11 @@
       "source_type": "official-hotel-group",
       "identity_status": "verified",
       "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "verified_local",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "Real hero photo from the official resort page (ELBAKRI OVERSEAS authorized); optimized locally."
+      "notes": "Real hero photo from the official resort page; optimized locally."
     },
     {
       "id": "pickalbatros-royal-moderna",
@@ -575,10 +596,11 @@
       "source_type": "official-hotel-group",
       "identity_status": "verified",
       "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "verified_local",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "Real hero photo from the official resort page (ELBAKRI OVERSEAS authorized); optimized locally."
+      "notes": "Real hero photo from the official resort page; optimized locally."
     },
     {
       "id": "downtown-dahab",
@@ -596,11 +618,12 @@
       "rights_evidence_url": "",
       "source_type": "none",
       "identity_status": "needs_review",
-      "license_status": "pending",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "destination_fallback",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "No official source confirmed yet. Destination fallback in use; needs identity + rights review."
+      "notes": "No suitable official photo sourced yet — destination fallback shown at runtime. Add the real photo via the admin upload."
     },
     {
       "id": "nesima-dahab",
@@ -610,19 +633,20 @@
       "destination": "دهب",
       "destination_slug": "dahab",
       "package_names": "عروض دهب",
-      "image": "/images/destinations/dahab.webp",
-      "thumbnail": "/images/thumbnails/dahab.webp",
-      "alt_ar": "منظر من دهب",
-      "official_page_url": "",
-      "original_image_url": "",
+      "image": "/images/hotels/dahab/nesima-dahab.webp",
+      "thumbnail": "/images/thumbnails/nesima-dahab.webp",
+      "alt_ar": "فندق نسيمة دهب في دهب",
+      "official_page_url": "https://nesimaresort.southsinaihotels.com/en/",
+      "original_image_url": "https://nesimaresort.southsinaihotels.com/en/",
       "rights_evidence_url": "",
-      "source_type": "none",
-      "identity_status": "needs_review",
-      "license_status": "pending",
-      "asset_status": "destination_fallback",
+      "source_type": "official-hotel-group",
+      "identity_status": "verified",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
+      "asset_status": "verified_local",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "No official source confirmed yet. Destination fallback in use; needs identity + rights review."
+      "notes": "Real hero photo from the official resort page; optimized locally."
     },
     {
       "id": "dahab-lagoon",
@@ -640,11 +664,12 @@
       "rights_evidence_url": "",
       "source_type": "none",
       "identity_status": "needs_review",
-      "license_status": "pending",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "destination_fallback",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "No official source confirmed yet. Destination fallback in use; needs identity + rights review."
+      "notes": "No suitable official photo sourced yet — destination fallback shown at runtime. Add the real photo via the admin upload."
     },
     {
       "id": "swiss-inn-dahab",
@@ -654,19 +679,20 @@
       "destination": "دهب",
       "destination_slug": "dahab",
       "package_names": "عروض دهب",
-      "image": "/images/destinations/dahab.webp",
-      "thumbnail": "/images/thumbnails/dahab.webp",
-      "alt_ar": "منظر من دهب",
-      "official_page_url": "",
-      "original_image_url": "",
+      "image": "/images/hotels/dahab/swiss-inn-dahab.webp",
+      "thumbnail": "/images/thumbnails/swiss-inn-dahab.webp",
+      "alt_ar": "فندق سويس ان دهب في دهب",
+      "official_page_url": "https://swissinnresort.southsinaihotels.com/en/",
+      "original_image_url": "https://swissinnresort.southsinaihotels.com/en/",
       "rights_evidence_url": "",
-      "source_type": "none",
-      "identity_status": "needs_review",
-      "license_status": "pending",
-      "asset_status": "destination_fallback",
+      "source_type": "official-hotel-group",
+      "identity_status": "verified",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
+      "asset_status": "verified_local",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "No official source confirmed yet. Destination fallback in use; needs identity + rights review."
+      "notes": "Real hero photo from the official resort page; optimized locally."
     },
     {
       "id": "tropitel-dahab",
@@ -684,11 +710,12 @@
       "rights_evidence_url": "",
       "source_type": "none",
       "identity_status": "needs_review",
-      "license_status": "pending",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "destination_fallback",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "No official source confirmed yet. Destination fallback in use; needs identity + rights review."
+      "notes": "No suitable official photo sourced yet — destination fallback shown at runtime. Add the real photo via the admin upload."
     },
     {
       "id": "minamark",
@@ -698,19 +725,20 @@
       "destination": "الغردقة",
       "destination_slug": "hurghada",
       "package_names": "باقة Select",
-      "image": "/images/destinations/hurghada.webp",
-      "thumbnail": "/images/thumbnails/hurghada.webp",
-      "alt_ar": "منظر من الغردقة",
-      "official_page_url": "",
-      "original_image_url": "",
+      "image": "/images/hotels/hurghada/minamark.webp",
+      "thumbnail": "/images/thumbnails/minamark.webp",
+      "alt_ar": "فندق مينا مارك في الغردقة",
+      "official_page_url": "https://minamark.com/",
+      "original_image_url": "https://minamark.com/",
       "rights_evidence_url": "",
-      "source_type": "none",
-      "identity_status": "needs_review",
-      "license_status": "pending",
-      "asset_status": "destination_fallback",
+      "source_type": "official-hotel-group",
+      "identity_status": "verified",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
+      "asset_status": "verified_local",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "No official source confirmed yet. Destination fallback in use; needs identity + rights review."
+      "notes": "Real hero photo from the official resort page; optimized locally."
     },
     {
       "id": "marlin-inn",
@@ -720,19 +748,20 @@
       "destination": "الغردقة",
       "destination_slug": "hurghada",
       "package_names": "باقة Select",
-      "image": "/images/destinations/hurghada.webp",
-      "thumbnail": "/images/thumbnails/hurghada.webp",
-      "alt_ar": "منظر من الغردقة",
-      "official_page_url": "",
-      "original_image_url": "",
+      "image": "/images/hotels/hurghada/marlin-inn.webp",
+      "thumbnail": "/images/thumbnails/marlin-inn.webp",
+      "alt_ar": "فندق مارلين ان في الغردقة",
+      "official_page_url": "https://www.azurhospitality.com/en/hurghada/hotel/marlin-inn-azur",
+      "original_image_url": "https://www.azurhospitality.com/en/hurghada/hotel/marlin-inn-azur",
       "rights_evidence_url": "",
-      "source_type": "none",
-      "identity_status": "needs_review",
-      "license_status": "pending",
-      "asset_status": "destination_fallback",
+      "source_type": "official-hotel-group",
+      "identity_status": "verified",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
+      "asset_status": "verified_local",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "No official source confirmed yet. Destination fallback in use; needs identity + rights review."
+      "notes": "Real hero photo from the official resort page; optimized locally."
     },
     {
       "id": "sunny-days-mirette-family",
@@ -742,19 +771,20 @@
       "destination": "الغردقة",
       "destination_slug": "hurghada",
       "package_names": "باقة Select",
-      "image": "/images/destinations/hurghada.webp",
-      "thumbnail": "/images/thumbnails/hurghada.webp",
-      "alt_ar": "منظر من الغردقة",
+      "image": "/images/hotels/hurghada/sunny-days-mirette-family.webp",
+      "thumbnail": "/images/thumbnails/sunny-days-mirette-family.webp",
+      "alt_ar": "فندق صنى دايز ميريت فاميلى في الغردقة",
       "official_page_url": "https://sunnydaysegypt.com/mirrette/",
-      "original_image_url": "",
+      "original_image_url": "https://sunnydaysegypt.com/mirrette/",
       "rights_evidence_url": "",
-      "source_type": "official-hotel-site",
+      "source_type": "official-hotel-group",
       "identity_status": "verified",
-      "license_status": "pending",
-      "asset_status": "destination_fallback",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
+      "asset_status": "verified_local",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "Identity confirmed via official page. Photo NOT republished (rights pending) — destination fallback in use."
+      "notes": "Real hero photo from the official resort page; optimized locally."
     },
     {
       "id": "giftun-azur",
@@ -772,11 +802,12 @@
       "rights_evidence_url": "",
       "source_type": "none",
       "identity_status": "needs_review",
-      "license_status": "pending",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "destination_fallback",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "No official source confirmed yet. Destination fallback in use; needs identity + rights review."
+      "notes": "No suitable official photo sourced yet — destination fallback shown at runtime. Add the real photo via the admin upload."
     },
     {
       "id": "pharaoh-azur",
@@ -794,11 +825,12 @@
       "rights_evidence_url": "",
       "source_type": "none",
       "identity_status": "needs_review",
-      "license_status": "pending",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "destination_fallback",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "No official source confirmed yet. Destination fallback in use; needs identity + rights review."
+      "notes": "No suitable official photo sourced yet — destination fallback shown at runtime. Add the real photo via the admin upload."
     },
     {
       "id": "sunny-days-el-palacio",
@@ -808,19 +840,20 @@
       "destination": "الغردقة",
       "destination_slug": "hurghada",
       "package_names": "باقة Premium",
-      "image": "/images/destinations/hurghada.webp",
-      "thumbnail": "/images/thumbnails/hurghada.webp",
-      "alt_ar": "منظر من الغردقة",
+      "image": "/images/hotels/hurghada/sunny-days-el-palacio.webp",
+      "thumbnail": "/images/thumbnails/sunny-days-el-palacio.webp",
+      "alt_ar": "فندق صنى دايز البلاسيو في الغردقة",
       "official_page_url": "https://sunnydaysegypt.com/el-palacio-resort-spa/",
-      "original_image_url": "",
+      "original_image_url": "https://sunnydaysegypt.com/el-palacio-resort-spa/",
       "rights_evidence_url": "",
-      "source_type": "official-hotel-site",
+      "source_type": "official-hotel-group",
       "identity_status": "verified",
-      "license_status": "pending",
-      "asset_status": "destination_fallback",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
+      "asset_status": "verified_local",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "Identity confirmed via official page. Photo NOT republished (rights pending) — destination fallback in use."
+      "notes": "Real hero photo from the official resort page; optimized locally."
     },
     {
       "id": "sindbad-club",
@@ -830,19 +863,20 @@
       "destination": "الغردقة",
       "destination_slug": "hurghada",
       "package_names": "باقة Premium",
-      "image": "/images/destinations/hurghada.webp",
-      "thumbnail": "/images/thumbnails/hurghada.webp",
-      "alt_ar": "منظر من الغردقة",
-      "official_page_url": "https://sindbadclub.com/gallery",
-      "original_image_url": "",
+      "image": "/images/hotels/hurghada/sindbad-club.webp",
+      "thumbnail": "/images/thumbnails/sindbad-club.webp",
+      "alt_ar": "فندق سندباد في الغردقة",
+      "official_page_url": "https://sindbadclub.com/",
+      "original_image_url": "https://sindbadclub.com/",
       "rights_evidence_url": "",
-      "source_type": "official-hotel-site",
+      "source_type": "official-hotel-group",
       "identity_status": "verified",
-      "license_status": "pending",
-      "asset_status": "destination_fallback",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
+      "asset_status": "verified_local",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "Identity confirmed via official page. Photo NOT republished (rights pending) — destination fallback in use."
+      "notes": "Real hero photo from the official resort page; optimized locally."
     },
     {
       "id": "seagull",
@@ -852,19 +886,20 @@
       "destination": "الغردقة",
       "destination_slug": "hurghada",
       "package_names": "باقة Premium",
-      "image": "/images/destinations/hurghada.webp",
-      "thumbnail": "/images/thumbnails/hurghada.webp",
-      "alt_ar": "منظر من الغردقة",
-      "official_page_url": "",
-      "original_image_url": "",
+      "image": "/images/hotels/hurghada/seagull.webp",
+      "thumbnail": "/images/thumbnails/seagull.webp",
+      "alt_ar": "فندق سيجال في الغردقة",
+      "official_page_url": "https://www.hurghadaseagull.com/",
+      "original_image_url": "https://www.hurghadaseagull.com/",
       "rights_evidence_url": "",
-      "source_type": "none",
-      "identity_status": "needs_review",
-      "license_status": "pending",
-      "asset_status": "destination_fallback",
+      "source_type": "official-hotel-group",
+      "identity_status": "verified",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
+      "asset_status": "verified_local",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "No official source confirmed yet. Destination fallback in use; needs identity + rights review."
+      "notes": "Real hero photo from the official resort page; optimized locally."
     },
     {
       "id": "three-corners-sunny-beach",
@@ -882,11 +917,12 @@
       "rights_evidence_url": "",
       "source_type": "none",
       "identity_status": "needs_review",
-      "license_status": "pending",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "destination_fallback",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "No official source confirmed yet. Destination fallback in use; needs identity + rights review."
+      "notes": "No suitable official photo sourced yet — destination fallback shown at runtime. Add the real photo via the admin upload."
     },
     {
       "id": "gravity-aqua-park",
@@ -896,19 +932,20 @@
       "destination": "الغردقة",
       "destination_slug": "hurghada",
       "package_names": "باقة Elite",
-      "image": "/images/destinations/hurghada.webp",
-      "thumbnail": "/images/thumbnails/hurghada.webp",
-      "alt_ar": "منظر من الغردقة",
-      "official_page_url": "",
-      "original_image_url": "",
+      "image": "/images/hotels/hurghada/gravity-aqua-park.webp",
+      "thumbnail": "/images/thumbnails/gravity-aqua-park.webp",
+      "alt_ar": "فندق جرافيتى اكوا بارك في الغردقة",
+      "official_page_url": "https://hotelsgravity.com/gravity-hotel-aqua-park-hurghada/",
+      "original_image_url": "https://hotelsgravity.com/gravity-hotel-aqua-park-hurghada/",
       "rights_evidence_url": "",
-      "source_type": "none",
-      "identity_status": "needs_review",
-      "license_status": "pending",
-      "asset_status": "destination_fallback",
+      "source_type": "official-hotel-group",
+      "identity_status": "verified",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
+      "asset_status": "verified_local",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "No official source confirmed yet. Destination fallback in use; needs identity + rights review."
+      "notes": "Real hero photo from the official resort page; optimized locally."
     },
     {
       "id": "desert-rose",
@@ -918,19 +955,20 @@
       "destination": "الغردقة",
       "destination_slug": "hurghada",
       "package_names": "باقة Elite",
-      "image": "/images/destinations/hurghada.webp",
-      "thumbnail": "/images/thumbnails/hurghada.webp",
-      "alt_ar": "منظر من الغردقة",
-      "official_page_url": "",
-      "original_image_url": "",
+      "image": "/images/hotels/hurghada/desert-rose.webp",
+      "thumbnail": "/images/thumbnails/desert-rose.webp",
+      "alt_ar": "فندق ديزرت روز في الغردقة",
+      "official_page_url": "https://www.desertrose.com/",
+      "original_image_url": "https://www.desertrose.com/",
       "rights_evidence_url": "",
-      "source_type": "none",
-      "identity_status": "needs_review",
-      "license_status": "pending",
-      "asset_status": "destination_fallback",
+      "source_type": "official-hotel-group",
+      "identity_status": "verified",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
+      "asset_status": "verified_local",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "No official source confirmed yet. Destination fallback in use; needs identity + rights review."
+      "notes": "Real hero photo from the official resort page; optimized locally."
     },
     {
       "id": "sheraton-soma-bay",
@@ -948,11 +986,12 @@
       "rights_evidence_url": "",
       "source_type": "none",
       "identity_status": "needs_review",
-      "license_status": "pending",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "destination_fallback",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "No official source confirmed yet. Destination fallback in use; needs identity + rights review."
+      "notes": "No suitable official photo sourced yet — destination fallback shown at runtime. Add the real photo via the admin upload."
     },
     {
       "id": "pickalbatros-white-beach",
@@ -971,10 +1010,11 @@
       "source_type": "official-hotel-group",
       "identity_status": "verified",
       "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "verified_local",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "Real hero photo from the official resort page (ELBAKRI OVERSEAS authorized); optimized locally."
+      "notes": "Real hero photo from the official resort page; optimized locally."
     },
     {
       "id": "pickalbatros-dana-beach",
@@ -993,10 +1033,11 @@
       "source_type": "official-hotel-group",
       "identity_status": "verified",
       "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "verified_local",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "Real hero photo from the official resort page (ELBAKRI OVERSEAS authorized); optimized locally."
+      "notes": "Real hero photo from the official resort page; optimized locally."
     },
     {
       "id": "pickalbatros-plus-hurghada",
@@ -1014,11 +1055,12 @@
       "rights_evidence_url": "",
       "source_type": "none",
       "identity_status": "needs_review",
-      "license_status": "pending",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "destination_fallback",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "No official source confirmed yet. Destination fallback in use; needs identity + rights review."
+      "notes": "No suitable official photo sourced yet — destination fallback shown at runtime. Add the real photo via the admin upload."
     },
     {
       "id": "beach-albatros",
@@ -1037,10 +1079,11 @@
       "source_type": "official-hotel-group",
       "identity_status": "verified",
       "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "verified_local",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "Real hero photo from the official resort page (ELBAKRI OVERSEAS authorized); optimized locally."
+      "notes": "Real hero photo from the official resort page; optimized locally."
     },
     {
       "id": "pickalbatros-aqua-blu-hurghada",
@@ -1059,10 +1102,11 @@
       "source_type": "official-hotel-group",
       "identity_status": "verified",
       "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "verified_local",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "Real hero photo from the official resort page (ELBAKRI OVERSEAS authorized); optimized locally."
+      "notes": "Real hero photo from the official resort page; optimized locally."
     },
     {
       "id": "pickalbatros-aqua-park-hurghada",
@@ -1081,10 +1125,11 @@
       "source_type": "official-hotel-group",
       "identity_status": "verified",
       "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "verified_local",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "Real hero photo from the official resort page (ELBAKRI OVERSEAS authorized); optimized locally."
+      "notes": "Real hero photo from the official resort page; optimized locally."
     },
     {
       "id": "pickalbatros-aqua-vista",
@@ -1103,10 +1148,11 @@
       "source_type": "official-hotel-group",
       "identity_status": "verified",
       "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "verified_local",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "Real hero photo from the official resort page (ELBAKRI OVERSEAS authorized); optimized locally."
+      "notes": "Real hero photo from the official resort page; optimized locally."
     },
     {
       "id": "pickalbatros-water-valley",
@@ -1125,10 +1171,11 @@
       "source_type": "official-hotel-group",
       "identity_status": "verified",
       "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "verified_local",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "Real hero photo from the official resort page (ELBAKRI OVERSEAS authorized); optimized locally."
+      "notes": "Real hero photo from the official resort page; optimized locally."
     },
     {
       "id": "pickalbatros-jungle-aqua-park",
@@ -1147,10 +1194,11 @@
       "source_type": "official-hotel-group",
       "identity_status": "verified",
       "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "verified_local",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "Real hero photo from the official resort page (ELBAKRI OVERSEAS authorized); optimized locally."
+      "notes": "Real hero photo from the official resort page; optimized locally."
     },
     {
       "id": "pickalbatros-alf-leila-wa-leila",
@@ -1169,10 +1217,11 @@
       "source_type": "official-hotel-group",
       "identity_status": "verified",
       "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "verified_local",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "Real hero photo from the official resort page (ELBAKRI OVERSEAS authorized); optimized locally."
+      "notes": "Real hero photo from the official resort page; optimized locally."
     },
     {
       "id": "pickalbatros-sea-world",
@@ -1191,10 +1240,11 @@
       "source_type": "official-hotel-group",
       "identity_status": "verified",
       "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "verified_local",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "Real hero photo from the official resort page (ELBAKRI OVERSEAS authorized); optimized locally."
+      "notes": "Real hero photo from the official resort page; optimized locally."
     },
     {
       "id": "pickalbatros-plus-marsa-alam",
@@ -1212,11 +1262,12 @@
       "rights_evidence_url": "",
       "source_type": "none",
       "identity_status": "needs_review",
-      "license_status": "pending",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "destination_fallback",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "No official source confirmed yet. Destination fallback in use; needs identity + rights review."
+      "notes": "No suitable official photo sourced yet — destination fallback shown at runtime. Add the real photo via the admin upload."
     },
     {
       "id": "pickalbatros-oasis",
@@ -1235,10 +1286,11 @@
       "source_type": "official-hotel-group",
       "identity_status": "verified",
       "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "verified_local",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "Real hero photo from the official resort page (ELBAKRI OVERSEAS authorized); optimized locally."
+      "notes": "Real hero photo from the official resort page; optimized locally."
     },
     {
       "id": "pickalbatros-sands",
@@ -1257,10 +1309,11 @@
       "source_type": "official-hotel-group",
       "identity_status": "verified",
       "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "verified_local",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "Real hero photo from the official resort page (ELBAKRI OVERSEAS authorized); optimized locally."
+      "notes": "Real hero photo from the official resort page; optimized locally."
     },
     {
       "id": "pickalbatros-porto-fino",
@@ -1279,10 +1332,11 @@
       "source_type": "official-hotel-group",
       "identity_status": "verified",
       "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "verified_local",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "Real hero photo from the official resort page (ELBAKRI OVERSEAS authorized); optimized locally."
+      "notes": "Real hero photo from the official resort page; optimized locally."
     },
     {
       "id": "pickalbatros-vita",
@@ -1301,10 +1355,11 @@
       "source_type": "official-hotel-group",
       "identity_status": "verified",
       "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "verified_local",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "Real hero photo from the official resort page (ELBAKRI OVERSEAS authorized); optimized locally."
+      "notes": "Real hero photo from the official resort page; optimized locally."
     },
     {
       "id": "jiwan-resort",
@@ -1322,11 +1377,12 @@
       "rights_evidence_url": "",
       "source_type": "none",
       "identity_status": "needs_review",
-      "license_status": "pending",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "destination_fallback",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "No official source confirmed yet. Destination fallback in use; needs identity + rights review."
+      "notes": "No suitable official photo sourced yet — destination fallback shown at runtime. Add the real photo via the admin upload."
     },
     {
       "id": "jiwan-beach",
@@ -1344,11 +1400,12 @@
       "rights_evidence_url": "",
       "source_type": "none",
       "identity_status": "needs_review",
-      "license_status": "pending",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "destination_fallback",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "No official source confirmed yet. Destination fallback in use; needs identity + rights review."
+      "notes": "No suitable official photo sourced yet — destination fallback shown at runtime. Add the real photo via the admin upload."
     },
     {
       "id": "azur-one",
@@ -1366,11 +1423,12 @@
       "rights_evidence_url": "",
       "source_type": "none",
       "identity_status": "needs_review",
-      "license_status": "pending",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "destination_fallback",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "No official source confirmed yet. Destination fallback in use; needs identity + rights review."
+      "notes": "No suitable official photo sourced yet — destination fallback shown at runtime. Add the real photo via the admin upload."
     },
     {
       "id": "porto-marina",
@@ -1380,19 +1438,20 @@
       "destination": "الساحل الشمالي",
       "destination_slug": "north-coast",
       "package_names": "فنادق الساحل الشمالي",
-      "image": "/images/destinations/north-coast.webp",
-      "thumbnail": "/images/thumbnails/north-coast.webp",
-      "alt_ar": "منظر من الساحل الشمالي",
+      "image": "/images/hotels/north-coast/porto-marina.webp",
+      "thumbnail": "/images/thumbnails/porto-marina.webp",
+      "alt_ar": "فندق بورتو مارينا في الساحل الشمالي",
       "official_page_url": "https://www.portohotelseg.com/marina-Hotel-home",
-      "original_image_url": "",
+      "original_image_url": "https://www.portohotelseg.com/marina-Hotel-home",
       "rights_evidence_url": "",
       "source_type": "official-hotel-group",
       "identity_status": "verified",
-      "license_status": "pending",
-      "asset_status": "destination_fallback",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
+      "asset_status": "verified_local",
       "photographer_or_owner": "",
       "attribution": "",
-      "notes": "Identity confirmed via official page. Photo NOT republished (rights pending) — destination fallback in use."
+      "notes": "Real hero photo from the official resort page; optimized locally."
     }
   ],
   "honeymoon": [
@@ -1401,12 +1460,13 @@
       "hotel_name_ar": "الباتروس رويال موديرنا",
       "hotel_name_en": "Pickalbatros Royal Moderna",
       "region": "شرم الشيخ",
-      "image": "/images/destinations/sharm-el-sheikh.webp",
-      "alt_ar": "أجواء شهر العسل في شرم الشيخ",
+      "image": "/images/hotels/sharm-el-sheikh/pickalbatros-royal-moderna.webp",
+      "alt_ar": "الباتروس رويال موديرنا — شهر العسل",
       "official_page_url": "https://www.pickalbatros.com/royal-moderna-resort-sharm-el-sheikh",
       "identity_status": "verified",
-      "license_status": "pending",
-      "asset_status": "destination_fallback",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
+      "asset_status": "verified_local",
       "overlaps_destination_property": true,
       "notes": "Same physical property as a destination hotel (\"الباتروس رويال موديرنا\") — shares one image."
     },
@@ -1419,7 +1479,8 @@
       "alt_ar": "أجواء شهر العسل في شرم الشيخ",
       "official_page_url": "",
       "identity_status": "needs_review",
-      "license_status": "pending",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "destination_fallback",
       "overlaps_destination_property": false,
       "notes": "Honeymoon-only property."
@@ -1429,12 +1490,13 @@
       "hotel_name_ar": "الباتروس رويال جراند",
       "hotel_name_en": "Pickalbatros Royal Grand",
       "region": "شرم الشيخ",
-      "image": "/images/destinations/sharm-el-sheikh.webp",
-      "alt_ar": "أجواء شهر العسل في شرم الشيخ",
+      "image": "/images/hotels/sharm-el-sheikh/pickalbatros-royal-grand.webp",
+      "alt_ar": "الباتروس رويال جراند — شهر العسل",
       "official_page_url": "https://www.pickalbatros.com/royal-grand-resort-sharm-el-sheikh",
       "identity_status": "verified",
-      "license_status": "pending",
-      "asset_status": "destination_fallback",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
+      "asset_status": "verified_local",
       "overlaps_destination_property": true,
       "notes": "Same physical property as a destination hotel (\"الباتروس رويال جراند (كبار فقط)\") — shares one image."
     },
@@ -1446,8 +1508,9 @@
       "image": "/images/destinations/sharm-el-sheikh.webp",
       "alt_ar": "أجواء شهر العسل في سهل حشيش",
       "official_page_url": "https://www.tropitelhotels.com/tropitel-sahl-hasheesh",
-      "identity_status": "verified",
-      "license_status": "pending",
+      "identity_status": "needs_review",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "destination_fallback",
       "overlaps_destination_property": false,
       "notes": "Honeymoon-only property."
@@ -1460,8 +1523,9 @@
       "image": "/images/destinations/hurghada.webp",
       "alt_ar": "أجواء شهر العسل في الغردقة",
       "official_page_url": "https://swissinn.net/hotels/index.php?lang=Hurghada",
-      "identity_status": "verified",
-      "license_status": "pending",
+      "identity_status": "needs_review",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "destination_fallback",
       "overlaps_destination_property": false,
       "notes": "Honeymoon-only property."
@@ -1471,12 +1535,13 @@
       "hotel_name_ar": "الباتروس سي وورلد",
       "hotel_name_en": "Pickalbatros Sea World",
       "region": "مرسى علم",
-      "image": "/images/destinations/marsa-alam.webp",
-      "alt_ar": "أجواء شهر العسل في مرسى علم",
+      "image": "/images/hotels/marsa-alam/pickalbatros-sea-world.webp",
+      "alt_ar": "الباتروس سي وورلد — شهر العسل",
       "official_page_url": "https://www.pickalbatros.com/sea-world-resort-marsa-alam",
       "identity_status": "verified",
-      "license_status": "pending",
-      "asset_status": "destination_fallback",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
+      "asset_status": "verified_local",
       "overlaps_destination_property": true,
       "notes": "Same physical property as a destination hotel (\"الباتروس سي ورلد\") — shares one image."
     },
@@ -1485,12 +1550,13 @@
       "hotel_name_ar": "الباتروس سيتادل",
       "hotel_name_en": "Pickalbatros Citadel",
       "region": "الغردقة",
-      "image": "/images/destinations/hurghada.webp",
-      "alt_ar": "أجواء شهر العسل في الغردقة",
-      "official_page_url": "",
-      "identity_status": "needs_review",
-      "license_status": "pending",
-      "asset_status": "destination_fallback",
+      "image": "/images/hotels/honeymoon/pickalbatros-citadel.webp",
+      "alt_ar": "الباتروس سيتادل — شهر العسل",
+      "official_page_url": "https://www.pickalbatros.com/citadel-resort-sahl-hasheesh",
+      "identity_status": "verified",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
+      "asset_status": "verified_local",
       "overlaps_destination_property": false,
       "notes": "Honeymoon-only property."
     },
@@ -1503,7 +1569,8 @@
       "alt_ar": "أجواء شهر العسل في الغردقة",
       "official_page_url": "",
       "identity_status": "needs_review",
-      "license_status": "pending",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "destination_fallback",
       "overlaps_destination_property": false,
       "notes": "Honeymoon-only property."
@@ -1517,7 +1584,8 @@
       "alt_ar": "أجواء شهر العسل في سهل حشيش",
       "official_page_url": "",
       "identity_status": "needs_review",
-      "license_status": "pending",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "destination_fallback",
       "overlaps_destination_property": false,
       "notes": "Honeymoon-only property."
@@ -1530,8 +1598,9 @@
       "image": "/images/destinations/marsa-alam.webp",
       "alt_ar": "أجواء شهر العسل في مرسى علم",
       "official_page_url": "https://www.jazhotels.com/hoteldetail/58-egypt-marsa-alam-iberotel-costa-mares",
-      "identity_status": "verified",
-      "license_status": "pending",
+      "identity_status": "needs_review",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "destination_fallback",
       "overlaps_destination_property": false,
       "notes": "Honeymoon-only property."
@@ -1545,7 +1614,8 @@
       "alt_ar": "أجواء شهر العسل في مرسى علم",
       "official_page_url": "",
       "identity_status": "needs_review",
-      "license_status": "pending",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "destination_fallback",
       "overlaps_destination_property": false,
       "notes": "Honeymoon-only property."
@@ -1559,7 +1629,8 @@
       "alt_ar": "أجواء شهر العسل في دهب",
       "official_page_url": "",
       "identity_status": "needs_review",
-      "license_status": "pending",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "destination_fallback",
       "overlaps_destination_property": false,
       "notes": "Honeymoon-only property."
@@ -1573,7 +1644,8 @@
       "alt_ar": "أجواء شهر العسل في دهب",
       "official_page_url": "",
       "identity_status": "needs_review",
-      "license_status": "pending",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "destination_fallback",
       "overlaps_destination_property": false,
       "notes": "Honeymoon-only property."
@@ -1587,7 +1659,8 @@
       "alt_ar": "أجواء شهر العسل في الغردقة",
       "official_page_url": "",
       "identity_status": "needs_review",
-      "license_status": "pending",
+      "license_status": "cleared",
+      "rights_basis": "user_confirmed_full_rights",
       "asset_status": "destination_fallback",
       "overlaps_destination_property": false,
       "notes": "Honeymoon-only property."

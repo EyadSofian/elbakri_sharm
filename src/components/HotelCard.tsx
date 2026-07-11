@@ -8,15 +8,15 @@ export function HotelCard({ hotel }: { hotel: Hotel }) {
   const board = hotel.periods[0]?.board;
   const first = hotel.periods[0]?.period;
   const extra = hotel.periods.length - 1;
+  // Real hotel photos get descriptive alt; destination fallbacks stay decorative.
+  const isRealPhoto = hotel.image.startsWith("/images/hotels/");
 
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-[20px] bg-white shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-glass">
       <div className="relative overflow-hidden bg-ice" style={{ aspectRatio: "10 / 7" }}>
         <Image
           src={hotel.image}
-          // Decorative: the image is a destination scene (fallback), not a verified
-          // photo of this hotel. The heading below names the property.
-          alt=""
+          alt={isRealPhoto ? `فندق ${hotel.nameAr} في ${hotel.destinationNameAr}` : ""}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
           className="object-cover transition-transform duration-500 group-hover:scale-105"

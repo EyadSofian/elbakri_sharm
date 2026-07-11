@@ -63,9 +63,7 @@ export function HoneymoonExplorer({
             <div className="relative aspect-[16/10] overflow-hidden">
               <Image
                 src={d.image}
-                // Decorative destination scene (fallback), not a photo of this exact
-                // property; the heading below names the deal.
-                alt=""
+                alt={d.image.startsWith("/images/hotels/") ? `${d.nameAr} — ${d.region}` : ""}
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 className="object-cover transition-transform duration-500 group-hover:scale-105"

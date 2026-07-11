@@ -11,6 +11,7 @@ import { getAllHotels, getDestinations, getHoneymoons } from "@/lib/catalog";
 import { DESTINATION_NAMES, HOTEL_ALIASES } from "@/data/hotel-names";
 import { destinationHeroPath } from "@/lib/images";
 import hotelImageMap from "@/data/hotel-image-map";
+import honeymoonImageMap from "@/data/honeymoon-image-map";
 
 const ROOT = process.cwd();
 const REPORTS = join(ROOT, "reports");
@@ -68,10 +69,11 @@ const hotelRecords = hotels.map((h) => {
       source_type: "official-hotel-group",
       identity_status: "verified",
       license_status: "cleared",
+      rights_basis: "user_confirmed_full_rights",
       asset_status: "verified_local",
       photographer_or_owner: "",
       attribution: "",
-      notes: "Real hero photo from the official resort page (ELBAKRI OVERSEAS authorized); optimized locally.",
+      notes: "Real hero photo from the official resort page; optimized locally.",
     };
   }
   return {
@@ -90,13 +92,13 @@ const hotelRecords = hotels.map((h) => {
     rights_evidence_url: "",
     source_type: known ? known.type : "none",
     identity_status: known ? "verified" : "needs_review",
-    license_status: "pending",
+    license_status: "cleared",
+    rights_basis: "user_confirmed_full_rights",
     asset_status: "destination_fallback",
     photographer_or_owner: "",
     attribution: "",
-    notes: known
-      ? "Identity confirmed via official page. Photo NOT republished (rights pending) — destination fallback in use."
-      : "No official source confirmed yet. Destination fallback in use; needs identity + rights review.",
+    notes:
+      "No suitable official photo sourced yet — destination fallback shown at runtime. Add the real photo via the admin upload.",
   };
 });
 
@@ -109,17 +111,19 @@ const destHotelNames = new Set(hotels.map((h) => h.nameAr));
 const honeymoonRecords = honeymoons.map((d) => {
   const canonical = aliasToCanonical[d.nameAr] ?? d.nameAr;
   const overlapsDestination = destHotelNames.has(canonical);
+  const hmImg = honeymoonImageMap[d.slug];
   return {
     slug: d.slug,
     hotel_name_ar: d.nameAr,
     hotel_name_en: d.nameEn,
     region: d.region,
     image: d.image,
-    alt_ar: `أجواء شهر العسل في ${d.region}`,
-    official_page_url: KNOWN_SOURCES[d.slug]?.url ?? "",
-    identity_status: KNOWN_SOURCES[d.slug] ? "verified" : "needs_review",
-    license_status: "pending",
-    asset_status: "destination_fallback",
+    alt_ar: hmImg ? `${d.nameAr} — شهر العسل` : `أجواء شهر العسل في ${d.region}`,
+    official_page_url: hmImg?.sourceUrl ?? KNOWN_SOURCES[d.slug]?.url ?? "",
+    identity_status: hmImg ? "verified" : "needs_review",
+    license_status: "cleared",
+    rights_basis: "user_confirmed_full_rights",
+    asset_status: hmImg ? "verified_local" : "destination_fallback",
     overlaps_destination_property: overlapsDestination,
     notes: overlapsDestination
       ? `Same physical property as a destination hotel ("${canonical}") — shares one image.`
@@ -206,6 +210,8 @@ const verifiedIdentity = hotelRecords.filter((h) => h.identity_status === "verif
 const needsReview = hotelRecords.filter((h) => h.identity_status === "needs_review").length;
 const verifiedLocal = hotelRecords.filter((h) => h.asset_status === "verified_local").length;
 const fallbackCount = hotelRecords.filter((h) => h.asset_status === "destination_fallback").length;
+const hmVerified = honeymoonRecords.filter((h) => h.asset_status === "verified_local").length;
+const hmFallback = honeymoonRecords.filter((h) => h.asset_status === "destination_fallback").length;
 
 writeFileSync(
   join(REPORTS, "image-summary.md"),
@@ -217,8 +223,11 @@ _Generated from the catalog; reflects the real files on disk._
 - **Destination hotel entries:** ${hotels.length}
 - **Unique physical properties:** ${uniqueProperties} (${hotels.length} destination hotels + ${honeymoonOnly} honeymoon-only; ${honeymoons.length - honeymoonOnly} honeymoon deals alias to destination properties)
 - **Honeymoon deals:** ${honeymoons.length}
-- **Verified local hotel images (real hotel-specific photos):** ${verifiedLocal}
+- **Rights basis:** user_confirmed_full_rights
+- **Verified local hotel images (real hotel-specific photos):** ${verifiedLocal} / ${hotels.length}
 - **Hotels still on destination fallback:** ${fallbackCount}
+- **Honeymoon deals with real images:** ${hmVerified} / ${honeymoons.length}
+- **Honeymoon deals on destination fallback:** ${hmFallback}
 - **Hotels with verified identity (official source recorded):** ${verifiedIdentity}
 - **Hotels needing identity review:** ${needsReview}
 - **Destination hero images (project-owned, rights-cleared):** 5 (+ home + honeymoon = 7)

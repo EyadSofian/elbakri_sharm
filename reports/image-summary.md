@@ -6,10 +6,13 @@ _Generated from the catalog; reflects the real files on disk._
 - **Destination hotel entries:** 59
 - **Unique physical properties:** 70 (59 destination hotels + 11 honeymoon-only; 3 honeymoon deals alias to destination properties)
 - **Honeymoon deals:** 14
-- **Verified local hotel images (real hotel-specific photos):** 22
-- **Hotels still on destination fallback:** 37
-- **Hotels with verified identity (official source recorded):** 29
-- **Hotels needing identity review:** 30
+- **Rights basis:** user_confirmed_full_rights
+- **Verified local hotel images (real hotel-specific photos):** 37 / 59
+- **Hotels still on destination fallback:** 22
+- **Honeymoon deals with real images:** 4 / 14
+- **Honeymoon deals on destination fallback:** 10
+- **Hotels with verified identity (official source recorded):** 39
+- **Hotels needing identity review:** 20
 - **Destination hero images (project-owned, rights-cleared):** 5 (+ home + honeymoon = 7)
 - **Destination fallback placeholders:** 5
 - **Generic hotel placeholder:** 1

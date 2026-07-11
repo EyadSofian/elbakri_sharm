@@ -9,7 +9,7 @@ import {
 } from "@/data/packages.source";
 import { DESTINATION_NAMES, HOTEL_NAMES } from "@/data/hotel-names";
 import { parsePrice } from "@/lib/slug";
-import { destinationHeroPath, hotelImagePath, regionHeroPath } from "@/lib/images";
+import { destinationHeroPath, hotelImagePath, honeymoonImagePath } from "@/lib/images";
 
 export { unitLabel, CONTACT_PHONE, CONTACT_WHATSAPP };
 export type { PricePeriod };
@@ -229,7 +229,7 @@ function buildHoneymoons(): Honeymoon[] {
       region: deal.region,
       periods: deal.periods,
       perks: deal.perks,
-      image: regionHeroPath(deal.region),
+      image: honeymoonImagePath(slug, deal.region),
       minPrice: prices.length ? Math.min(...prices) : null,
       legacyIdx,
     } satisfies Honeymoon;

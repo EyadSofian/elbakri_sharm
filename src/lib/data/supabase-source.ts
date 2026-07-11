@@ -14,7 +14,7 @@ import type {
   PricePeriod,
 } from "@/lib/catalog";
 import { parsePrice } from "@/lib/slug";
-import { regionHeroPath, PLACEHOLDER } from "@/lib/images";
+import { honeymoonImagePath, PLACEHOLDER } from "@/lib/images";
 import type { SiteSettings } from "./index";
 
 type PriceUnit = CategoryView["priceUnit"];
@@ -249,7 +249,7 @@ function buildHoneymoons(rows: RawHoneymoon[]): Honeymoon[] {
       region: d.region,
       periods,
       perks,
-      image: d.image?.path ?? regionHeroPath(d.region),
+      image: d.image?.path ?? honeymoonImagePath(d.slug, d.region),
       minPrice: prices.length ? Math.min(...prices) : null,
       legacyIdx: d.legacy_idx ?? 0,
     };

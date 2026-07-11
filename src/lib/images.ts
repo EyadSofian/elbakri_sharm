@@ -1,5 +1,6 @@
 import { DESTINATION_NAMES } from "@/data/hotel-names";
 import hotelImageMap from "@/data/hotel-image-map";
+import honeymoonImageMap from "@/data/honeymoon-image-map";
 
 /**
  * Image resolution with the required fallback order:
@@ -34,6 +35,15 @@ export function hotelImagePath(hotelSlug: string, destinationId: string): string
     return entry.image;
   }
   return destinationHeroPath(destinationId);
+}
+
+/** Resolve a honeymoon deal image: real verified photo, else destination hero. */
+export function honeymoonImagePath(slug: string, region: string): string {
+  const entry = honeymoonImageMap[slug];
+  if (entry && (entry.status === "admin_uploaded" || entry.status === "verified_local")) {
+    return entry.image;
+  }
+  return regionHeroPath(region);
 }
 
 /** Map a (possibly sub-)region label to a destination hero for honeymoon cards. */

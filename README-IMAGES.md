@@ -25,12 +25,16 @@ reports/
 
 ## 2. How images were sourced
 
-- **Destination heroes** shipped with the original project (project-owned, rights-cleared).
-  They are re-encoded to WebP by `scripts/optimize_images.py`.
-- **Hotel photos:** none are published. Official hotel-site/booking photos are visible but
-  not licensed for republication, and a wrong photo is worse than an honest fallback — so
-  every hotel shows its **destination hero**. Official pages are recorded in the manifest to
-  verify *identity* only (see `reports/image-sources.md`).
+- **Destination heroes** shipped with the original project. Re-encoded by `scripts/optimize_images.py`.
+- **Hotel photos:** 37 of 59 hotels use real, identity-verified hero photos downloaded from
+  each hotel's **official page** (JSON-LD / og:image) — ELBAKRI OVERSEAS holds full usage
+  rights (`rights_basis: user_confirmed_full_rights`). Pipeline: `scripts/fetch_hotel_images*.py`
+  → `scripts/apply-fetched-images.ts` → `hotel-image-map.ts`. Perceptual-hash dedup ensures no
+  photo is reused across hotels. The remaining 22 use their destination hero at runtime and
+  should be filled via the admin per-hotel upload (they're listed in
+  `reports/missing-or-uncertain-images.md`).
+- **Honeymoon:** 4 of 14 deals have real images (3 reuse their destination-hotel photo, 1 is
+  Pickalbatros Citadel); the rest fall back until sourced/uploaded.
 - **Honeymoon general images** are derived placeholders — replace with licensed stock.
 
 ## 3. Fallback behaviour (`src/lib/images.ts`)
