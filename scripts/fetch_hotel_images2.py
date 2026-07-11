@@ -142,8 +142,8 @@ def main():
             continue
         rec = {"slug": slug, "source_url": url, "destination": dest, "kind": kind, "name_fragment": t.get("frag", "")}
         try:
-            html = fetch(url)
-            cands = candidates(html, url)
+            # Direct image URL (e.g. extracted via Chrome from a JS/403 page).
+            cands = [(t["img"], 9999)] if t.get("img") else candidates(fetch(url), url)
             chosen = None
             raw = None
             im = None

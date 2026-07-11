@@ -76,7 +76,10 @@ export const HOTEL_NAMES: Record<string, NameEntry> = {
     en: "Pickalbatros Aqua Blu",
     slug: "pickalbatros-aqua-blu",
   },
-  "الباتروس بلاس": { en: "Pickalbatros Plus", slug: "pickalbatros-plus" },
+  // "بلاس" resolves to Pickalbatros PALACE (destination-specific): Hurghada =
+  // Palace Resort Hurghada, Marsa Alam = Palace Hotel Port Ghalib. Slug kept for
+  // URL/parity stability; the destination-qualified slug distinguishes the two.
+  "الباتروس بلاس": { en: "Pickalbatros Palace", slug: "pickalbatros-plus" },
 
   /* ---------- Dahab ---------- */
   "داون تاون": { en: "Downtown Dahab", slug: "downtown-dahab" },

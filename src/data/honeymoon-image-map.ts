@@ -6,6 +6,36 @@
 import type { HotelImageMapEntry } from "./hotel-image-map";
 
 const honeymoonImageMap: Record<string, HotelImageMapEntry> = {
+  "continental-hurghada": {
+    image: "/images/hotels/honeymoon/continental-hurghada.webp",
+    thumbnail: "/images/thumbnails/continental-hurghada.webp",
+    status: "verified_local",
+    sourceUrl: "https://continental.hotelshurghada.com/en/",
+  },
+  "happy-life": {
+    image: "/images/hotels/honeymoon/happy-life.webp",
+    thumbnail: "/images/thumbnails/happy-life.webp",
+    status: "verified_local",
+    sourceUrl: "https://happylifevillage.southsinaihotels.com/en/",
+  },
+  "jaz-costa-mares": {
+    image: "/images/hotels/honeymoon/jaz-costa-mares.webp",
+    thumbnail: "/images/thumbnails/jaz-costa-mares.webp",
+    status: "verified_local",
+    sourceUrl: "https://iberotel-costa-mares.hotelsmarsaalam.com/en/",
+  },
+  "kaisol-romance": {
+    image: "/images/hotels/honeymoon/kaisol-romance.webp",
+    thumbnail: "/images/thumbnails/kaisol-romance.webp",
+    status: "verified_local",
+    sourceUrl: "https://www.kaisolhotels.com/",
+  },
+  "lido-sharm": {
+    image: "/images/hotels/honeymoon/lido-sharm.webp",
+    thumbnail: "/images/thumbnails/lido-sharm.webp",
+    status: "verified_local",
+    sourceUrl: "https://iberotellido.southsinaihotels.com/en/",
+  },
   "pickalbatros-citadel": {
     image: "/images/hotels/honeymoon/pickalbatros-citadel.webp",
     thumbnail: "/images/thumbnails/pickalbatros-citadel.webp",
@@ -29,6 +59,36 @@ const honeymoonImageMap: Record<string, HotelImageMapEntry> = {
     thumbnail: "/images/thumbnails/pickalbatros-sea-world.webp",
     status: "verified_local",
     sourceUrl: "https://www.pickalbatros.com/sea-world-resort-marsa-alam",
+  },
+  "premier-le-reve": {
+    image: "/images/hotels/honeymoon/premier-le-reve.webp",
+    thumbnail: "/images/thumbnails/premier-le-reve.webp",
+    status: "verified_local",
+    sourceUrl: "https://premierleonly.hotelshurghada.com/en/",
+  },
+  "sataya": {
+    image: "/images/hotels/honeymoon/sataya.webp",
+    thumbnail: "/images/thumbnails/sataya.webp",
+    status: "verified_local",
+    sourceUrl: "https://sataya-resort.hotelsmarsaalam.com/en/",
+  },
+  "swiss-inn-hurghada": {
+    image: "/images/hotels/honeymoon/swiss-inn-hurghada.webp",
+    thumbnail: "/images/thumbnails/swiss-inn-hurghada.webp",
+    status: "verified_local",
+    sourceUrl: "https://swissinn.net/hotels/index.php?lang=Hurghada",
+  },
+  "tropitel-dahab-oasis": {
+    image: "/images/hotels/honeymoon/tropitel-dahab-oasis.webp",
+    thumbnail: "/images/thumbnails/tropitel-dahab-oasis.webp",
+    status: "verified_local",
+    sourceUrl: "https://www.tropitelhotels.com/tropitel-dahab-oasis",
+  },
+  "tropitel-sahl-hasheesh": {
+    image: "/images/hotels/honeymoon/tropitel-sahl-hasheesh.webp",
+    thumbnail: "/images/thumbnails/tropitel-sahl-hasheesh.webp",
+    status: "verified_local",
+    sourceUrl: "https://www.tropitelhotels.com/tropitel-sahl-hasheesh",
   },
 };
 

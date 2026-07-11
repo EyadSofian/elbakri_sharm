@@ -26,16 +26,19 @@ reports/
 ## 2. How images were sourced
 
 - **Destination heroes** shipped with the original project. Re-encoded by `scripts/optimize_images.py`.
-- **Hotel photos:** 37 of 59 hotels use real, identity-verified hero photos downloaded from
-  each hotel's **official page** (JSON-LD / og:image) — ELBAKRI OVERSEAS holds full usage
-  rights (`rights_basis: user_confirmed_full_rights`). Pipeline: `scripts/fetch_hotel_images*.py`
-  → `scripts/apply-fetched-images.ts` → `hotel-image-map.ts`. Perceptual-hash dedup ensures no
-  photo is reused across hotels. The remaining 22 use their destination hero at runtime and
-  should be filled via the admin per-hotel upload (they're listed in
-  `reports/missing-or-uncertain-images.md`).
-- **Honeymoon:** 4 of 14 deals have real images (3 reuse their destination-hotel photo, 1 is
-  Pickalbatros Citadel); the rest fall back until sourced/uploaded.
-- **Honeymoon general images** are derived placeholders — replace with licensed stock.
+- **Hotel photos: 59 of 59** hotels use real, identity-verified hero photos from each hotel's
+  **official page** (JSON-LD / og:image, or the official image CDN via Chrome for JS/403 sites)
+  — ELBAKRI OVERSEAS holds full usage rights (`rights_basis: user_confirmed_full_rights`).
+  Pipeline: `scripts/fetch_hotel_images*.py` → `scripts/apply-fetched-images.ts` →
+  `hotel-image-map.ts`. Perceptual-hash dedup ensures no photo is reused across hotels.
+  **Assigned fallback count is zero** (runtime fallback remains only to prevent broken icons).
+- **Honeymoon: 14 of 14** deals resolve to a real hotel image (deals that are the same physical
+  property as a destination hotel reuse its file; the rest have their own).
+- **Honeymoon general images: 4 of 4** are real licensed Unsplash stock (romantic-dinner,
+  room-decoration, sea-view-room, sunset-couple).
+- **Identity notes:** بلاس → Pickalbatros **Palace** (Hurghada = Palace Resort Hurghada; Marsa
+  Alam = Palace Hotel Port Ghalib). جيوان → **Gewan** (New Alamein). سان جورج → **Xperience
+  St. George**. نعمه باي → Naama Bay Hotel & Resort. بروميناد → Naama Bay Promenade (Accor).
 
 ## 3. Fallback behaviour (`src/lib/images.ts`)
 

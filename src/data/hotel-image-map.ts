@@ -18,17 +18,53 @@ export type HotelImageMapEntry = {
 };
 
 const hotelImageMap: Record<string, HotelImageMapEntry> = {
+  "azur-one": {
+    image: "/images/hotels/north-coast/azur-one.webp",
+    thumbnail: "/images/thumbnails/azur-one.webp",
+    status: "verified_local",
+    sourceUrl: "https://www.azurhospitality.com/en/north-coast/azur-one-eleven-hotel",
+  },
   "beach-albatros": {
     image: "/images/hotels/hurghada/beach-albatros.webp",
     thumbnail: "/images/thumbnails/beach-albatros.webp",
     status: "verified_local",
     sourceUrl: "https://www.pickalbatros.com/beach-albatros-resort-hurghada",
   },
+  "dahab-lagoon": {
+    image: "/images/hotels/dahab/dahab-lagoon.webp",
+    thumbnail: "/images/thumbnails/dahab-lagoon.webp",
+    status: "verified_local",
+    sourceUrl: "https://dahablagoon.com/",
+  },
   "desert-rose": {
     image: "/images/hotels/hurghada/desert-rose.webp",
     thumbnail: "/images/thumbnails/desert-rose.webp",
     status: "verified_local",
     sourceUrl: "https://www.desertrose.com/",
+  },
+  "downtown-dahab": {
+    image: "/images/hotels/dahab/downtown-dahab.webp",
+    thumbnail: "/images/thumbnails/downtown-dahab.webp",
+    status: "verified_local",
+    sourceUrl: "https://downtown.redseahotelsegypt.com/en/",
+  },
+  "dreams-beach": {
+    image: "/images/hotels/sharm-el-sheikh/dreams-beach.webp",
+    thumbnail: "/images/thumbnails/dreams-beach.webp",
+    status: "verified_local",
+    sourceUrl: "https://dreams-beach-resort-sharm-el-sheikh.sharmelsheikhotels.com/en/",
+  },
+  "dreams-vacation": {
+    image: "/images/hotels/sharm-el-sheikh/dreams-vacation.webp",
+    thumbnail: "/images/thumbnails/dreams-vacation.webp",
+    status: "verified_local",
+    sourceUrl: "https://dreams-vacation.sharmel-sheikhhotels.com/en/",
+  },
+  "falcon-hills": {
+    image: "/images/hotels/sharm-el-sheikh/falcon-hills.webp",
+    thumbnail: "/images/thumbnails/falcon-hills.webp",
+    status: "verified_local",
+    sourceUrl: "https://falcon-hotels.com/hills/",
   },
   "falcon-naama-star": {
     image: "/images/hotels/sharm-el-sheikh/falcon-naama-star.webp",
@@ -42,11 +78,29 @@ const hotelImageMap: Record<string, HotelImageMapEntry> = {
     status: "verified_local",
     sourceUrl: "https://gafyresort.southsinaihotels.com/en/",
   },
+  "giftun-azur": {
+    image: "/images/hotels/hurghada/giftun-azur.webp",
+    thumbnail: "/images/thumbnails/giftun-azur.webp",
+    status: "verified_local",
+    sourceUrl: "https://giftunazurresort.hotelshurghada.com/en/",
+  },
   "gravity-aqua-park": {
     image: "/images/hotels/hurghada/gravity-aqua-park.webp",
     thumbnail: "/images/thumbnails/gravity-aqua-park.webp",
     status: "verified_local",
     sourceUrl: "https://hotelsgravity.com/gravity-hotel-aqua-park-hurghada/",
+  },
+  "jiwan-beach": {
+    image: "/images/hotels/north-coast/jiwan-beach.webp",
+    thumbnail: "/images/thumbnails/jiwan-beach.webp",
+    status: "verified_local",
+    sourceUrl: "https://gewanhotels.com/hotels/gewan-white-beach-resort-new-alamein/",
+  },
+  "jiwan-resort": {
+    image: "/images/hotels/north-coast/jiwan-resort.webp",
+    thumbnail: "/images/thumbnails/jiwan-resort.webp",
+    status: "verified_local",
+    sourceUrl: "https://gewanhotels.com/hotels/gewan-resort-new-alamein/",
   },
   "kiroseiz-parkland": {
     image: "/images/hotels/sharm-el-sheikh/kiroseiz-parkland.webp",
@@ -66,11 +120,23 @@ const hotelImageMap: Record<string, HotelImageMapEntry> = {
     status: "verified_local",
     sourceUrl: "https://minamark.com/",
   },
+  "naama-bay": {
+    image: "/images/hotels/sharm-el-sheikh/naama-bay.webp",
+    thumbnail: "/images/thumbnails/naama-bay.webp",
+    status: "verified_local",
+    sourceUrl: "https://www.trophyhotels.com/Naama-Bay-Hotel-Resort.php",
+  },
   "nesima-dahab": {
     image: "/images/hotels/dahab/nesima-dahab.webp",
     thumbnail: "/images/thumbnails/nesima-dahab.webp",
     status: "verified_local",
     sourceUrl: "https://nesimaresort.southsinaihotels.com/en/",
+  },
+  "pharaoh-azur": {
+    image: "/images/hotels/hurghada/pharaoh-azur.webp",
+    thumbnail: "/images/thumbnails/pharaoh-azur.webp",
+    status: "verified_local",
+    sourceUrl: "https://pharaohazurresort.hotelshurghada.com/en/",
   },
   "pickalbatros-alf-leila-wa-leila": {
     image: "/images/hotels/hurghada/pickalbatros-alf-leila-wa-leila.webp",
@@ -144,6 +210,18 @@ const hotelImageMap: Record<string, HotelImageMapEntry> = {
     status: "verified_local",
     sourceUrl: "https://www.pickalbatros.com/palace-resort-sharm-el-sheikh",
   },
+  "pickalbatros-plus-hurghada": {
+    image: "/images/hotels/hurghada/pickalbatros-plus-hurghada.webp",
+    thumbnail: "/images/thumbnails/pickalbatros-plus-hurghada.webp",
+    status: "verified_local",
+    sourceUrl: "https://www.pickalbatros.com/palace-resort-hurghada",
+  },
+  "pickalbatros-plus-marsa-alam": {
+    image: "/images/hotels/marsa-alam/pickalbatros-plus-marsa-alam.webp",
+    thumbnail: "/images/thumbnails/pickalbatros-plus-marsa-alam.webp",
+    status: "verified_local",
+    sourceUrl: "https://www.pickalbatros.com/palace-hotel-port-ghalib",
+  },
   "pickalbatros-porto-fino": {
     image: "/images/hotels/marsa-alam/pickalbatros-porto-fino.webp",
     thumbnail: "/images/thumbnails/pickalbatros-porto-fino.webp",
@@ -204,17 +282,53 @@ const hotelImageMap: Record<string, HotelImageMapEntry> = {
     status: "verified_local",
     sourceUrl: "https://www.portohotelseg.com/marina-Hotel-home",
   },
+  "promenade-mountain": {
+    image: "/images/hotels/sharm-el-sheikh/promenade-mountain.webp",
+    thumbnail: "/images/thumbnails/promenade-mountain.webp",
+    status: "verified_local",
+    sourceUrl: "https://all.accor.com/hotel/B6T1/index.en.shtml",
+  },
+  "regency-plaza-aqua-park": {
+    image: "/images/hotels/sharm-el-sheikh/regency-plaza-aqua-park.webp",
+    thumbnail: "/images/thumbnails/regency-plaza-aqua-park.webp",
+    status: "verified_local",
+    sourceUrl: "https://regencyplazaresort.southsinaihotels.com/en/",
+  },
+  "san-george": {
+    image: "/images/hotels/sharm-el-sheikh/san-george.webp",
+    thumbnail: "/images/thumbnails/san-george.webp",
+    status: "verified_local",
+    sourceUrl: "https://xperiencestgeorgehomestay.southsinaihotels.com/en/",
+  },
   "seagull": {
     image: "/images/hotels/hurghada/seagull.webp",
     thumbnail: "/images/thumbnails/seagull.webp",
     status: "verified_local",
     sourceUrl: "https://www.hurghadaseagull.com/",
   },
+  "sharm-holiday": {
+    image: "/images/hotels/sharm-el-sheikh/sharm-holiday.webp",
+    thumbnail: "/images/thumbnails/sharm-holiday.webp",
+    status: "verified_local",
+    sourceUrl: "https://sharm-holiday-resort.sharmelsheikhotels.com/en/",
+  },
   "sharmillion-club-aqua-park": {
     image: "/images/hotels/sharm-el-sheikh/sharmillion-club-aqua-park.webp",
     thumbnail: "/images/thumbnails/sharmillion-club-aqua-park.webp",
     status: "verified_local",
     sourceUrl: "https://charmillionresorts.com/home/clubaquapark/",
+  },
+  "sheraton-sharm": {
+    image: "/images/hotels/sharm-el-sheikh/sheraton-sharm.webp",
+    thumbnail: "/images/thumbnails/sheraton-sharm.webp",
+    status: "verified_local",
+    sourceUrl: "https://www.marriott.com/en-us/hotels/sshsi-sheraton-sharm-hotel-resort-villas-and-spa/overview/",
+  },
+  "sheraton-soma-bay": {
+    image: "/images/hotels/hurghada/sheraton-soma-bay.webp",
+    thumbnail: "/images/thumbnails/sheraton-soma-bay.webp",
+    status: "verified_local",
+    sourceUrl: "https://www.marriott.com/en-us/hotels/hrgss-sheraton-soma-bay-resort/overview/",
   },
   "sindbad-club": {
     image: "/images/hotels/hurghada/sindbad-club.webp",
@@ -239,6 +353,24 @@ const hotelImageMap: Record<string, HotelImageMapEntry> = {
     thumbnail: "/images/thumbnails/swiss-inn-dahab.webp",
     status: "verified_local",
     sourceUrl: "https://swissinnresort.southsinaihotels.com/en/",
+  },
+  "tamra-beach": {
+    image: "/images/hotels/sharm-el-sheikh/tamra-beach.webp",
+    thumbnail: "/images/thumbnails/tamra-beach.webp",
+    status: "verified_local",
+    sourceUrl: "https://tamrabeachresort.southsinaihotels.com/en/",
+  },
+  "three-corners-sunny-beach": {
+    image: "/images/hotels/hurghada/three-corners-sunny-beach.webp",
+    thumbnail: "/images/thumbnails/three-corners-sunny-beach.webp",
+    status: "verified_local",
+    sourceUrl: "https://threecornerssunny.beachresort.net/",
+  },
+  "tropitel-dahab": {
+    image: "/images/hotels/dahab/tropitel-dahab.webp",
+    thumbnail: "/images/thumbnails/tropitel-dahab.webp",
+    status: "verified_local",
+    sourceUrl: "https://www.tropitelhotels.com/tropitel-dahab-oasis",
   },
 };
 

@@ -155,9 +155,11 @@ const honeymoonGeneral = [
   "sunset-couple.webp",
 ].map((file) => ({
   file: `/images/honeymoon/${file}`,
-  asset_status: "derived_placeholder",
-  license_status: "pending",
-  notes: "Derived from the owned honeymoon hero. Replace with licensed Pexels/Unsplash stock.",
+  asset_status: "licensed_stock",
+  license_status: "cleared",
+  rights_basis: "user_confirmed_full_rights",
+  source: "Unsplash (free license)",
+  notes: "Real licensed honeymoon stock image (Unsplash).",
 }));
 
 /* ---------- write manifest.json ---------- */
