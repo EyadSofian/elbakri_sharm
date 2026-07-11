@@ -1,0 +1,129 @@
+@import "tailwindcss";
+
+/* ============================================================
+   ELBAKRI OVERSEAS — design tokens (semantic, single source)
+   ============================================================ */
+@theme {
+  /* Brand */
+  --color-navy: #091e5d;
+  --color-midnight: #071126;
+  --color-blue: #1e40af;
+  --color-ice: #dce6ff;
+  --color-mist: #f7f9fc;
+  --color-champagne: #c89b3c;
+  --color-muted: #5b667a;
+  --color-success: #15803d;
+  --color-error: #b91c1c;
+
+  /* Fonts (wired via next/font in layout.tsx) */
+  --font-sans: var(--font-arabic), "Segoe UI", system-ui, sans-serif;
+  --font-latin: var(--font-latin), "Outfit", system-ui, sans-serif;
+
+  /* Radii */
+  --radius-glass: 22px;
+
+  /* Shadows */
+  --shadow-glass: 0 18px 50px rgba(3, 9, 24, 0.2);
+  --shadow-card: 0 8px 24px rgba(3, 9, 24, 0.08);
+}
+
+/* ============================================================
+   Base
+   ============================================================ */
+:root {
+  --glass-light: rgba(255, 255, 255, 0.78);
+  --glass-dark: rgba(7, 17, 38, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.18);
+  --page-bg: var(--color-mist);
+  --text-body: #14213d;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--page-bg);
+  color: var(--text-body);
+  font-family: var(--font-sans);
+  line-height: 1.65; /* Arabic body */
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Never letter-space Arabic. Headings tighter line-height. */
+h1, h2, h3, h4 {
+  line-height: 1.25;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+/* Latin/numeric runs stay directionally isolated to avoid bidi errors. */
+.ltr {
+  direction: ltr;
+  unicode-bidi: isolate;
+  font-family: var(--font-latin);
+}
+
+/* ============================================================
+   Restrained aviation glass (nav, hero panel, filters, badges).
+   Always provide an opaque fallback + a navy scrim behind glass.
+   ============================================================ */
+.glass {
+  background-color: rgba(255, 255, 255, 0.92); /* opaque fallback */
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-glass);
+  box-shadow: var(--shadow-glass);
+}
+
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass {
+    background-color: var(--glass-light);
+    backdrop-filter: saturate(130%) blur(18px);
+    -webkit-backdrop-filter: saturate(130%) blur(18px);
+  }
+}
+
+.glass-dark {
+  background-color: rgba(7, 17, 38, 0.9); /* opaque fallback */
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-glass);
+  box-shadow: var(--shadow-glass);
+  color: #fff;
+}
+
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass-dark {
+    background-color: var(--glass-dark);
+    backdrop-filter: saturate(125%) blur(16px);
+    -webkit-backdrop-filter: saturate(125%) blur(16px);
+  }
+}
+
+/* Lower blur cost on small screens */
+@media (max-width: 640px) {
+  .glass,
+  .glass-dark {
+    backdrop-filter: saturate(120%) blur(12px);
+    -webkit-backdrop-filter: saturate(120%) blur(12px);
+  }
+}
+
+/* Focus visibility (a11y) */
+:focus-visible {
+  outline: 3px solid var(--color-champagne);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Respect reduced motion everywhere */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
