@@ -11,7 +11,8 @@ import { MotionReveal } from "@/components/MotionReveal";
 type Params = Promise<{ identifier: string }>;
 
 // Numeric legacy indices are redirected by next.config; unknown slugs 404.
-export const dynamicParams = false;
+// Newly published honeymoon offers are generated on demand after catalog revalidation.
+export const dynamicParams = true;
 export const revalidate = 300;
 
 export async function generateStaticParams() {

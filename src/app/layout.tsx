@@ -5,6 +5,8 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
 import { MobileActionDock } from "@/components/MobileActionDock";
+import { AnalyticsNoScript, AnalyticsScripts } from "@/components/Analytics";
+import { AnalyticsEvents } from "@/components/AnalyticsEvents";
 import { getDestinations, getSiteSettings } from "@/lib/data";
 
 const arabic = Tajawal({
@@ -47,7 +49,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const navDestinations = destinations.map((d) => ({ slug: d.slug, name: d.nameAr }));
   return (
     <html lang="ar" dir="rtl" className={`${arabic.variable} ${latin.variable}`}>
+      <head>
+        <AnalyticsScripts />
+      </head>
       <body className="flex min-h-screen flex-col">
+        <AnalyticsNoScript />
+        <AnalyticsEvents />
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:absolute focus:right-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-navy focus:px-4 focus:py-2 focus:text-white"

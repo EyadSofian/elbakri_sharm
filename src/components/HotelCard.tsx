@@ -50,7 +50,7 @@ export function HotelCard({ hotel }: { hotel: Hotel }) {
           <div className="mt-auto flex items-center gap-1.5 pt-3 text-[11px] text-muted sm:text-xs">
             <CalendarDays className="h-3.5 w-3.5 shrink-0 text-blue" aria-hidden />
             <span dir="ltr" className="ltr line-clamp-1">
-              {first}
+              {first ?? "السعر عند الطلب"}
             </span>
             {extra > 0 ? <span className="font-extrabold text-navy">+{extra}</span> : null}
           </div>
@@ -59,7 +59,9 @@ export function HotelCard({ hotel }: { hotel: Hotel }) {
 
       <div className="mt-auto flex items-center justify-between gap-3 border-t border-ice px-4 py-3.5 sm:mx-5 sm:px-0 sm:py-4">
         <div className="min-w-0">
-          <div className="text-[10px] font-semibold text-muted">يبدأ من</div>
+          <div className="text-[10px] font-semibold text-muted">
+            {hotel.minPrice == null ? "تواصل لمعرفة السعر" : "يبدأ من"}
+          </div>
           <div className="text-[23px] font-black leading-none text-navy">
             <Price value={hotel.minPrice} />
             <span className="mr-1 text-[10px] font-bold text-muted">ج.م</span>

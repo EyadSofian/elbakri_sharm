@@ -16,7 +16,10 @@ export function DestinationExplorer({ destination }: { destination: Destination 
 
   const hotels = useMemo(() => {
     const q = query.trim();
-    const arr = destination.hotels.filter((h) => h.categoryId === category.id);
+    // A physical hotel may belong to multiple rate-hub packages. Membership
+    // lives on the category, so unlinking it from one package does not remove
+    // it from another package that still contains it.
+    const arr = destination.hotels.filter((h) => category.hotelSlugs.includes(h.slug));
     return q ? arr.filter((h) => h.nameAr.includes(q)) : arr;
   }, [destination.hotels, category, query]);
 
@@ -78,7 +81,17 @@ export function DestinationExplorer({ destination }: { destination: Destination 
 
       <MotionReveal className="mt-4 grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
         {hotels.map((h) => (
-          <HotelCard key={h.slug} hotel={h} />
+          <HotelCard
+            key={h.slug}
+            hotel={{
+              ...h,
+              categoryId: category.id,
+              categoryName: category.name,
+              categoryNote: category.note,
+              priceUnit: category.priceUnit,
+              unitLabel: category.unitLabel,
+            }}
+          />
         ))}
       </MotionReveal>
 

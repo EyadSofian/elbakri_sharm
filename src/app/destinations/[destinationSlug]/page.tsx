@@ -10,7 +10,8 @@ type Params = Promise<{ destinationSlug: string }>;
 
 // Only canonical slugs are valid; legacy ids are handled by next.config redirects,
 // and any other param returns a real 404.
-export const dynamicParams = false;
+// New rate-hub destinations must be routable after an ISR refresh, without a redeploy.
+export const dynamicParams = true;
 export const revalidate = 300;
 
 export async function generateStaticParams() {

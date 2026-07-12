@@ -36,7 +36,7 @@ function fmtPrice(n: number | null | undefined): string | undefined {
   return new Intl.NumberFormat("en-US").format(n);
 }
 
-function mapPeriods(rate: RateHotel): PricePeriod[] {
+export function mapRatePeriods(rate: RateHotel): PricePeriod[] {
   return rate.periods.map((p) => {
     const period =
       p.season_name?.trim() ||
@@ -63,7 +63,7 @@ function mapPeriods(rate: RateHotel): PricePeriod[] {
   });
 }
 
-function minOverPeriods(periods: PricePeriod[]): number | null {
+export function minOverRatePeriods(periods: PricePeriod[]): number | null {
   const nums: number[] = [];
   for (const p of periods) {
     const v = parsePrice(p.double) ?? parsePrice(p.triple) ?? parsePrice(p.price);
@@ -94,10 +94,10 @@ export function overlayDestinations(
     const hotels: Hotel[] = d.hotels.map((h) => {
       const rh = byName.get(normalizeName(h.nameAr));
       if (!rh) return h;
-      const periods = mapPeriods(rh);
+      const periods = mapRatePeriods(rh);
       if (!periods.length) return h;
       changed = true;
-      return { ...h, periods, minPrice: minOverPeriods(periods) };
+      return { ...h, periods, minPrice: minOverRatePeriods(periods) };
     });
     if (!changed) return d;
     const prices = hotels.map((h) => h.minPrice).filter((n): n is number => n != null);

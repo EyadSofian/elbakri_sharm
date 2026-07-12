@@ -12,6 +12,14 @@ export function HotelPricePeriods({
   periods: PricePeriod[];
   unitLabel: string;
 }) {
+  if (periods.length === 0) {
+    return (
+      <div className="rounded-[20px] border border-champagne/35 bg-champagne/10 p-5 text-sm leading-relaxed text-navy">
+        الفندق مضاف إلى الباقة، ولم يُنشر له سعر جاهز بعد. تواصل معنا لتأكيد السعر والتوافر.
+      </div>
+    );
+  }
+
   return (
     <>
       <div className="space-y-3 md:hidden">

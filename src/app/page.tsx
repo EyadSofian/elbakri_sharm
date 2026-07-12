@@ -4,7 +4,6 @@ import {
   ArrowLeft,
   BadgeCheck,
   CalendarClock,
-  CheckCircle2,
   Heart,
   MapPinned,
   MessageCircle,
@@ -53,72 +52,64 @@ export default async function HomePage() {
     <>
       <OrganizationJsonLd />
 
-      <section className="relative isolate flex min-h-[calc(100svh-64px)] w-full items-center overflow-hidden md:min-h-[84vh]">
-        <Image src={HOME_HERO} alt="" fill priority sizes="100vw" className="object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-l from-midnight/95 via-navy/72 to-midnight/25" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,rgba(200,155,60,0.16),transparent_34%)]" />
+      <section className="relative isolate flex min-h-[calc(100svh-64px)] w-full items-start overflow-hidden md:min-h-[84vh] md:items-center">
+        <Image
+          src={HOME_HERO}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-[54%_center] sm:object-center"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-midnight/72 via-navy/82 to-midnight/98 md:bg-gradient-to-l md:from-midnight/95 md:via-navy/76 md:to-midnight/35" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_18%,rgba(200,155,60,0.13),transparent_30%)]" />
 
-        <div className="relative mx-auto grid w-full max-w-7xl items-center gap-10 px-4 py-14 sm:px-6 md:py-20 lg:grid-cols-[minmax(0,1fr)_390px]">
-          <MotionReveal className="max-w-3xl text-white">
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-extrabold backdrop-blur-md sm:text-sm">
+        <div className="relative mx-auto grid w-full max-w-7xl items-center gap-10 px-5 pb-28 pt-12 sm:px-6 sm:py-20 lg:grid-cols-[minmax(0,1fr)_390px]">
+          <MotionReveal className="max-w-[700px] text-white">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-midnight/35 px-3.5 py-2 text-[11px] font-extrabold text-white/90 backdrop-blur-md sm:text-sm">
               <Sparkles className="h-4 w-4 text-champagne" aria-hidden />
-              عروض صيف 2026 — أسعار واضحة وصور حقيقية
+              خبرة سفر موثوقة منذ <span className="ltr">1982</span>
             </div>
 
-            <h1 className="max-w-2xl text-[clamp(2.55rem,7vw,5.4rem)] font-extrabold leading-[1.08] text-white">
-              اكتشف مصر
-              <span className="mt-1 block text-champagne">واختار رحلتك بثقة</span>
+            <h1 className="max-w-2xl text-[clamp(2.2rem,9.5vw,5rem)] font-extrabold leading-[1.12] text-white">
+              اختار فندقك بثقة
+              <span className="mt-1 block text-champagne">واحجز بسعر واضح</span>
             </h1>
-            <p className="mt-6 max-w-[62ch] text-base leading-[1.8] text-white/88 sm:text-lg md:text-xl">
-              قارن الباقات والفنادق والأسعار في شرم الشيخ ودهب والغردقة ومرسى علم والساحل
-              الشمالي، ثم أكّد اختيارك مباشرة مع فريق البكري أوفرسيز.
+            <p className="mt-4 max-w-[58ch] text-[15px] leading-[1.75] text-white/88 sm:mt-5 sm:text-lg md:text-xl">
+              قارن أحدث عروض شرم الشيخ والغردقة ودهب ومرسى علم، واعرف تفاصيل الإقامة والسعر
+              قبل ما تتواصل معنا لتأكيد الحجز.
             </p>
 
-            <div className="mt-8 grid gap-3 sm:flex sm:flex-wrap">
+            <div className="mt-7 flex flex-wrap items-center gap-3">
               <Link
                 href="#destinations"
-                className="tap-target inline-flex min-h-[52px] items-center justify-center gap-2 rounded-full bg-champagne px-7 text-sm font-extrabold text-midnight shadow-lg transition hover:-translate-y-0.5 hover:brightness-105 active:scale-[0.98] sm:text-base"
+                className="tap-target inline-flex min-h-[54px] w-full items-center justify-between gap-4 rounded-2xl bg-champagne px-5 text-sm font-extrabold text-midnight shadow-lg shadow-midnight/25 transition hover:-translate-y-0.5 hover:brightness-105 active:scale-[0.98] sm:w-auto sm:min-w-[230px] sm:text-base"
               >
-                شاهد العروض والأسعار
-                <ArrowLeft className="h-5 w-5" aria-hidden />
+                استعرض أحدث العروض
+                <span className="grid h-8 w-8 place-items-center rounded-xl bg-midnight/10">
+                  <ArrowLeft className="h-4 w-4" aria-hidden />
+                </span>
               </Link>
               <a
                 href={bookingHref}
                 target="_blank"
                 rel="noreferrer"
-                className="tap-target inline-flex min-h-[52px] items-center justify-center gap-2 rounded-full border border-white/30 bg-white/10 px-7 text-sm font-extrabold text-white backdrop-blur-md transition hover:bg-white/20 active:scale-[0.98] sm:text-base"
+                className="tap-target hidden min-h-[54px] items-center justify-center gap-2 rounded-2xl border border-white/30 bg-white/10 px-6 text-sm font-extrabold text-white backdrop-blur-md transition hover:bg-white/20 active:scale-[0.98] sm:inline-flex sm:text-base"
               >
                 <MessageCircle className="h-5 w-5 text-champagne" aria-hidden />
-                ساعدني أختار
+                كلّم مستشار سفر
               </a>
             </div>
 
-            <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-xs font-semibold text-white/78 sm:text-sm">
-              <span className="inline-flex items-center gap-1.5">
-                <CheckCircle2 className="h-4 w-4 text-champagne" aria-hidden />
-                {payEnabled ? "دفع أونلاين آمن" : "تأكيد فوري عبر واتساب"}
-              </span>
-              <span className="inline-flex items-center gap-1.5">
-                <CheckCircle2 className="h-4 w-4 text-champagne" aria-hidden />
-                تأكيد السعر قبل الحجز
-              </span>
-              <span className="inline-flex items-center gap-1.5">
-                <CheckCircle2 className="h-4 w-4 text-champagne" aria-hidden />
-                تواصل مباشر
-              </span>
-            </div>
-
-            <div className="mobile-snap -mx-4 mt-7 flex gap-2 overflow-x-auto px-4 pb-2 lg:hidden">
-              {destinations.map((destination) => (
-                <Link
-                  key={destination.slug}
-                  href={"/destinations/" + destination.slug}
-                  className="tap-target flex shrink-0 items-center gap-2 rounded-full border border-white/20 bg-midnight/45 px-4 text-sm font-bold text-white backdrop-blur"
-                >
-                  {destination.nameAr}
-                  <ArrowLeft className="h-3.5 w-3.5 text-champagne" aria-hidden />
-                </Link>
-              ))}
+            <div className="mt-5 grid max-w-xl grid-cols-2 gap-2 text-[11px] font-bold text-white/85 sm:text-sm">
+              <div className="flex min-h-11 items-center gap-2 rounded-xl border border-white/15 bg-midnight/32 px-3">
+                <ShieldCheck className="h-4 w-4 shrink-0 text-champagne" aria-hidden />
+                {payEnabled ? "دفع أونلاين آمن" : "حجز مباشر وآمن"}
+              </div>
+              <div className="flex min-h-11 items-center gap-2 rounded-xl border border-white/15 bg-midnight/32 px-3">
+                <BadgeCheck className="h-4 w-4 shrink-0 text-champagne" aria-hidden />
+                السعر يتأكد قبل الحجز
+              </div>
             </div>
           </MotionReveal>
 
@@ -176,9 +167,9 @@ export default async function HomePage() {
       <section id="destinations" className="mx-auto max-w-7xl scroll-mt-24 px-4 py-16 sm:px-6 md:py-24">
         <MotionReveal className="mb-9 max-w-3xl md:mb-12">
           <div className="section-kicker">وجهاتنا</div>
-          <h2 className="section-title mt-2">كل رحلة تبدأ باختيار صح</h2>
+          <h2 className="section-title mt-2">اختار الوجهة المناسبة لميزانيتك</h2>
           <p className="section-copy mt-3">
-            اختار الوجهة، شوف عدد العروض والسعر الابتدائي، وادخل مباشرة على الباقات المتاحة.
+            كل وجهة بتعرض لك عدد الفنادق وأقل سعر منشور، عشان تبدأ المقارنة من معلومة واضحة.
           </p>
         </MotionReveal>
         <MotionReveal className="grid grid-cols-2 gap-3 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3" delay={0.08}>
@@ -193,8 +184,10 @@ export default async function HomePage() {
           <MotionReveal className="mb-9 flex items-end justify-between gap-4">
             <div>
               <div className="section-kicker">عروض مختارة</div>
-              <h2 className="section-title mt-2">أفضل نقطة بداية لكل وجهة</h2>
-              <p className="section-copy mt-3">عروض مختارة تلقائيًا حسب أقل سعر متاح في كل وجهة.</p>
+              <h2 className="section-title mt-2">ابدأ بأفضل سعر متاح</h2>
+              <p className="section-copy mt-3">
+                اختيارات محدثة تلقائيًا من أقل سعر منشور في كل وجهة—والسعر النهائي يتأكد قبل الحجز.
+              </p>
             </div>
             <Link
               href="#destinations"
@@ -258,7 +251,7 @@ export default async function HomePage() {
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 md:py-24">
           <MotionReveal className="text-center">
             <div className="section-kicker">خطوات بسيطة</div>
-            <h2 className="section-title mt-2">من الاختيار للتأكيد في 3 خطوات</h2>
+            <h2 className="section-title mt-2">من المقارنة لتأكيد الحجز في 3 خطوات</h2>
           </MotionReveal>
           <MotionReveal className="mt-10 grid gap-3 md:grid-cols-3 md:gap-5" delay={0.08}>
             {STEPS.map((step) => (

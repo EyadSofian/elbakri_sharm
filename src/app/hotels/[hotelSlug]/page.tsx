@@ -12,7 +12,8 @@ import { MotionReveal } from "@/components/MotionReveal";
 type Params = Promise<{ hotelSlug: string }>;
 
 // Legacy /hotel/:dest/:cat/:idx URLs are redirected by next.config; unknown slugs 404.
-export const dynamicParams = false;
+// Newly linked rate-hub hotels are generated on demand after catalog revalidation.
+export const dynamicParams = true;
 export const revalidate = 300;
 
 export async function generateStaticParams() {

@@ -2,8 +2,21 @@ import { test, expect } from "@playwright/test";
 
 test("home renders hero and destinations", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("heading", { level: 1 })).toContainText("اكتشف مصر");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("اختار فندقك بثقة");
   await expect(page.getByRole("link", { name: "شرم الشيخ" }).first()).toBeVisible();
+});
+
+test("analytics bootstrap Meta Pixel, Clarity and GTM", async ({ page }) => {
+  await page.goto("/");
+  await expect
+    .poll(() =>
+      page.evaluate(() => ({
+        dataLayer: Array.isArray(window.dataLayer),
+        fbq: typeof window.fbq === "function",
+        clarity: typeof (window as Window & { clarity?: unknown }).clarity === "function",
+      })),
+    )
+    .toEqual({ dataLayer: true, fbq: true, clarity: true });
 });
 
 test("destination: package tabs + hotel search filter", async ({ page }) => {
@@ -18,8 +31,8 @@ test("destination: package tabs + hotel search filter", async ({ page }) => {
 
 test("hotel detail: exact price + WhatsApp CTA", async ({ page }) => {
   await page.goto("/hotels/falcon-naama-star");
-  await expect(page.getByText("5,900").first()).toBeVisible();
-  await expect(page.getByText("5,750").first()).toBeVisible();
+  await expect.poll(() => page.getByText("5,900").filter({ visible: true }).count()).toBeGreaterThan(0);
+  await expect.poll(() => page.getByText("5,750").filter({ visible: true }).count()).toBeGreaterThan(0);
   const wa = page.getByRole("link", { name: /احجز الآن عبر واتساب/ });
   await expect(wa).toHaveAttribute("href", /wa\.me\/201225279820/);
 });

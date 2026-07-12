@@ -3,6 +3,8 @@ import { getDestinations, getAllHotels, getHoneymoons } from "@/lib/data";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://elbakri-overseas.example";
 
+export const revalidate = 300;
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [dests, hotels, honeymoons] = await Promise.all([
     getDestinations(),

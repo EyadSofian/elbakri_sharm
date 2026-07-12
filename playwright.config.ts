@@ -12,7 +12,7 @@ export default defineConfig({
   use: { baseURL: `http://localhost:${PORT}`, trace: "retain-on-failure" },
   projects: [
     { name: "desktop", use: { ...devices["Desktop Chrome"], viewport: { width: 1280, height: 800 } } },
-    { name: "mobile", use: { ...devices["iPhone 12"] } },
+    { name: "mobile", use: { ...devices["iPhone 12"], browserName: "chromium" } },
   ],
   webServer: {
     // Assumes a production build exists (npm run build). Serves it for realistic

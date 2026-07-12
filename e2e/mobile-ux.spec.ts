@@ -12,7 +12,7 @@ test("mobile conversion actions sit in reachable, valid touch targets", async ({
   await page.goto("/");
 
   await expectTouchTarget(page.getByRole("button", { name: "فتح القائمة" }));
-  await expectTouchTarget(page.getByRole("link", { name: "شاهد العروض والأسعار" }));
+  await expectTouchTarget(page.getByRole("link", { name: "استعرض أحدث العروض" }));
 
   const dock = page.locator("div.fixed.inset-x-0.bottom-0");
   await expect(dock).toBeVisible();
