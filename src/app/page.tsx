@@ -12,6 +12,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { getDestinations, getFeaturedHotels, getSiteSettings } from "@/lib/data";
+import { isEasyKashConfigured } from "@/lib/easykash";
 import { DestinationCard } from "@/components/DestinationCard";
 import { HotelCard } from "@/components/HotelCard";
 import { MotionReveal } from "@/components/MotionReveal";
@@ -46,6 +47,7 @@ export default async function HomePage() {
 
   const adviceMessage = "مرحباً، أحتاج مساعدة في اختيار أفضل عرض مناسب لرحلتي";
   const bookingHref = whatsappHref(adviceMessage, settings.whatsapp);
+  const payEnabled = isEasyKashConfigured();
 
   return (
     <>
@@ -94,7 +96,7 @@ export default async function HomePage() {
             <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-xs font-semibold text-white/78 sm:text-sm">
               <span className="inline-flex items-center gap-1.5">
                 <CheckCircle2 className="h-4 w-4 text-champagne" aria-hidden />
-                بدون دفع أونلاين
+                {payEnabled ? "دفع أونلاين آمن" : "تأكيد فوري عبر واتساب"}
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <CheckCircle2 className="h-4 w-4 text-champagne" aria-hidden />
