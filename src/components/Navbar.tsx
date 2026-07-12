@@ -54,10 +54,21 @@ export function Navbar({
           <Link
             href="/"
             aria-label="البكري أوفرسيز — الصفحة الرئيسية"
-            className="tap-target absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center lg:static lg:translate-x-0 lg:translate-y-0"
+            className="tap-target absolute left-1/2 top-1/2 flex max-w-[55%] -translate-x-1/2 -translate-y-1/2 items-center lg:static lg:max-w-none lg:translate-x-0 lg:translate-y-0"
           >
             <Logo priority className="h-8 sm:h-9 lg:h-11" />
           </Link>
+
+          {/* Mobile quick-contact (balances the row against the menu button) */}
+          <a
+            href={whatsappHref(whatsappMessage, whatsapp)}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="تواصل عبر واتساب"
+            className="tap-target grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-whatsapp text-white shadow-sm transition active:scale-95 lg:hidden"
+          >
+            <MessageCircle className="h-5 w-5" aria-hidden />
+          </a>
 
           <nav aria-label="التنقل الرئيسي" className="mx-auto hidden items-center gap-5 lg:flex xl:gap-7">
             <Link
@@ -148,7 +159,7 @@ export function Navbar({
 
           <button
             type="button"
-            className="tap-target ms-auto grid h-11 w-11 place-items-center rounded-xl border border-ice bg-white text-navy shadow-sm transition active:scale-95 lg:hidden"
+            className="tap-target grid h-11 w-11 shrink-0 place-items-center rounded-xl border border-ice bg-white text-navy shadow-sm transition active:scale-95 lg:hidden"
             onClick={() => setOpen((value) => !value)}
             aria-label={open ? "إغلاق القائمة" : "فتح القائمة"}
             aria-expanded={open}

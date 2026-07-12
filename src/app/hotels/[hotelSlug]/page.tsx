@@ -41,9 +41,12 @@ export default async function HotelPage({ params }: { params: Params }) {
   if (!hotel) notFound();
 
   const board = hotel.periods[0]?.board;
-  const payHref = isEasyKashConfigured()
-    ? `/checkout?hotel=${encodeURIComponent(hotel.slug)}`
-    : undefined;
+  // The checkout page IS the price calculator (period × occupancy × adults ×
+  // children × nights). It's always reachable — with EasyKash it ends in online
+  // payment, without it, in a WhatsApp booking carrying the computed breakdown.
+  const checkoutHref =
+    hotel.minPrice != null ? `/checkout?hotel=${encodeURIComponent(hotel.slug)}` : undefined;
+  const payEnabled = isEasyKashConfigured();
 
   return (
     <>
@@ -118,7 +121,8 @@ export default async function HotelPage({ params }: { params: Params }) {
             contextLine={`${hotel.destinationNameAr} — ${hotel.categoryName}`}
             whatsapp={settings.whatsapp}
             phone={settings.phone}
-            payHref={payHref}
+            checkoutHref={checkoutHref}
+            payEnabled={payEnabled}
           />
         </MotionReveal>
       </section>

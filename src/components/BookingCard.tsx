@@ -1,4 +1,5 @@
-import { CheckCircle2, CreditCard, MessageCircle, Phone } from "lucide-react";
+import { Calculator, CheckCircle2, CreditCard, MessageCircle, Phone } from "lucide-react";
+import Link from "next/link";
 import { whatsappHref, telHref } from "@/lib/whatsapp";
 import { Price } from "@/components/Price";
 
@@ -9,7 +10,8 @@ export function BookingCard({
   contextLine,
   whatsapp,
   phone,
-  payHref,
+  checkoutHref,
+  payEnabled,
 }: {
   hotelName: string;
   minPrice: number | null;
@@ -17,7 +19,10 @@ export function BookingCard({
   contextLine?: string;
   whatsapp?: string;
   phone?: string;
-  payHref?: string;
+  /** Link to the price calculator / checkout (always set when the hotel has a price). */
+  checkoutHref?: string;
+  /** True when EasyKash online payment is live (changes the CTA wording only). */
+  payEnabled?: boolean;
 }) {
   const msg =
     "مرحباً، أرغب في حجز " +
@@ -49,14 +54,23 @@ export function BookingCard({
           </div>
         </div>
 
-        {payHref ? (
-          <a
-            href={payHref}
+        {checkoutHref ? (
+          <Link
+            href={checkoutHref}
             className="tap-target mb-3 inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-[15px] bg-navy px-5 font-extrabold text-white transition hover:bg-blue active:scale-[0.98]"
           >
-            <CreditCard className="h-5 w-5" aria-hidden />
-            ادفع أونلاين الآن
-          </a>
+            {payEnabled ? (
+              <>
+                <CreditCard className="h-5 w-5" aria-hidden />
+                احسب السعر وادفع أونلاين
+              </>
+            ) : (
+              <>
+                <Calculator className="h-5 w-5" aria-hidden />
+                احسب سعر إقامتك
+              </>
+            )}
+          </Link>
         ) : null}
 
         <a
