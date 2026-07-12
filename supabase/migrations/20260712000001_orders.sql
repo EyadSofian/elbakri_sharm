@@ -16,9 +16,22 @@ create table if not exists public.orders (
   easykash_ref    text,
   payment_method  text,
   product_code    text,
+  -- Booking selection captured by the checkout calculator.
+  occupancy       text,                        -- double | triple
+  adults          integer,
+  children        integer,
+  nights          integer,
+  total_amount    numeric(12,2),               -- full booking value before deposit%
   created_at      timestamptz  not null default now(),
   paid_at         timestamptz
 );
+
+-- Idempotent add for environments where the table predates these columns.
+alter table public.orders add column if not exists occupancy    text;
+alter table public.orders add column if not exists adults       integer;
+alter table public.orders add column if not exists children     integer;
+alter table public.orders add column if not exists nights       integer;
+alter table public.orders add column if not exists total_amount numeric(12,2);
 
 create index if not exists idx_orders_reference on public.orders (reference);
 create index if not exists idx_orders_status    on public.orders (status);

@@ -49,6 +49,16 @@ function mapPeriods(rate: RateHotel): PricePeriod[] {
       double: fmtPrice(p.double),
       triple: fmtPrice(p.triple),
       price: fmtPrice(p.single ?? p.adult_price),
+      // Live numeric fields the checkout calculator consumes.
+      dateFrom: p.date_from ?? undefined,
+      dateTo: p.date_to ?? undefined,
+      nights: p.nights ?? undefined,
+      pricingBasis: p.pricing_basis ?? undefined,
+      adultPrice: p.single ?? p.adult_price ?? undefined,
+      childPrice: p.child_price ?? undefined,
+      childAgeFrom: p.child_age_from ?? undefined,
+      childAgeTo: p.child_age_to ?? undefined,
+      currency: p.currency ?? undefined,
     } satisfies PricePeriod;
   });
 }

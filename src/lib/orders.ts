@@ -20,6 +20,12 @@ export async function createOrder(o: {
   name: string;
   email: string;
   mobile: string;
+  periodLabel?: string | null;
+  occupancy?: string | null;
+  adults?: number | null;
+  children?: number | null;
+  nights?: number | null;
+  total?: number | null;
 }): Promise<void> {
   if (!canPersist()) return;
   const db = createAdminClient();
@@ -27,12 +33,17 @@ export async function createOrder(o: {
     reference: o.reference,
     hotel_slug: o.hotel.slug,
     hotel_name: o.hotel.nameAr,
-    period_label: o.hotel.periods[0]?.period ?? null,
+    period_label: o.periodLabel ?? o.hotel.periods[0]?.period ?? null,
     amount: o.amount,
     currency: "EGP",
     customer_name: o.name,
     customer_email: o.email,
     customer_mobile: o.mobile,
+    occupancy: o.occupancy ?? null,
+    adults: o.adults ?? null,
+    children: o.children ?? null,
+    nights: o.nights ?? null,
+    total_amount: o.total ?? null,
     status: "pending",
   });
 }

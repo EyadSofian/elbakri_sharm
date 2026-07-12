@@ -43,4 +43,14 @@ Unset → the site serves the static/Supabase catalog exactly as before.
   catalog). A rate-hub outage falls back to the base catalog — the store never
   goes down.
 
-See `src/lib/rates/client.ts` (fetch/parse) and `src/lib/rates/overlay.ts` (mapping).
+## Powers the checkout calculator
+
+Each period also carries `nights`, `days`, `pricing_basis`, `child_price` and
+`child_age_from/to`. The checkout price calculator uses them to charge
+`(adults × adult_price + children × child_price)` — multiplied by `nights` when
+`pricing_basis` contains `per_night`. These fields are additive: when the hub is
+NOT connected the calculator falls back to the static per-person / trip prices
+(nights are not multiplied and the children input is hidden).
+
+See `src/lib/rates/client.ts` (fetch/parse), `src/lib/rates/overlay.ts`
+(mapping) and `src/lib/booking/pricing.ts` (the shared price engine).

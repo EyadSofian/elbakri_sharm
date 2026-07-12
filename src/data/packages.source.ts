@@ -5,6 +5,20 @@ export type PricePeriod = {
   triple?: string;
   price?: string; // for honeymoon per room
   perks?: string;
+  /* ── Live-rate enrichment (from the elbakri-rate hub; undefined for the
+     static seed). Powers the checkout price calculator. ── */
+  dateFrom?: string;
+  dateTo?: string;
+  nights?: number;
+  /** e.g. "per_person_per_night" | "per_person_per_trip" | "per_room_per_night" */
+  pricingBasis?: string;
+  /** Numeric per-adult price (single/generic occupancy) in the period currency. */
+  adultPrice?: number;
+  /** Numeric per-child price; when absent the checkout hides the children input. */
+  childPrice?: number;
+  childAgeFrom?: number;
+  childAgeTo?: number;
+  currency?: string;
 };
 
 export type Hotel = {

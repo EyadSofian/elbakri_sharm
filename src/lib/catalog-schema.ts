@@ -13,6 +13,16 @@ export const pricePeriodSchema = z.object({
   triple: z.string().optional(),
   price: z.string().optional(),
   perks: z.string().optional(),
+  // Live-rate enrichment (optional; absent in the static seed).
+  dateFrom: z.string().optional(),
+  dateTo: z.string().optional(),
+  nights: z.number().optional(),
+  pricingBasis: z.string().optional(),
+  adultPrice: z.number().optional(),
+  childPrice: z.number().optional(),
+  childAgeFrom: z.number().optional(),
+  childAgeTo: z.number().optional(),
+  currency: z.string().optional(),
 });
 
 export const hotelSchema = z.object({

@@ -19,6 +19,13 @@ const periodSchema = z.object({
   double: z.number().nullish(),
   triple: z.number().nullish(),
   adult_price: z.number().nullish(),
+  // Needed by the checkout calculator (period × adults × children × nights).
+  child_price: z.number().nullish(),
+  child_age_from: z.number().nullish(),
+  child_age_to: z.number().nullish(),
+  nights: z.number().nullish(),
+  days: z.number().nullish(),
+  pricing_basis: z.string().nullish(),
 });
 
 const hotelSchema = z.object({
