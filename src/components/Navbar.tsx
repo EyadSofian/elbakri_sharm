@@ -46,17 +46,17 @@ export function Navbar({
     <LazyMotion features={domAnimation} strict>
       <header
         className={clsx(
-          "sticky top-0 z-50 w-full border-b border-ice/80 bg-white/94 backdrop-blur-xl transition-shadow",
+          "sticky top-0 z-50 w-full border-b border-ice/80 bg-white/94 pt-[env(safe-area-inset-top)] backdrop-blur-xl transition-shadow",
           scrolled && "shadow-card",
         )}
       >
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 md:h-[76px]">
+        <div className="relative mx-auto flex h-16 max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 md:h-[76px]">
           <Link
             href="/"
             aria-label="البكري أوفرسيز — الصفحة الرئيسية"
-            className="tap-target flex shrink-0 items-center"
+            className="tap-target absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center lg:static lg:translate-x-0 lg:translate-y-0"
           >
-            <Logo priority className="h-9 sm:h-10 md:h-12" />
+            <Logo priority className="h-8 sm:h-9 lg:h-11" />
           </Link>
 
           <nav aria-label="التنقل الرئيسي" className="mx-auto hidden items-center gap-5 lg:flex xl:gap-7">
@@ -140,7 +140,7 @@ export function Navbar({
             href={whatsappHref(whatsappMessage, whatsapp)}
             target="_blank"
             rel="noreferrer"
-            className="tap-target hidden shrink-0 items-center gap-2 rounded-full bg-navy px-5 text-sm font-extrabold text-white shadow-card transition hover:-translate-y-0.5 hover:bg-blue active:scale-[0.98] md:inline-flex"
+            className="tap-target hidden shrink-0 items-center gap-2 rounded-full bg-navy px-5 text-sm font-extrabold text-white shadow-card transition hover:-translate-y-0.5 hover:bg-blue active:scale-[0.98] lg:inline-flex"
           >
             <MessageCircle className="h-4 w-4" aria-hidden />
             احجز الآن
@@ -148,7 +148,7 @@ export function Navbar({
 
           <button
             type="button"
-            className="tap-target grid place-items-center rounded-xl border border-ice bg-mist text-navy transition active:scale-95 lg:hidden"
+            className="tap-target ms-auto grid h-11 w-11 place-items-center rounded-xl border border-ice bg-white text-navy shadow-sm transition active:scale-95 lg:hidden"
             onClick={() => setOpen((value) => !value)}
             aria-label={open ? "إغلاق القائمة" : "فتح القائمة"}
             aria-expanded={open}

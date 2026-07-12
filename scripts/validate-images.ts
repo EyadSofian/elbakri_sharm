@@ -42,6 +42,7 @@ for (const h of getHoneymoons()) referenced.add(h.image);
 // 2) Fixed brand + fallback + honeymoon-general assets
 const fixed = [
   "/brand/elbakri-logo.png",
+  "/brand/elbakri-logo-wordmark.png",
   "/brand/elbakri-logo-lockup.png",
   "/images/destinations/home.webp",
   "/images/destinations/honeymoon.webp",
