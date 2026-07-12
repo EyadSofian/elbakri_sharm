@@ -14,9 +14,9 @@
   /* Darker gold for small text on LIGHT surfaces (WCAG AA ≥4.5:1). */
   --color-champagne-ink: #8a5a00;
   --color-muted: #5b667a;
-  --color-success: #15803d;
+  --color-success: #0b6b37;
   --color-error: #b91c1c;
-  --color-whatsapp: #128c4a;
+  --color-whatsapp: #0b6b37;
 
   /* Fonts (wired via next/font in layout.tsx) */
   --font-sans: var(--font-arabic), "Segoe UI", system-ui, sans-serif;

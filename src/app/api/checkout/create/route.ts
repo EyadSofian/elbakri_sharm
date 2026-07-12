@@ -14,6 +14,8 @@ const schema = z.object({
   occupancy: z.enum(["double", "triple"]),
   adults: z.coerce.number().int().min(1).max(30),
   children: z.coerce.number().int().min(0).max(30),
+  childAges: z.array(z.coerce.number().min(0).max(17.99)).max(30).default([]),
+  childBedTypes: z.array(z.enum(["sharing", "extra_bed", "any"])).max(30).default([]),
   nights: z.coerce.number().int().min(1).max(60),
   name: z.string().trim().min(2).max(120),
   email: z.string().trim().email().max(160),
@@ -38,7 +40,7 @@ export async function POST(req: Request) {
   if (!parsed.success) {
     return NextResponse.json({ error: "validation", details: parsed.error.flatten() }, { status: 422 });
   }
-  const { hotelSlug, periodIndex, occupancy, adults, children, nights, name, email, mobile } =
+  const { hotelSlug, periodIndex, occupancy, adults, children, childAges, childBedTypes, nights, name, email, mobile } =
     parsed.data;
 
   const hotel = await getHotelBySlug(hotelSlug);
@@ -54,8 +56,19 @@ export async function POST(req: Request) {
     occupancy,
     adults,
     children,
+    childAges,
+    childBedTypes,
     nights,
   });
+  if (children !== childAges.length || children !== childBedTypes.length) {
+    return NextResponse.json({ error: "child_details_required" }, { status: 422 });
+  }
+  if (breakdown.requiresManualConfirmation) {
+    return NextResponse.json(
+      { error: "manual_child_policy", message: breakdown.validationError },
+      { status: 409 },
+    );
+  }
   if (!breakdown.computable || breakdown.total <= 0) {
     return NextResponse.json({ error: "no_price" }, { status: 409 });
   }

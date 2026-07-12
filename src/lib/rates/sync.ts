@@ -22,21 +22,20 @@ const REGION_HINTS: Array<{ destinationSlug: string; hints: string[] }> = [
     hints: ["dahab", "taba", "دهب", "طابا"],
   },
   {
+    destinationSlug: "sahl-hasheesh",
+    hints: ["sahl hasheesh", "سهل حشيش"],
+  },
+  {
+    destinationSlug: "makadi-bay",
+    hints: ["makadi", "مكادي", "مكادى", "مكادي باي", "مكادى باى"],
+  },
+  {
+    destinationSlug: "el-gouna",
+    hints: ["el gouna", "gouna", "الجونه", "الجونة"],
+  },
+  {
     destinationSlug: "hurghada",
-    hints: [
-      "hurghada",
-      "gouna",
-      "makadi",
-      "soma",
-      "sahl hasheesh",
-      "الغردقه",
-      "الغردقة",
-      "الجونه",
-      "الجونة",
-      "مكادي",
-      "سوما",
-      "سهل حشيش",
-    ],
+    hints: ["hurghada", "الغردقه", "الغردقة", "سوما", "soma"],
   },
   {
     destinationSlug: "marsa-alam",
@@ -47,6 +46,33 @@ const REGION_HINTS: Array<{ destinationSlug: string; hints: string[] }> = [
     hints: ["north coast", "alamein", "الساحل", "العلمين"],
   },
 ];
+
+const SPECIAL_DESTINATIONS: Record<string, Omit<Destination, "hotels" | "categories" | "hotelCount" | "minPrice">> = {
+  "sahl-hasheesh": {
+    id: "sahl-hasheesh",
+    slug: "sahl-hasheesh",
+    nameAr: "سهل حشيش",
+    nameEn: "Sahl Hasheesh",
+    tagline: "منتجعات هادئة وشواطئ مميزة جنوب الغردقة",
+    image: "/images/destinations/hurghada.webp",
+  },
+  "makadi-bay": {
+    id: "makadi-bay",
+    slug: "makadi-bay",
+    nameAr: "مكادي",
+    nameEn: "Makadi Bay",
+    tagline: "خليج هادئ ومنتجعات متكاملة تناسب العائلات",
+    image: "/images/destinations/hurghada.webp",
+  },
+  "el-gouna": {
+    id: "el-gouna",
+    slug: "el-gouna",
+    nameAr: "الجونة",
+    nameEn: "El Gouna",
+    tagline: "لاجونات وشواطئ وتجربة إقامة راقية على البحر الأحمر",
+    image: "/images/destinations/hurghada.webp",
+  },
+};
 
 function priceUnitFromBasis(basis?: string | null): PriceUnit {
   const value = (basis ?? "").toLowerCase();
@@ -60,10 +86,19 @@ function priceUnitFromBasis(basis?: string | null): PriceUnit {
 
 function regionForPackageHotel(pkg: RatePackage, hotel: RateHotel): string {
   const packageRegion = pkg.region?.trim();
-  if (packageRegion && normalizeName(packageRegion) !== normalizeName("متعدد")) {
-    return hotel.region?.trim() || packageRegion;
+  const hotelRegion = hotel.region?.trim();
+  const subRegion = hotel.sub_region?.trim();
+  for (const candidate of [subRegion, hotelRegion]) {
+    if (!candidate) continue;
+    const slug = REGION_HINTS.find(({ hints }) =>
+      hints.some((hint) => normalizeName(candidate).includes(normalizeName(hint))),
+    )?.destinationSlug;
+    if (slug && SPECIAL_DESTINATIONS[slug]) return candidate;
   }
-  return hotel.region?.trim() || packageRegion || "وجهات أخرى";
+  if (packageRegion && normalizeName(packageRegion) !== normalizeName("متعدد")) {
+    return hotelRegion || packageRegion;
+  }
+  return hotelRegion || packageRegion || "وجهات أخرى";
 }
 
 function baseDestinationForRegion(base: Destination[], region: string): Destination | undefined {
@@ -99,8 +134,14 @@ function dynamicDestination(region: string): Destination {
 
 function destinationShell(base: Destination[], region: string): Destination {
   const known = baseDestinationForRegion(base, region);
+  const hintedSlug = REGION_HINTS.find(({ hints }) =>
+    hints.some((hint) => normalizeName(region).includes(normalizeName(hint))),
+  )?.destinationSlug;
+  const special = hintedSlug ? SPECIAL_DESTINATIONS[hintedSlug] : undefined;
   return known
     ? { ...known, hotels: [], categories: [], hotelCount: 0, minPrice: null }
+    : special
+      ? { ...special, hotels: [], categories: [], hotelCount: 0, minPrice: null }
     : dynamicDestination(region);
 }
 
@@ -141,6 +182,9 @@ export function syncDestinationsFromRatePackages(
   const usedSlugs = new Map<string, string>();
 
   for (const pkg of packages) {
+    const packageNote = [pkg.group_name, pkg.description]
+      .filter((value, index, values): value is string => Boolean(value) && values.indexOf(value) === index)
+      .join(" — ") || undefined;
     const hotelsByDestination = new Map<string, string[]>();
     const firstPublishedBasis = pkg.hotels
       .flatMap((hotel) => hotel.periods)
@@ -176,7 +220,7 @@ export function syncDestinationsFromRatePackages(
           destinationNameAr: destination.nameAr,
           categoryId: `rate-package-${pkg.id}`,
           categoryName: pkg.package_name,
-          categoryNote: pkg.description ?? undefined,
+          categoryNote: packageNote,
           priceUnit: unit,
           unitLabel: unitLabel(unit),
           periods,
@@ -202,7 +246,7 @@ export function syncDestinationsFromRatePackages(
       destination.categories.push({
         id: `rate-package-${pkg.id}`,
         name: pkg.package_name,
-        note: pkg.description ?? undefined,
+        note: packageNote,
         priceUnit: unit,
         unitLabel: unitLabel(unit),
         hotelSlugs,

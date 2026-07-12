@@ -1,4 +1,5 @@
 import type { Destination, Hotel, PricePeriod } from "@/lib/catalog";
+import type { ChildPolicy } from "@/data/packages.source";
 import { parsePrice } from "@/lib/slug";
 import type { RateHotel } from "./client";
 
@@ -36,6 +37,31 @@ function fmtPrice(n: number | null | undefined): string | undefined {
   return new Intl.NumberFormat("en-US").format(n);
 }
 
+function mapChildPolicy(
+  policy: RateHotel["periods"][number]["child_policy"],
+): ChildPolicy | undefined {
+  if (!policy) return undefined;
+  return {
+    code: policy.code ?? undefined,
+    name: policy.name,
+    description: policy.description ?? undefined,
+    minAdults: policy.min_adults,
+    maxChildren: policy.max_children,
+    rules: policy.rules.map((rule) => ({
+      childNumberFrom: rule.child_number_from,
+      childNumberTo: rule.child_number_to,
+      ageFrom: rule.age_from,
+      ageTo: rule.age_to,
+      pricingType: rule.pricing_type,
+      value: rule.value ?? undefined,
+      bedType: rule.bed_type,
+      notes: rule.notes ?? undefined,
+    })),
+    requiresManualConfirmation: policy.requires_manual_confirmation,
+    legacy: policy.legacy,
+  };
+}
+
 export function mapRatePeriods(rate: RateHotel): PricePeriod[] {
   return rate.periods.map((p) => {
     const period =
@@ -58,6 +84,14 @@ export function mapRatePeriods(rate: RateHotel): PricePeriod[] {
       childPrice: p.child_price ?? undefined,
       childAgeFrom: p.child_age_from ?? undefined,
       childAgeTo: p.child_age_to ?? undefined,
+      childPolicy: mapChildPolicy(p.child_policy),
+      childPolicyByRoom: p.child_policy_by_room
+        ? {
+            single: mapChildPolicy(p.child_policy_by_room.single),
+            double: mapChildPolicy(p.child_policy_by_room.double),
+            triple: mapChildPolicy(p.child_policy_by_room.triple),
+          }
+        : undefined,
       currency: p.currency ?? undefined,
     } satisfies PricePeriod;
   });

@@ -183,6 +183,22 @@ describe("authoritative rate catalog sync", () => {
     });
     expect(out[0].hotels[0].slug).toBe("hotel-88");
   });
+
+  it("keeps Sahl Hasheesh, Makadi and El Gouna as separate destinations", () => {
+    const hotels = [
+      rateHotel({ id: 201, hotel_name: "Sahl Hotel", region: "الغردقة", sub_region: "سهل حشيش" }),
+      rateHotel({ id: 202, hotel_name: "Makadi Hotel", region: "الغردقة", sub_region: "مكادى باى" }),
+      rateHotel({ id: 203, hotel_name: "Gouna Hotel", region: "الجونة", sub_region: "الجونة" }),
+    ];
+    const out = syncDestinationsFromRatePackages(base, [
+      ratePackage(22, "مجموعة البحر الأحمر", hotels, { region: "الغردقة" }),
+    ]);
+    expect(out.map((destination) => destination.slug).sort()).toEqual([
+      "el-gouna",
+      "makadi-bay",
+      "sahl-hasheesh",
+    ]);
+  });
 });
 
 describe("honeymoon catalog sync", () => {

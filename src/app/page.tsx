@@ -116,7 +116,7 @@ export default async function HomePage() {
           <MotionReveal className="hidden lg:block" delay={0.12}>
             <div className="glass-dark overflow-hidden p-3">
               <div className="px-3 pb-3 pt-2">
-                <div className="text-xs font-extrabold text-champagne">ابدأ من الوجهة</div>
+                <div className="text-xs font-extrabold text-champagne-ink">ابدأ من الوجهة</div>
                 <h2 className="mt-1 text-xl font-extrabold text-white">اختيارات سريعة</h2>
               </div>
               <div className="space-y-1">
@@ -133,7 +133,7 @@ export default async function HomePage() {
                     <div className="flex items-center gap-3">
                       <div className="text-left">
                         <div className="text-[10px] text-white/55">من</div>
-                        <div className="font-black text-champagne">
+                        <div className="font-black text-champagne-ink">
                           <Price value={destination.minPrice} />
                           <span className="mr-1 text-[9px]">ج.م</span>
                         </div>

@@ -6,6 +6,28 @@ import { z } from "zod";
  * tests — NOT at request time (no runtime validation cost in pages).
  */
 
+const childPolicyRuleSchema = z.object({
+  childNumberFrom: z.number().int().min(1),
+  childNumberTo: z.number().int().min(1),
+  ageFrom: z.number().min(0),
+  ageTo: z.number().max(17.99),
+  pricingType: z.enum(["free", "fixed", "percent_adult", "adult_rate", "manual"]),
+  value: z.number().optional(),
+  bedType: z.enum(["sharing", "extra_bed", "any"]),
+  notes: z.string().optional(),
+});
+
+const childPolicySchema = z.object({
+  code: z.string().optional(),
+  name: z.string(),
+  description: z.string().optional(),
+  minAdults: z.number().int().min(1),
+  maxChildren: z.number().int().min(0),
+  rules: z.array(childPolicyRuleSchema),
+  requiresManualConfirmation: z.boolean(),
+  legacy: z.boolean().optional(),
+});
+
 export const pricePeriodSchema = z.object({
   period: z.string().min(1),
   board: z.string().optional(),
@@ -22,6 +44,12 @@ export const pricePeriodSchema = z.object({
   childPrice: z.number().optional(),
   childAgeFrom: z.number().optional(),
   childAgeTo: z.number().optional(),
+  childPolicy: childPolicySchema.optional(),
+  childPolicyByRoom: z.object({
+    single: childPolicySchema.optional(),
+    double: childPolicySchema.optional(),
+    triple: childPolicySchema.optional(),
+  }).optional(),
   currency: z.string().optional(),
 });
 

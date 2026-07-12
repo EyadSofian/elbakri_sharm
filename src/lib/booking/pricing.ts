@@ -14,6 +14,7 @@
  *    "per_night" the per-person price is multiplied by the number of nights.
  */
 import type { PricePeriod } from "@/lib/catalog";
+import type { ChildBedType, ChildPolicy } from "@/data/packages.source";
 import { parsePrice } from "@/lib/slug";
 
 export type Occupancy = "double" | "triple";
@@ -23,7 +24,19 @@ export type BookingSelection = {
   occupancy: Occupancy;
   adults: number;
   children: number;
+  childAges?: number[];
+  childBedTypes?: ChildBedType[];
   nights: number;
+};
+
+export type ChildPriceLine = {
+  childNumber: number;
+  age: number | null;
+  bedType: ChildBedType;
+  pricingType: "free" | "fixed" | "percent_adult" | "adult_rate" | "manual";
+  unitPrice: number | null;
+  total: number | null;
+  notes?: string;
 };
 
 export type PriceBreakdown = {
@@ -40,7 +53,11 @@ export type PriceBreakdown = {
   children: number;
   adultsTotal: number;
   childrenTotal: number;
+  childLines: ChildPriceLine[];
   total: number;
+  childPolicyName?: string;
+  requiresManualConfirmation: boolean;
+  validationError?: string;
   /** True only when we could resolve a real per-adult price to charge. */
   computable: boolean;
 };
@@ -73,8 +90,24 @@ export function perAdultPrice(
 }
 
 /** A period supports a children input only when it carries a positive child price. */
-export function hasChildPricing(period: PricePeriod | undefined): boolean {
-  return Boolean(period && period.childPrice != null && period.childPrice > 0);
+export function childPolicyForOccupancy(
+  period: PricePeriod | undefined,
+  occupancy: Occupancy,
+): ChildPolicy | undefined {
+  return period?.childPolicyByRoom?.[occupancy] ?? period?.childPolicy;
+}
+
+export function hasChildPricing(period: PricePeriod | undefined, occupancy: Occupancy = "double"): boolean {
+  const policy = childPolicyForOccupancy(period, occupancy);
+  return Boolean(policy || (period && period.childPrice != null));
+}
+
+export function maxChildrenForPeriod(
+  period: PricePeriod | undefined,
+  occupancy: Occupancy = "double",
+): number {
+  const policy = childPolicyForOccupancy(period, occupancy);
+  return policy ? policy.maxChildren : hasChildPricing(period, occupancy) ? 1 : 0;
 }
 
 /** Which occupancies the period actually has prices for (for the room toggle). */
@@ -98,10 +131,97 @@ export function computeBreakdown(
   const nightsCharged = perNight ? nightsChosen : 1;
 
   const perAdult = perAdultPrice(period, sel.occupancy) ?? 0;
-  const perChild = hasChildPricing(period) ? (period!.childPrice as number) : 0;
+  const policy = childPolicyForOccupancy(period, sel.occupancy);
+  const childLines: ChildPriceLine[] = [];
+  let requiresManualConfirmation = false;
+  let validationError: string | undefined;
 
   const adultsTotal = Math.round(perAdult * adults * nightsCharged);
-  const childrenTotal = Math.round(perChild * children * nightsCharged);
+  let childrenTotal = 0;
+
+  if (children > 0 && policy) {
+    if (adults < policy.minAdults) {
+      requiresManualConfirmation = true;
+      validationError = `تتطلب سياسة الأطفال وجود ${policy.minAdults} بالغ على الأقل.`;
+    } else if (children > policy.maxChildren) {
+      requiresManualConfirmation = true;
+      validationError = `الحد الأقصى للأطفال في هذه الغرفة هو ${policy.maxChildren}.`;
+    }
+
+    for (let index = 0; index < children; index++) {
+      const rawAge = sel.childAges?.[index];
+      const age = Number.isFinite(rawAge) ? Number(rawAge) : null;
+      const bedType = sel.childBedTypes?.[index] ?? "sharing";
+      const childNumber = index + 1;
+      const rule = age === null
+        ? undefined
+        : policy.rules.find(
+            (candidate) =>
+              childNumber >= candidate.childNumberFrom &&
+              childNumber <= candidate.childNumberTo &&
+              age >= candidate.ageFrom &&
+              age <= candidate.ageTo &&
+              (candidate.bedType === "any" || candidate.bedType === bedType),
+          );
+
+      if (!rule || rule.pricingType === "manual") {
+        requiresManualConfirmation = true;
+        validationError ??= age === null
+          ? "أدخل عمر كل طفل لحساب السعر الصحيح."
+          : "هذه الحالة تحتاج تأكيد السعر مع فريق البكري.";
+        childLines.push({
+          childNumber,
+          age,
+          bedType,
+          pricingType: "manual",
+          unitPrice: null,
+          total: null,
+          notes: rule?.notes,
+        });
+        continue;
+      }
+
+      const unitPrice = rule.pricingType === "free"
+        ? 0
+        : rule.pricingType === "fixed"
+          ? (rule.value ?? 0)
+          : rule.pricingType === "percent_adult"
+            ? perAdult * ((rule.value ?? 0) / 100)
+            : perAdult;
+      const lineTotal = Math.round(unitPrice * nightsCharged);
+      childrenTotal += lineTotal;
+      childLines.push({
+        childNumber,
+        age,
+        bedType,
+        pricingType: rule.pricingType,
+        unitPrice,
+        total: lineTotal,
+        notes: rule.notes,
+      });
+    }
+  } else if (children > 0 && period?.childPrice != null) {
+    const unitPrice = period.childPrice;
+    for (let index = 0; index < children; index++) {
+      const lineTotal = Math.round(unitPrice * nightsCharged);
+      childrenTotal += lineTotal;
+      childLines.push({
+        childNumber: index + 1,
+        age: sel.childAges?.[index] ?? null,
+        bedType: sel.childBedTypes?.[index] ?? "sharing",
+        pricingType: "fixed",
+        unitPrice,
+        total: lineTotal,
+      });
+    }
+  } else if (children > 0) {
+    requiresManualConfirmation = true;
+    validationError = "سعر الأطفال يحتاج تأكيدًا من فريق البكري.";
+  }
+
+  const perChild = childLines.length && childLines.every((line) => line.unitPrice === childLines[0].unitPrice)
+    ? (childLines[0].unitPrice ?? 0)
+    : 0;
 
   return {
     currency,
@@ -113,7 +233,11 @@ export function computeBreakdown(
     children,
     adultsTotal,
     childrenTotal,
+    childLines,
     total: adultsTotal + childrenTotal,
-    computable: perAdult > 0,
+    childPolicyName: policy?.name,
+    requiresManualConfirmation,
+    validationError,
+    computable: perAdult > 0 && !requiresManualConfirmation,
   };
 }

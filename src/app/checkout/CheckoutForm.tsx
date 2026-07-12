@@ -19,8 +19,10 @@ import {
   computeBreakdown,
   hasChildPricing,
   isPerNight,
+  maxChildrenForPeriod,
   type Occupancy,
 } from "@/lib/booking/pricing";
+import type { ChildBedType } from "@/data/packages.source";
 import { formatPrice } from "@/lib/slug";
 import { whatsappHref } from "@/lib/whatsapp";
 
@@ -110,6 +112,8 @@ export function CheckoutForm({
   const [occupancy, setOccupancy] = useState<Occupancy>("double");
   const [adults, setAdults] = useState(2);
   const [children, setChildren] = useState(0);
+  const [childAges, setChildAges] = useState<number[]>([]);
+  const [childBedTypes, setChildBedTypes] = useState<ChildBedType[]>([]);
   const [nights, setNights] = useState(periods[0]?.nights ?? 3);
   const [contact, setContact] = useState<Contact>({ name: "", email: "", mobile: "" });
   const [loading, setLoading] = useState(false);
@@ -118,14 +122,24 @@ export function CheckoutForm({
   const period = periods[periodIndex];
   const occOptions = useMemo(() => availableOccupancies(period), [period]);
   const occ: Occupancy = occOptions.includes(occupancy) ? occupancy : occOptions[0];
-  const childAllowed = hasChildPricing(period);
+  const childAllowed = hasChildPricing(period, occ);
+  const maxChildren = Math.max(0, Math.min(10, maxChildrenForPeriod(period, occ)));
   const perNight = isPerNight(period);
   const effChildren = childAllowed ? children : 0;
 
   const breakdown = useMemo(
-    () => computeBreakdown(periods, { periodIndex, occupancy: occ, adults, children: effChildren, nights }),
-    [periods, periodIndex, occ, adults, effChildren, nights],
+    () => computeBreakdown(periods, {
+      periodIndex,
+      occupancy: occ,
+      adults,
+      children: effChildren,
+      childAges,
+      childBedTypes,
+      nights,
+    }),
+    [periods, periodIndex, occ, adults, effChildren, childAges, childBedTypes, nights],
   );
+  const onlinePaymentAvailable = enabled && !breakdown.requiresManualConfirmation;
 
   const deposit = Math.round((breakdown.total * depositPercent) / 100);
   const dateRange =
@@ -137,11 +151,14 @@ export function CheckoutForm({
       `• الفترة: ${period?.period ?? "—"}`,
       `• الغرفة: ${occ === "triple" ? "ثلاثية" : "مزدوجة"}`,
       `• البالغون: ${breakdown.adults}${effChildren ? ` • الأطفال: ${effChildren}` : ""}`,
+      effChildren
+        ? `• أعمار الأطفال: ${childAges.slice(0, effChildren).map((age, index) => `${age} سنة (${childBedTypes[index] === "extra_bed" ? "سرير إضافي" : "مشاركة"})`).join("، ")}`
+        : "",
       perNight ? `• عدد الليالي: ${breakdown.nightsCharged}` : "",
       breakdown.computable ? `• الإجمالي التقديري: ${formatPrice(breakdown.total)} ج.م` : "",
     ].filter(Boolean);
     return lines.join("\n");
-  }, [hotelName, contextLine, period, occ, breakdown, effChildren, perNight]);
+  }, [hotelName, contextLine, period, occ, breakdown, effChildren, childAges, childBedTypes, perNight]);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -157,6 +174,8 @@ export function CheckoutForm({
           occupancy: occ,
           adults,
           children: effChildren,
+          childAges: childAges.slice(0, effChildren),
+          childBedTypes: childBedTypes.slice(0, effChildren),
           nights: breakdown.nightsCharged,
           ...contact,
         }),
@@ -202,6 +221,9 @@ export function CheckoutForm({
                 const i = Number(e.target.value);
                 setPeriodIndex(i);
                 setNights(periods[i]?.nights ?? nights);
+                setChildren(0);
+                setChildAges([]);
+                setChildBedTypes([]);
               }}
               className={`${field} appearance-none pr-10`}
             >
@@ -223,7 +245,12 @@ export function CheckoutForm({
                   <button
                     key={o}
                     type="button"
-                    onClick={() => setOccupancy(o)}
+                    onClick={() => {
+                      setOccupancy(o);
+                      setChildren(0);
+                      setChildAges([]);
+                      setChildBedTypes([]);
+                    }}
                     className={`tap-target flex items-center justify-center gap-2 rounded-[14px] border px-4 py-3 text-sm font-bold transition ${
                       occ === o
                         ? "border-navy bg-navy text-white"
@@ -255,14 +282,61 @@ export function CheckoutForm({
                 icon={<Baby className="h-4 w-4 text-blue" aria-hidden />}
                 value={children}
                 min={0}
-                max={10}
-                onChange={setChildren}
+                max={maxChildren}
+                onChange={(next) => {
+                  setChildren(next);
+                  setChildAges((ages) => Array.from({ length: next }, (_, i) => ages[i] ?? 5));
+                  setChildBedTypes((beds) => Array.from({ length: next }, (_, i) => beds[i] ?? "sharing"));
+                }}
                 hint={
                   period?.childAgeFrom != null && period?.childAgeTo != null
                     ? `سن ${period.childAgeFrom}–${period.childAgeTo} سنة`
                     : undefined
                 }
               />
+            ) : null}
+            {childAllowed && children > 0 ? (
+              <div className="space-y-2 rounded-[16px] border border-ice bg-mist p-3">
+                <div className="text-sm font-extrabold text-navy">أعمار الأطفال ونوع السرير</div>
+                {Array.from({ length: children }, (_, index) => (
+                  <div key={index} className="grid grid-cols-2 gap-2">
+                    <label className="text-xs font-bold text-navy">
+                      عمر الطفل {index + 1}
+                      <input
+                        type="number"
+                        min={0}
+                        max={17}
+                        step={0.5}
+                        value={childAges[index] ?? 5}
+                        onChange={(event) => setChildAges((ages) => {
+                          const next = [...ages];
+                          next[index] = Number(event.target.value);
+                          return next;
+                        })}
+                        className={`${field} mt-1 py-2`}
+                      />
+                    </label>
+                    <label className="text-xs font-bold text-navy">
+                      الإقامة
+                      <select
+                        value={childBedTypes[index] ?? "sharing"}
+                        onChange={(event) => setChildBedTypes((beds) => {
+                          const next = [...beds];
+                          next[index] = event.target.value as ChildBedType;
+                          return next;
+                        })}
+                        className={`${field} mt-1 py-2`}
+                      >
+                        <option value="sharing">مشاركة السرير</option>
+                        <option value="extra_bed">سرير إضافي</option>
+                      </select>
+                    </label>
+                  </div>
+                ))}
+                {breakdown.validationError ? (
+                  <p className="text-xs font-semibold text-error">{breakdown.validationError}</p>
+                ) : null}
+              </div>
             ) : null}
             {perNight ? (
               <Stepper
@@ -284,7 +358,7 @@ export function CheckoutForm({
           </div>
         </section>
 
-        {enabled ? (
+        {onlinePaymentAvailable ? (
           <form onSubmit={onSubmit} className="surface space-y-4 rounded-[22px] p-5 sm:p-6" noValidate>
             <h2 className="text-lg font-extrabold text-navy">بياناتك</h2>
             <div>
@@ -353,7 +427,9 @@ export function CheckoutForm({
         ) : (
           <div className="surface rounded-[22px] p-5 text-center sm:p-6">
             <p className="mb-4 text-sm leading-relaxed text-navy/80">
-              راجع اختياراتك أعلاه ثم أكمل الحجز مع فريقنا عبر واتساب لتأكيد السعر النهائي والتوافر.
+              {breakdown.requiresManualConfirmation
+                ? "سياسة الأطفال في هذا الاختيار تحتاج مراجعة بشرية. أرسل التفاصيل لفريقنا لتأكيد السعر الصحيح."
+                : "راجع اختياراتك أعلاه ثم أكمل الحجز مع فريقنا عبر واتساب لتأكيد السعر النهائي والتوافر."}
             </p>
             <a
               href={whatsappHref(waMessage, whatsapp)}
@@ -416,7 +492,7 @@ export function CheckoutForm({
                     <Num value={breakdown.total} /> <span className="text-xs font-semibold">ج.م</span>
                   </dd>
                 </div>
-                {enabled && depositPercent < 100 ? (
+                {onlinePaymentAvailable && depositPercent < 100 ? (
                   <div className="flex items-baseline justify-between gap-3 rounded-[14px] bg-champagne/10 px-3 py-2">
                     <dt className="font-bold text-champagne-ink">دفعة التأكيد ({depositPercent}%)</dt>
                     <dd className="text-lg font-black text-navy">

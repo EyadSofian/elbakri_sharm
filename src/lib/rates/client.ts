@@ -3,6 +3,28 @@ import { z } from "zod";
 
 /** Server-only client for the token-gated elbakri-rate public catalog. */
 
+const childPolicyRuleSchema = z.object({
+  child_number_from: z.number().int().min(1),
+  child_number_to: z.number().int().min(1),
+  age_from: z.number().min(0),
+  age_to: z.number().max(17.99),
+  pricing_type: z.enum(["free", "fixed", "percent_adult", "adult_rate", "manual"]),
+  value: z.number().nullish(),
+  bed_type: z.enum(["sharing", "extra_bed", "any"]),
+  notes: z.string().nullish().optional(),
+});
+
+const childPolicySchema = z.object({
+  code: z.string().nullish().optional(),
+  name: z.string().default("سياسة الأطفال"),
+  description: z.string().nullish().optional(),
+  min_adults: z.number().int().min(1).default(1),
+  max_children: z.number().int().min(0).default(0),
+  rules: z.array(childPolicyRuleSchema).default([]),
+  requires_manual_confirmation: z.boolean().default(false),
+  legacy: z.boolean().optional(),
+});
+
 const periodSchema = z.object({
   season_name: z.string().nullish(),
   date_from: z.string().nullish(),
@@ -19,6 +41,12 @@ const periodSchema = z.object({
   nights: z.number().nullish(),
   days: z.number().nullish(),
   pricing_basis: z.string().nullish(),
+  child_policy: childPolicySchema.nullish().optional(),
+  child_policy_by_room: z.object({
+    single: childPolicySchema.optional(),
+    double: childPolicySchema.optional(),
+    triple: childPolicySchema.optional(),
+  }).nullish().optional(),
 });
 
 const hotelSchema = z.object({
@@ -44,6 +72,9 @@ const packageSchema = z.object({
   description: z.string().nullish(),
   default_meal_plan: z.string().nullish(),
   default_pricing_basis: z.string().nullish(),
+  hotel_group_id: z.number().int().nullish().optional(),
+  group_name: z.string().nullish().optional(),
+  group_brand_name: z.string().nullish().optional(),
   hotels: z.array(hotelSchema),
 });
 

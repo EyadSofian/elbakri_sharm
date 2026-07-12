@@ -88,6 +88,71 @@ describe("per-night hub pricing (adults + children × nights)", () => {
   });
 });
 
+describe("structured child policies", () => {
+  const structured: PricePeriod[] = [{
+    period: "صيف 2026",
+    double: "1,000",
+    pricingBasis: "per_person_per_night",
+    childPolicy: {
+      code: "FAMILY",
+      name: "سياسة الأسرة",
+      minAdults: 2,
+      maxChildren: 2,
+      requiresManualConfirmation: true,
+      rules: [
+        {
+          childNumberFrom: 1,
+          childNumberTo: 1,
+          ageFrom: 0,
+          ageTo: 5.99,
+          pricingType: "free",
+          bedType: "sharing",
+        },
+        {
+          childNumberFrom: 2,
+          childNumberTo: 2,
+          ageFrom: 0,
+          ageTo: 11.99,
+          pricingType: "percent_adult",
+          value: 50,
+          bedType: "any",
+        },
+      ],
+    },
+  }];
+
+  it("prices each child by order, age and bed rule", () => {
+    const result = computeBreakdown(structured, {
+      periodIndex: 0,
+      occupancy: "double",
+      adults: 2,
+      children: 2,
+      childAges: [5, 9],
+      childBedTypes: ["sharing", "sharing"],
+      nights: 3,
+    });
+    expect(result.adultsTotal).toBe(6000);
+    expect(result.childrenTotal).toBe(1500);
+    expect(result.total).toBe(7500);
+    expect(result.childLines.map((line) => line.pricingType)).toEqual(["free", "percent_adult"]);
+    expect(result.computable).toBe(true);
+  });
+
+  it("blocks online calculation when a child has no matching rule", () => {
+    const result = computeBreakdown(structured, {
+      periodIndex: 0,
+      occupancy: "double",
+      adults: 2,
+      children: 1,
+      childAges: [8],
+      childBedTypes: ["sharing"],
+      nights: 3,
+    });
+    expect(result.requiresManualConfirmation).toBe(true);
+    expect(result.computable).toBe(false);
+  });
+});
+
 describe("guards", () => {
   it("clamps adults to at least 1 and children to at least 0", () => {
     const b = computeBreakdown(trip, {

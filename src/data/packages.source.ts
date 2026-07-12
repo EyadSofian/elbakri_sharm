@@ -1,3 +1,28 @@
+export type ChildPricingType = "free" | "fixed" | "percent_adult" | "adult_rate" | "manual";
+export type ChildBedType = "sharing" | "extra_bed" | "any";
+
+export type ChildPolicyRule = {
+  childNumberFrom: number;
+  childNumberTo: number;
+  ageFrom: number;
+  ageTo: number;
+  pricingType: ChildPricingType;
+  value?: number;
+  bedType: ChildBedType;
+  notes?: string;
+};
+
+export type ChildPolicy = {
+  code?: string;
+  name: string;
+  description?: string;
+  minAdults: number;
+  maxChildren: number;
+  rules: ChildPolicyRule[];
+  requiresManualConfirmation: boolean;
+  legacy?: boolean;
+};
+
 export type PricePeriod = {
   period: string;
   board?: string;
@@ -18,6 +43,9 @@ export type PricePeriod = {
   childPrice?: number;
   childAgeFrom?: number;
   childAgeTo?: number;
+  /** Structured hotel policy, with optional occupancy-specific overrides. */
+  childPolicy?: ChildPolicy;
+  childPolicyByRoom?: Partial<Record<"single" | "double" | "triple", ChildPolicy>>;
   currency?: string;
 };
 
