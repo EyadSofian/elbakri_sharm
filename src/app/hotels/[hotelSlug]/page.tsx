@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Utensils, ChevronLeft, MapPin, Info } from "lucide-react";
 import { getAllHotels, getHotelBySlug, getSiteSettings } from "@/lib/data";
+import { isEasyKashConfigured } from "@/lib/easykash";
 import { PageHero } from "@/components/PageHero";
 import { BookingCard } from "@/components/BookingCard";
 import { HotelPricePeriods } from "@/components/HotelPricePeriods";
@@ -40,6 +41,9 @@ export default async function HotelPage({ params }: { params: Params }) {
   if (!hotel) notFound();
 
   const board = hotel.periods[0]?.board;
+  const payHref = isEasyKashConfigured()
+    ? `/checkout?hotel=${encodeURIComponent(hotel.slug)}`
+    : undefined;
 
   return (
     <>
@@ -114,6 +118,7 @@ export default async function HotelPage({ params }: { params: Params }) {
             contextLine={`${hotel.destinationNameAr} — ${hotel.categoryName}`}
             whatsapp={settings.whatsapp}
             phone={settings.phone}
+            payHref={payHref}
           />
         </MotionReveal>
       </section>

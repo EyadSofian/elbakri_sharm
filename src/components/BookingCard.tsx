@@ -1,4 +1,4 @@
-import { CheckCircle2, MessageCircle, Phone } from "lucide-react";
+import { CheckCircle2, CreditCard, MessageCircle, Phone } from "lucide-react";
 import { whatsappHref, telHref } from "@/lib/whatsapp";
 import { Price } from "@/components/Price";
 
@@ -9,6 +9,7 @@ export function BookingCard({
   contextLine,
   whatsapp,
   phone,
+  payHref,
 }: {
   hotelName: string;
   minPrice: number | null;
@@ -16,6 +17,7 @@ export function BookingCard({
   contextLine?: string;
   whatsapp?: string;
   phone?: string;
+  payHref?: string;
 }) {
   const msg =
     "مرحباً، أرغب في حجز " +
@@ -46,6 +48,16 @@ export function BookingCard({
             تواصل مباشر مع فريق الحجز
           </div>
         </div>
+
+        {payHref ? (
+          <a
+            href={payHref}
+            className="tap-target mb-3 inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-[15px] bg-navy px-5 font-extrabold text-white transition hover:bg-blue active:scale-[0.98]"
+          >
+            <CreditCard className="h-5 w-5" aria-hidden />
+            ادفع أونلاين الآن
+          </a>
+        ) : null}
 
         <a
           href={whatsappHref(msg, whatsapp)}
