@@ -1,10 +1,12 @@
 /**
  * Public data-access layer (source of truth switch).
  *
- * Production source is Supabase; when Supabase env is absent the static seed
- * catalog (`@/lib/catalog`) is used verbatim so the site still builds and runs.
- * Pages import ONLY from here (never from @/lib/catalog directly) so an admin
- * edit is reflected everywhere.
+ * Base catalog: Supabase when configured, else the static seed (`@/lib/catalog`).
+ * When the elbakri-rate hub is configured (RATE_API_URL + RATE_API_PUBLIC_TOKEN),
+ * live "Ready" prices are overlaid onto the base catalog by hotel name — the
+ * structure, images and slugs stay curated; only the price periods refresh, via
+ * ISR (~15 min). Pages import ONLY from here so an admin edit or a rate update
+ * is reflected everywhere.
  */
 import { isSupabaseConfigured } from "@/lib/supabase/env";
 import * as staticCatalog from "@/lib/catalog";
@@ -17,6 +19,8 @@ import {
 } from "@/lib/catalog";
 import { DEFAULT_WHATSAPP_MESSAGE } from "@/lib/whatsapp";
 import * as supa from "./supabase-source";
+import { getRateHotels } from "@/lib/rates/client";
+import { overlayDestinations } from "@/lib/rates/overlay";
 
 export type { Destination, Hotel, Honeymoon };
 
@@ -42,28 +46,41 @@ const STATIC_SETTINGS: SiteSettings = {
   defaultWhatsappMessage: DEFAULT_WHATSAPP_MESSAGE,
 };
 
+function baseDestinations(): Promise<Destination[]> {
+  return isSupabaseConfigured()
+    ? supa.getDestinations()
+    : Promise.resolve(staticCatalog.getDestinations());
+}
+
+/** Destinations with live rate prices overlaid when the rate hub is configured. */
 export async function getDestinations(): Promise<Destination[]> {
-  return isSupabaseConfigured() ? supa.getDestinations() : staticCatalog.getDestinations();
+  const base = await baseDestinations();
+  const rateHotels = await getRateHotels();
+  return rateHotels ? overlayDestinations(base, rateHotels) : base;
 }
 
 export async function getDestinationBySlug(slug: string): Promise<Destination | undefined> {
-  return isSupabaseConfigured()
-    ? supa.getDestinationBySlug(slug)
-    : staticCatalog.getDestinationBySlug(slug);
+  return (await getDestinations()).find((d) => d.slug === slug);
 }
 
 export async function getAllHotels(): Promise<Hotel[]> {
-  return isSupabaseConfigured() ? supa.getAllHotels() : staticCatalog.getAllHotels();
+  return (await getDestinations()).flatMap((d) => d.hotels);
 }
 
 export async function getHotelBySlug(slug: string): Promise<Hotel | undefined> {
-  return isSupabaseConfigured() ? supa.getHotelBySlug(slug) : staticCatalog.getHotelBySlug(slug);
+  return (await getAllHotels()).find((h) => h.slug === slug);
 }
 
 export async function getFeaturedHotels(count = 6): Promise<Hotel[]> {
-  return isSupabaseConfigured()
-    ? supa.getFeaturedHotels(count)
-    : staticCatalog.getFeaturedHotels(count);
+  return (await getDestinations())
+    .map(
+      (d) =>
+        [...d.hotels]
+          .filter((h) => h.minPrice != null)
+          .sort((a, b) => (a.minPrice ?? Infinity) - (b.minPrice ?? Infinity))[0],
+    )
+    .filter((h): h is Hotel => Boolean(h))
+    .slice(0, count);
 }
 
 export async function getHoneymoons(): Promise<Honeymoon[]> {
@@ -77,9 +94,7 @@ export async function getHoneymoonBySlug(slug: string): Promise<Honeymoon | unde
 }
 
 export async function getHoneymoonRegions(): Promise<string[]> {
-  return isSupabaseConfigured()
-    ? supa.getHoneymoonRegions()
-    : staticCatalog.getHoneymoonRegions();
+  return isSupabaseConfigured() ? supa.getHoneymoonRegions() : staticCatalog.getHoneymoonRegions();
 }
 
 export async function getSiteSettings(): Promise<SiteSettings> {
