@@ -7,6 +7,7 @@ import {
   Heart,
   MapPinned,
   MessageCircle,
+  Package,
   ShieldCheck,
   Sparkles,
 } from "lucide-react";
@@ -18,6 +19,7 @@ import { MotionReveal } from "@/components/MotionReveal";
 import { OrganizationJsonLd } from "@/components/JsonLd";
 import { Price } from "@/components/Price";
 import { whatsappHref } from "@/lib/whatsapp";
+import { CatalogSearch, type CatalogSearchItem } from "@/components/CatalogSearch";
 
 export const revalidate = 300;
 
@@ -47,6 +49,45 @@ export default async function HomePage() {
   const adviceMessage = "مرحباً، أحتاج مساعدة في اختيار أفضل عرض مناسب لرحلتي";
   const bookingHref = whatsappHref(adviceMessage, settings.whatsapp);
   const payEnabled = isEasyKashConfigured();
+  const searchItems: CatalogSearchItem[] = [];
+  for (const destination of destinations) {
+    searchItems.push({
+      id: `destination-${destination.slug}`,
+      type: "destination",
+      label: destination.nameAr,
+      description: `${destination.hotelCount} فندق وباقة`,
+      href: `/destinations/${destination.slug}`,
+      keywords: `${destination.nameEn} ${destination.tagline}`,
+    });
+    for (const category of destination.categories) {
+      searchItems.push({
+        id: `package-${destination.slug}-${category.id}`,
+        type: "package",
+        label: category.name,
+        description: `${category.groupName ? `${category.groupName} — ` : ""}${destination.nameAr}`,
+        href: `/destinations/${destination.slug}#package-${category.id}`,
+        keywords: `${category.groupName ?? ""} ${category.groupBrandName ?? ""} ${category.note ?? ""}`,
+      });
+    }
+    for (const hotel of destination.hotels) {
+      const memberships = destination.categories.filter((category) => category.hotelSlugs.includes(hotel.slug));
+      searchItems.push({
+        id: `hotel-${hotel.slug}`,
+        type: "hotel",
+        label: hotel.nameAr,
+        description: destination.nameAr,
+        href: `/hotels/${hotel.slug}`,
+        keywords: `${hotel.nameEn} ${memberships.map((category) => `${category.name} ${category.groupName ?? ""}`).join(" ")}`,
+      });
+    }
+  }
+  const packageCards = destinations.flatMap((destination) =>
+    destination.categories.map((category) => ({ destination, category })),
+  ).sort((a, b) => {
+    const aAlbatros = /الب[ـ\s]*اتروس|albatros/i.test(`${a.category.groupName ?? ""} ${a.category.name}`) ? 0 : 1;
+    const bAlbatros = /الب[ـ\s]*اتروس|albatros/i.test(`${b.category.groupName ?? ""} ${b.category.name}`) ? 0 : 1;
+    return aAlbatros - bAlbatros || a.destination.nameAr.localeCompare(b.destination.nameAr, "ar");
+  });
 
   return (
     <>
@@ -156,12 +197,63 @@ export default async function HomePage() {
                 <item.icon className="h-4.5 w-4.5" aria-hidden />
               </div>
               <div className="min-w-0">
-                <div className="text-xs font-extrabold text-navy sm:text-sm">{item.title}</div>
+                <div className="text-xs font-extrabold text-navy sm:text-sm">
+                  {item.icon === MapPinned ? `${destinations.length} وجهات` : item.title}
+                </div>
                 <div className="mt-0.5 text-[10px] leading-snug text-muted sm:text-xs">{item.sub}</div>
               </div>
             </div>
           ))}
         </div>
+      </section>
+
+      <section aria-label="البحث في الفنادق والباقات" className="relative z-20 px-4 pt-10 sm:px-6 md:pt-14">
+        <div className="mx-auto max-w-6xl rounded-[26px] border border-ice bg-mist p-4 shadow-card sm:p-6">
+          <CatalogSearch items={searchItems} />
+        </div>
+      </section>
+
+      <section id="packages" className="mx-auto max-w-7xl scroll-mt-24 px-4 pb-5 pt-14 sm:px-6 md:pt-20">
+        <MotionReveal className="mb-7 max-w-3xl">
+          <div className="section-kicker">الباقات ومجموعات الفنادق</div>
+          <h2 className="section-title mt-2">كل المجموعات والباقات في مكان واحد</h2>
+          <p className="section-copy mt-3">
+            اختر مجموعة الباتروس أو أي باقة أخرى، ثم شاهد فنادقها وأسعارها داخل الوجهة.
+          </p>
+        </MotionReveal>
+        <MotionReveal
+          className="mobile-snap -mx-4 grid grid-flow-col auto-cols-[86%] gap-3 overflow-x-auto px-4 pb-4 sm:mx-0 sm:grid-flow-row sm:auto-cols-auto sm:grid-cols-2 sm:overflow-visible sm:px-0 lg:grid-cols-3"
+          delay={0.06}
+        >
+          {packageCards.map(({ destination, category }) => (
+            <Link
+              key={`${destination.slug}-${category.id}`}
+              href={`/destinations/${destination.slug}#package-${category.id}`}
+              className="tap-target group flex min-h-32 flex-col justify-between rounded-[20px] border border-ice bg-white p-5 shadow-card transition hover:-translate-y-1 hover:border-navy/20 hover:shadow-card-hover"
+            >
+              <div className="flex items-start justify-between gap-3">
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-navy text-white">
+                  <Package className="h-4.5 w-4.5" aria-hidden />
+                </span>
+                <span className="rounded-full bg-mist px-3 py-1 text-[11px] font-bold text-muted">
+                  {destination.nameAr}
+                </span>
+              </div>
+              <div className="mt-4">
+                {category.groupName ? (
+                  <div className="mb-1 text-xs font-extrabold text-champagne-ink">{category.groupName}</div>
+                ) : null}
+                <h3 className="line-clamp-2 font-extrabold leading-snug text-navy">{category.name}</h3>
+                <div className="mt-2 flex items-center justify-between text-xs text-muted">
+                  <span>{category.hotelSlugs.length} فندق</span>
+                  <span className="inline-flex items-center gap-1 font-bold text-navy">
+                    شاهد الباقة <ArrowLeft className="h-3.5 w-3.5 transition group-hover:-translate-x-1" aria-hidden />
+                  </span>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </MotionReveal>
       </section>
 
       <section id="destinations" className="mx-auto max-w-7xl scroll-mt-24 px-4 py-16 sm:px-6 md:py-24">

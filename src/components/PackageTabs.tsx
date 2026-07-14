@@ -22,6 +22,7 @@ export function PackageTabs({
         return (
           <button
             key={c.id}
+            id={`package-${c.id}`}
             type="button"
             role="tab"
             aria-selected={on}
@@ -32,9 +33,18 @@ export function PackageTabs({
                 : "border-ice bg-white text-navy/75 hover:border-navy/25 hover:bg-mist"
             }`}
           >
-            {c.name}
-            <span className={`mr-1.5 text-[10px] ${on ? "text-white/65" : "text-muted"}`}>
-              {c.hotelSlugs.length}
+            <span className="inline-flex items-center gap-1.5">
+              <span>
+                {c.groupName ? (
+                  <span className={`mb-0.5 block text-[9px] leading-none ${on ? "text-champagne" : "text-champagne-ink"}`}>
+                    {c.groupName}
+                  </span>
+                ) : null}
+                <span>{c.name}</span>
+              </span>
+              <span className={`text-[10px] ${on ? "text-white/65" : "text-muted"}`}>
+                {c.hotelSlugs.length}
+              </span>
             </span>
           </button>
         );

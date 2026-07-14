@@ -3,8 +3,11 @@ import type { PricePeriod } from "@/lib/catalog";
 import {
   availableOccupancies,
   computeBreakdown,
+  defaultNightsForPeriod,
   hasChildPricing,
   isPerNight,
+  isPerRoom,
+  maxChildrenForPeriod,
   perAdultPrice,
 } from "@/lib/booking/pricing";
 
@@ -177,5 +180,48 @@ describe("guards", () => {
     });
     expect(b.computable).toBe(false);
     expect(b.total).toBe(0);
+  });
+});
+
+describe("occupancy and pricing-basis behavior", () => {
+  it("defaults an unspecified per-night stay to one night", () => {
+    expect(defaultNightsForPeriod({ period: "ليلة", pricingBasis: "per person per night" })).toBe(1);
+    expect(isPerNight({ period: "ليلة", pricingBasis: "per person per night" })).toBe(true);
+  });
+
+  it("charges a per-room rate once, regardless of adult count", () => {
+    const period: PricePeriod = {
+      period: "غرفة",
+      double: "5,000",
+      triple: "6,000",
+      pricingBasis: "per_room_per_night",
+    };
+    const result = computeBreakdown([period], {
+      periodIndex: 0,
+      occupancy: "triple",
+      adults: 3,
+      children: 0,
+      nights: 4,
+    });
+    expect(isPerRoom(period)).toBe(true);
+    expect(result.isPerRoom).toBe(true);
+    expect(result.accommodationTotal).toBe(24000);
+    expect(result.total).toBe(24000);
+  });
+
+  it("allows entering children for an unconfigured manual policy", () => {
+    const period: PricePeriod = {
+      period: "يدوي",
+      double: "1,000",
+      childPolicy: {
+        name: "تأكيد يدوي",
+        minAdults: 1,
+        maxChildren: 0,
+        rules: [],
+        requiresManualConfirmation: true,
+      },
+    };
+    expect(hasChildPricing(period)).toBe(true);
+    expect(maxChildrenForPeriod(period)).toBe(4);
   });
 });

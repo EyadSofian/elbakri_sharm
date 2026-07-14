@@ -6,6 +6,20 @@ test("home renders hero and destinations", async ({ page }) => {
   await expect(page.getByRole("link", { name: "شرم الشيخ" }).first()).toBeVisible();
 });
 
+test("global search finds hotels and Albatros packages", async ({ page }) => {
+  await page.goto("/");
+  const search = page.getByPlaceholder(/مثال: الباتروس/);
+  await search.fill("الباتروس");
+  await expect(page.getByRole("listbox")).toBeVisible();
+  await expect(page.getByRole("option").first()).toBeVisible();
+});
+
+test("selecting a triple room sets three adults", async ({ page }) => {
+  await page.goto("/checkout?hotel=falcon-naama-star");
+  await page.getByTestId("occupancy-triple").click();
+  await expect(page.getByTestId("adults-stepper-value")).toHaveText("3");
+});
+
 test("analytics bootstrap Meta Pixel, Clarity and GTM", async ({ page }) => {
   await page.goto("/");
   await expect
@@ -22,7 +36,7 @@ test("analytics bootstrap Meta Pixel, Clarity and GTM", async ({ page }) => {
 test("destination: package tabs + hotel search filter", async ({ page }) => {
   await page.goto("/destinations/sharm-el-sheikh");
   await expect(page.getByRole("tab").first()).toBeVisible();
-  const search = page.getByPlaceholder("ابحث عن فندق...");
+  const search = page.getByPlaceholder(/مثال: الباتروس أو اسم الفندق/);
   await search.fill("فالكون");
   await expect(page.getByRole("heading", { name: /فالكون/ }).first()).toBeVisible();
   await search.fill("لا يوجد هذا الفندق");

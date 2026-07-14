@@ -35,6 +35,7 @@ export default async function CheckoutPage({
         hotelName={hotel.nameAr}
         contextLine={`${hotel.destinationNameAr} — باقة ${hotel.categoryName}`}
         unitLabel={hotel.unitLabel}
+        priceUnit={hotel.priceUnit}
         periods={hotel.periods}
         depositPercent={depositPercent()}
         enabled={enabled}

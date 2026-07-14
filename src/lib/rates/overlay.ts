@@ -79,6 +79,7 @@ export function mapRatePeriods(rate: RateHotel): PricePeriod[] {
       dateFrom: p.date_from ?? undefined,
       dateTo: p.date_to ?? undefined,
       nights: p.nights ?? undefined,
+      days: p.days ?? undefined,
       pricingBasis: p.pricing_basis ?? undefined,
       adultPrice: p.single ?? p.adult_price ?? undefined,
       childPrice: p.child_price ?? undefined,

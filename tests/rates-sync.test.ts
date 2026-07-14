@@ -199,6 +199,17 @@ describe("authoritative rate catalog sync", () => {
       "sahl-hasheesh",
     ]);
   });
+
+  it("labels Albatros packages as a visible hotel group", () => {
+    const out = syncDestinationsFromRatePackages(base, [
+      ratePackage(31, "البـاتروس شرم الشيخ ( الأسعار للفرد في الغرفة ليلة واحدة )", [rateHotel()]),
+    ]);
+    expect(out[0].categories[0]).toMatchObject({
+      name: "البـاتروس شرم الشيخ",
+      groupName: "مجموعة الباتروس",
+      groupBrandName: "Albatros",
+    });
+  });
 });
 
 describe("honeymoon catalog sync", () => {

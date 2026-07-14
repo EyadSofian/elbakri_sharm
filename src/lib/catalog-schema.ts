@@ -39,6 +39,7 @@ export const pricePeriodSchema = z.object({
   dateFrom: z.string().optional(),
   dateTo: z.string().optional(),
   nights: z.number().optional(),
+  days: z.number().optional(),
   pricingBasis: z.string().optional(),
   adultPrice: z.number().optional(),
   childPrice: z.number().optional(),

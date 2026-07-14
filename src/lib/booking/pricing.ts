@@ -14,10 +14,11 @@
  *    "per_night" the per-person price is multiplied by the number of nights.
  */
 import type { PricePeriod } from "@/lib/catalog";
-import type { ChildBedType, ChildPolicy } from "@/data/packages.source";
+import type { ChildBedType, ChildPolicy, PackageCategory } from "@/data/packages.source";
 import { parsePrice } from "@/lib/slug";
 
 export type Occupancy = "double" | "triple";
+export type PriceUnit = PackageCategory["priceUnit"];
 
 export type BookingSelection = {
   periodIndex: number;
@@ -27,6 +28,7 @@ export type BookingSelection = {
   childAges?: number[];
   childBedTypes?: ChildBedType[];
   nights: number;
+  priceUnit?: PriceUnit;
 };
 
 export type ChildPriceLine = {
@@ -47,11 +49,14 @@ export type PriceBreakdown = {
   perChild: number;
   /** Whether the unit prices are multiplied by nights. */
   isPerNight: boolean;
+  /** Whether the selected rate is charged once per room instead of per adult. */
+  isPerRoom: boolean;
   /** Nights actually used in the maths (1 when the basis is per-trip). */
   nightsCharged: number;
   adults: number;
   children: number;
   adultsTotal: number;
+  accommodationTotal: number;
   childrenTotal: number;
   childLines: ChildPriceLine[];
   total: number;
@@ -69,7 +74,18 @@ const clampInt = (n: number, min: number) => {
 
 /** Does this period charge per night (hub data) rather than per whole trip? */
 export function isPerNight(period: PricePeriod | undefined): boolean {
-  return Boolean(period?.pricingBasis && /per_night/i.test(period.pricingBasis));
+  const basis = (period?.pricingBasis ?? "").toLowerCase().replace(/[_-]+/g, " ");
+  return /\bnight(?:ly)?\b/.test(basis) || basis.includes("ليلة");
+}
+
+export function isPerRoom(period: PricePeriod | undefined): boolean {
+  const basis = (period?.pricingBasis ?? "").toLowerCase().replace(/[_-]+/g, " ");
+  return /\broom\b/.test(basis) || basis.includes("غرفة");
+}
+
+/** Hub rates without an explicit stay length represent one pricing unit. */
+export function defaultNightsForPeriod(period: PricePeriod | undefined): number {
+  return period?.nights && period.nights > 0 ? Math.floor(period.nights) : 1;
 }
 
 /** Per-adult price for the requested room occupancy, or null if none resolves. */
@@ -107,7 +123,12 @@ export function maxChildrenForPeriod(
   occupancy: Occupancy = "double",
 ): number {
   const policy = childPolicyForOccupancy(period, occupancy);
-  return policy ? policy.maxChildren : hasChildPricing(period, occupancy) ? 1 : 0;
+  if (policy) {
+    if (policy.maxChildren > 0) return policy.maxChildren;
+    // An unconfigured/manual legacy policy means "ask us", not "children are forbidden".
+    return policy.requiresManualConfirmation ? 4 : 0;
+  }
+  return hasChildPricing(period, occupancy) ? 1 : 0;
 }
 
 /** Which occupancies the period actually has prices for (for the room toggle). */
@@ -115,7 +136,10 @@ export function availableOccupancies(period: PricePeriod | undefined): Occupancy
   const out: Occupancy[] = [];
   if (parsePrice(period?.double) != null) out.push("double");
   if (parsePrice(period?.triple) != null) out.push("triple");
-  return out.length ? out : ["double"];
+  if (out.length) return out;
+  return period?.adultPrice != null || parsePrice(period?.price) != null
+    ? ["double", "triple"]
+    : ["double"];
 }
 
 export function computeBreakdown(
@@ -123,8 +147,12 @@ export function computeBreakdown(
   sel: BookingSelection,
 ): PriceBreakdown {
   const period = periods[sel.periodIndex];
+  const effectivePeriod = period && !period.pricingBasis && sel.priceUnit
+    ? { ...period, pricingBasis: sel.priceUnit }
+    : period;
   const currency = period?.currency ?? "EGP";
-  const perNight = isPerNight(period);
+  const perNight = isPerNight(effectivePeriod);
+  const perRoom = isPerRoom(effectivePeriod);
   const adults = clampInt(sel.adults, 1);
   const children = clampInt(sel.children, 0);
   const nightsChosen = clampInt(sel.nights, 1);
@@ -136,7 +164,8 @@ export function computeBreakdown(
   let requiresManualConfirmation = false;
   let validationError: string | undefined;
 
-  const adultsTotal = Math.round(perAdult * adults * nightsCharged);
+  const accommodationTotal = Math.round(perAdult * (perRoom ? 1 : adults) * nightsCharged);
+  const adultsTotal = accommodationTotal;
   let childrenTotal = 0;
 
   if (children > 0 && policy) {
@@ -164,7 +193,11 @@ export function computeBreakdown(
               (candidate.bedType === "any" || candidate.bedType === bedType),
           );
 
-      if (!rule || rule.pricingType === "manual") {
+      if (
+        !rule ||
+        rule.pricingType === "manual" ||
+        (perRoom && (rule.pricingType === "percent_adult" || rule.pricingType === "adult_rate"))
+      ) {
         requiresManualConfirmation = true;
         validationError ??= age === null
           ? "أدخل عمر كل طفل لحساب السعر الصحيح."
@@ -228,10 +261,12 @@ export function computeBreakdown(
     perAdult,
     perChild,
     isPerNight: perNight,
+    isPerRoom: perRoom,
     nightsCharged,
     adults,
     children,
     adultsTotal,
+    accommodationTotal,
     childrenTotal,
     childLines,
     total: adultsTotal + childrenTotal,

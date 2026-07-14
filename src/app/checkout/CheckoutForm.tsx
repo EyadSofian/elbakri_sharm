@@ -17,10 +17,12 @@ import type { PricePeriod } from "@/lib/catalog";
 import {
   availableOccupancies,
   computeBreakdown,
+  defaultNightsForPeriod,
   hasChildPricing,
   isPerNight,
   maxChildrenForPeriod,
   type Occupancy,
+  type PriceUnit,
 } from "@/lib/booking/pricing";
 import type { ChildBedType } from "@/data/packages.source";
 import { formatPrice } from "@/lib/slug";
@@ -42,6 +44,7 @@ function Stepper({
   max,
   onChange,
   hint,
+  testId,
 }: {
   label: string;
   icon: React.ReactNode;
@@ -50,11 +53,12 @@ function Stepper({
   max: number;
   onChange: (n: number) => void;
   hint?: string;
+  testId?: string;
 }) {
   const btn =
     "tap-target grid h-10 w-10 place-items-center rounded-xl border border-ice bg-white text-navy transition hover:bg-mist active:scale-95 disabled:opacity-40 disabled:hover:bg-white";
   return (
-    <div className="flex items-center justify-between gap-3 rounded-[16px] border border-ice bg-white p-3">
+    <div data-testid={testId} className="flex items-center justify-between gap-3 rounded-[16px] border border-ice bg-white p-3">
       <div className="min-w-0">
         <div className="flex items-center gap-1.5 text-sm font-bold text-navy">
           {icon}
@@ -72,7 +76,7 @@ function Stepper({
         >
           <Minus className="h-4 w-4" aria-hidden />
         </button>
-        <span className="w-7 text-center text-lg font-black text-navy" aria-live="polite">
+        <span data-testid={testId ? `${testId}-value` : undefined} className="w-7 text-center text-lg font-black text-navy" aria-live="polite">
           {value}
         </span>
         <button
@@ -94,6 +98,7 @@ export function CheckoutForm({
   hotelName,
   contextLine,
   unitLabel,
+  priceUnit,
   periods,
   depositPercent,
   enabled,
@@ -103,6 +108,7 @@ export function CheckoutForm({
   hotelName: string;
   contextLine: string;
   unitLabel: string;
+  priceUnit: PriceUnit;
   periods: PricePeriod[];
   depositPercent: number;
   enabled: boolean;
@@ -114,7 +120,7 @@ export function CheckoutForm({
   const [children, setChildren] = useState(0);
   const [childAges, setChildAges] = useState<number[]>([]);
   const [childBedTypes, setChildBedTypes] = useState<ChildBedType[]>([]);
-  const [nights, setNights] = useState(periods[0]?.nights ?? 3);
+  const [nights, setNights] = useState(defaultNightsForPeriod(periods[0]));
   const [contact, setContact] = useState<Contact>({ name: "", email: "", mobile: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -124,7 +130,9 @@ export function CheckoutForm({
   const occ: Occupancy = occOptions.includes(occupancy) ? occupancy : occOptions[0];
   const childAllowed = hasChildPricing(period, occ);
   const maxChildren = Math.max(0, Math.min(10, maxChildrenForPeriod(period, occ)));
-  const perNight = isPerNight(period);
+  const perNight = isPerNight(
+    period && !period.pricingBasis ? { ...period, pricingBasis: priceUnit } : period,
+  );
   const effChildren = childAllowed ? children : 0;
 
   const breakdown = useMemo(
@@ -136,8 +144,9 @@ export function CheckoutForm({
       childAges,
       childBedTypes,
       nights,
+      priceUnit,
     }),
-    [periods, periodIndex, occ, adults, effChildren, childAges, childBedTypes, nights],
+    [periods, periodIndex, occ, adults, effChildren, childAges, childBedTypes, nights, priceUnit],
   );
   const onlinePaymentAvailable = enabled && !breakdown.requiresManualConfirmation;
 
@@ -219,8 +228,11 @@ export function CheckoutForm({
               value={periodIndex}
               onChange={(e) => {
                 const i = Number(e.target.value);
+                const nextOccupancy = availableOccupancies(periods[i])[0];
                 setPeriodIndex(i);
-                setNights(periods[i]?.nights ?? nights);
+                setOccupancy(nextOccupancy);
+                setAdults(nextOccupancy === "triple" ? 3 : 2);
+                setNights(defaultNightsForPeriod(periods[i]));
                 setChildren(0);
                 setChildAges([]);
                 setChildBedTypes([]);
@@ -244,9 +256,11 @@ export function CheckoutForm({
                 {occOptions.map((o) => (
                   <button
                     key={o}
+                    data-testid={`occupancy-${o}`}
                     type="button"
                     onClick={() => {
                       setOccupancy(o);
+                      setAdults(o === "triple" ? 3 : 2);
                       setChildren(0);
                       setChildAges([]);
                       setChildBedTypes([]);
@@ -275,6 +289,7 @@ export function CheckoutForm({
               min={1}
               max={20}
               onChange={setAdults}
+              testId="adults-stepper"
             />
             {childAllowed ? (
               <Stepper
@@ -289,10 +304,13 @@ export function CheckoutForm({
                   setChildBedTypes((beds) => Array.from({ length: next }, (_, i) => beds[i] ?? "sharing"));
                 }}
                 hint={
-                  period?.childAgeFrom != null && period?.childAgeTo != null
+                  breakdown.childPolicyName
+                    ? breakdown.childPolicyName
+                    : period?.childAgeFrom != null && period?.childAgeTo != null
                     ? `سن ${period.childAgeFrom}–${period.childAgeTo} سنة`
                     : undefined
                 }
+                testId="children-stepper"
               />
             ) : null}
             {childAllowed && children > 0 ? (
@@ -346,13 +364,17 @@ export function CheckoutForm({
                 min={1}
                 max={30}
                 onChange={setNights}
+                hint="يتغير الإجمالي تلقائيًا حسب عدد الليالي"
+                testId="nights-stepper"
               />
             ) : period?.nights ? (
               <div className="flex items-center justify-between rounded-[16px] border border-ice bg-mist p-3 text-sm">
                 <span className="flex items-center gap-1.5 font-bold text-navy">
                   <Moon className="h-4 w-4 text-blue" aria-hidden /> مدة الباقة
                 </span>
-                <span className="font-extrabold text-navy">{period.nights} ليالٍ</span>
+                <span className="font-extrabold text-navy">
+                  {period.nights} ليالٍ{period.days ? ` / ${period.days} أيام` : ""}
+                </span>
               </div>
             ) : null}
           </div>
@@ -462,13 +484,23 @@ export function CheckoutForm({
               <dt className="text-muted">الغرفة</dt>
               <dd className="font-semibold text-navy">{occ === "triple" ? "ثلاثية" : "مزدوجة"}</dd>
             </div>
+            {(breakdown.isPerNight || period?.nights) ? (
+              <div className="flex justify-between gap-3">
+                <dt className="text-muted">مدة الإقامة</dt>
+                <dd className="font-semibold text-navy">
+                  {breakdown.isPerNight ? breakdown.nightsCharged : period?.nights} ليالٍ
+                  {period?.days && !breakdown.isPerNight ? ` / ${period.days} أيام` : ""}
+                </dd>
+              </div>
+            ) : null}
 
             {breakdown.computable ? (
               <>
                 <div className="mt-1 flex items-baseline justify-between gap-3 border-t border-ice pt-3">
                   <dt className="text-muted">
-                    البالغون ({breakdown.adults}
-                    {breakdown.isPerNight ? ` × ${breakdown.nightsCharged} ليلة` : ""})
+                    {breakdown.isPerRoom
+                      ? `سعر الغرفة${breakdown.isPerNight ? ` × ${breakdown.nightsCharged} ليلة` : ""}`
+                      : `البالغون (${breakdown.adults}${breakdown.isPerNight ? ` × ${breakdown.nightsCharged} ليلة` : ""})`}
                   </dt>
                   <dd className="font-semibold text-navy">
                     <Num value={breakdown.adultsTotal} /> ج.م

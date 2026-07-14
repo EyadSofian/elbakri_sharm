@@ -84,6 +84,28 @@ function priceUnitFromBasis(basis?: string | null): PriceUnit {
   return "per_person_trip";
 }
 
+function packageGroup(pkg: RatePackage): { name?: string; brand?: string } {
+  if (pkg.group_name) {
+    return { name: pkg.group_name, brand: pkg.group_brand_name ?? undefined };
+  }
+  const haystack = normalizeName(`${pkg.package_name} ${pkg.group_brand_name ?? ""}`);
+  if (haystack.includes(normalizeName("الباتروس")) || haystack.includes("albatros")) {
+    return { name: "مجموعة الباتروس", brand: pkg.group_brand_name ?? "Albatros" };
+  }
+  return { brand: pkg.group_brand_name ?? undefined };
+}
+
+function packagePresentation(pkg: RatePackage): { name: string; details?: string } {
+  const match = pkg.package_name.match(/^(.+?)\s*[\(（]\s*(.+?)\s*[\)）]\s*$/u);
+  if (!match) return { name: pkg.package_name };
+  const details = match[2].trim();
+  const businessDetails = normalizeName(details);
+  if (!["السعر", "الاسعار", "ليله", "غرفه", "فرد"].some((word) => businessDetails.includes(normalizeName(word)))) {
+    return { name: pkg.package_name };
+  }
+  return { name: match[1].trim(), details };
+}
+
 function regionForPackageHotel(pkg: RatePackage, hotel: RateHotel): string {
   const packageRegion = pkg.region?.trim();
   const hotelRegion = hotel.region?.trim();
@@ -182,7 +204,9 @@ export function syncDestinationsFromRatePackages(
   const usedSlugs = new Map<string, string>();
 
   for (const pkg of packages) {
-    const packageNote = [pkg.group_name, pkg.description]
+    const group = packageGroup(pkg);
+    const presentation = packagePresentation(pkg);
+    const packageNote = [group.name, presentation.details, pkg.description]
       .filter((value, index, values): value is string => Boolean(value) && values.indexOf(value) === index)
       .join(" — ") || undefined;
     const hotelsByDestination = new Map<string, string[]>();
@@ -219,7 +243,7 @@ export function syncDestinationsFromRatePackages(
           destinationSlug: destination.slug,
           destinationNameAr: destination.nameAr,
           categoryId: `rate-package-${pkg.id}`,
-          categoryName: pkg.package_name,
+          categoryName: presentation.name,
           categoryNote: packageNote,
           priceUnit: unit,
           unitLabel: unitLabel(unit),
@@ -245,8 +269,10 @@ export function syncDestinationsFromRatePackages(
       const destination = destinations.get(destinationKey)!;
       destination.categories.push({
         id: `rate-package-${pkg.id}`,
-        name: pkg.package_name,
+        name: presentation.name,
         note: packageNote,
+        groupName: group.name,
+        groupBrandName: group.brand,
         priceUnit: unit,
         unitLabel: unitLabel(unit),
         hotelSlugs,

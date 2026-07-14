@@ -59,6 +59,7 @@ export async function POST(req: Request) {
     childAges,
     childBedTypes,
     nights,
+    priceUnit: hotel.priceUnit,
   });
   if (children !== childAges.length || children !== childBedTypes.length) {
     return NextResponse.json({ error: "child_details_required" }, { status: 422 });

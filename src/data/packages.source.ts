@@ -35,6 +35,7 @@ export type PricePeriod = {
   dateFrom?: string;
   dateTo?: string;
   nights?: number;
+  days?: number;
   /** e.g. "per_person_per_night" | "per_person_per_trip" | "per_room_per_night" */
   pricingBasis?: string;
   /** Numeric per-adult price (single/generic occupancy) in the period currency. */

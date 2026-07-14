@@ -46,6 +46,8 @@ export type CategoryView = {
   id: string;
   name: string;
   note?: string;
+  groupName?: string;
+  groupBrandName?: string;
   priceUnit: PriceUnit;
   unitLabel: string;
   hotelSlugs: string[];
