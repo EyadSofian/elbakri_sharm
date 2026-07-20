@@ -172,32 +172,72 @@ describe("authoritative rate catalog sync", () => {
 
   it("creates a destination for a new region instead of dropping the package", () => {
     const out = syncDestinationsFromRatePackages(base, [
-      ratePackage(8, "السخنة", [rateHotel({ id: 88, hotel_name: "New Hotel", region: "العين السخنة" })], {
-        region: "العين السخنة",
+      ratePackage(8, "سيوة", [rateHotel({ id: 88, hotel_name: "New Hotel", region: "سيوة" })], {
+        region: "سيوة",
       }),
     ]);
     expect(out[0]).toMatchObject({
-      slug: "region-العين-السخنة",
-      nameAr: "العين السخنة",
+      slug: "region-سيوة",
+      nameAr: "سيوة",
       hotelCount: 1,
     });
     expect(out[0].hotels[0].slug).toBe("hotel-88");
   });
 
-  it("keeps Sahl Hasheesh, Makadi and El Gouna as separate destinations", () => {
+  it("keeps Sahl Hasheesh, Makadi, El Gouna and Ain Sokhna as separate destinations", () => {
     const hotels = [
       rateHotel({ id: 201, hotel_name: "Sahl Hotel", region: "الغردقة", sub_region: "سهل حشيش" }),
       rateHotel({ id: 202, hotel_name: "Makadi Hotel", region: "الغردقة", sub_region: "مكادى باى" }),
       rateHotel({ id: 203, hotel_name: "Gouna Hotel", region: "الجونة", sub_region: "الجونة" }),
+      rateHotel({ id: 204, hotel_name: "Sokhna Hotel", region: "العين السخنة", sub_region: null }),
     ];
     const out = syncDestinationsFromRatePackages(base, [
       ratePackage(22, "مجموعة البحر الأحمر", hotels, { region: "الغردقة" }),
     ]);
     expect(out.map((destination) => destination.slug).sort()).toEqual([
+      "ain-sokhna",
       "el-gouna",
       "makadi-bay",
       "sahl-hasheesh",
     ]);
+  });
+
+  it("gives each sub-region its own hero instead of borrowing Hurghada's", () => {
+    const hotels = [
+      rateHotel({ id: 201, hotel_name: "Sahl Hotel", region: "الغردقة", sub_region: "سهل حشيش" }),
+      rateHotel({ id: 202, hotel_name: "Makadi Hotel", region: "الغردقة", sub_region: "مكادى باى" }),
+      rateHotel({ id: 203, hotel_name: "Gouna Hotel", region: "الجونة", sub_region: "الجونة" }),
+      rateHotel({ id: 204, hotel_name: "Sokhna Hotel", region: "العين السخنة", sub_region: null }),
+    ];
+    const out = syncDestinationsFromRatePackages(base, [
+      ratePackage(23, "مجموعة البحر الأحمر", hotels, { region: "الغردقة" }),
+    ]);
+    const heroBySlug = Object.fromEntries(out.map((d) => [d.slug, d.image]));
+    expect(heroBySlug).toEqual({
+      "sahl-hasheesh": "/images/destinations/sahl-hasheesh.webp",
+      "makadi-bay": "/images/destinations/makadi-bay.webp",
+      "el-gouna": "/images/destinations/el-gouna.webp",
+      "ain-sokhna": "/images/destinations/ain-sokhna.webp",
+    });
+  });
+
+  it("never surfaces Marsa Matruh, which has no bookable inventory", () => {
+    const onlyMatruh = syncDestinationsFromRatePackages(base, [
+      ratePackage(41, "مطروح", [rateHotel({ id: 301, hotel_name: "Matruh Hotel", region: "مرسى مطروح" })], {
+        region: "مرسى مطروح",
+      }),
+    ]);
+    expect(onlyMatruh).toEqual([]);
+
+    const mixed = syncDestinationsFromRatePackages(base, [
+      ratePackage(42, "متعدد", [
+        rateHotel(),
+        rateHotel({ id: 302, hotel_name: "Matruh Hotel", region: "مطروح" }),
+        rateHotel({ id: 303, hotel_name: "Matruh Two", region: "Marsa Matrouh" }),
+      ]),
+    ]);
+    expect(mixed.map((destination) => destination.slug)).toEqual(["sharm-el-sheikh"]);
+    expect(mixed[0].categories[0].hotelSlugs).toEqual(["falcon"]);
   });
 
   it("labels Albatros packages as a visible hotel group", () => {

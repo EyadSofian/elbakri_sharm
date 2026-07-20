@@ -47,6 +47,11 @@ const fixed = [
   "/images/destinations/home.webp",
   "/images/destinations/honeymoon.webp",
   "/images/placeholders/hotel-placeholder.webp",
+  // Sub-region heroes: referenced only from SPECIAL_DESTINATIONS in lib/rates/sync.ts,
+  // so the static catalog walk above never reaches them.
+  ...["el-gouna", "sahl-hasheesh", "makadi-bay", "ain-sokhna"].map(
+    (s) => `/images/destinations/${s}.webp`,
+  ),
   ...["sharm-el-sheikh", "dahab", "hurghada", "marsa-alam", "north-coast"].flatMap((s) => [
     `/images/placeholders/${s}-placeholder.webp`,
     `/images/thumbnails/${s}.webp`,

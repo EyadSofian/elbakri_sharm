@@ -11,6 +11,7 @@ public/
     elbakri-logo-lockup.png   ← margin-trimmed DISPLAY copy (reversible; used in the UI)
   images/
     destinations/             ← 5 destination heroes + home.webp + honeymoon.webp (1920×1080)
+                                 + 4 sub-region heroes (see §2b, below spec resolution)
     placeholders/             ← 5 destination fallbacks + hotel-placeholder.webp (1200×840)
     thumbnails/               ← 600×420 thumbnails
     honeymoon/                ← 4 general honeymoon images (derived placeholders)
@@ -39,6 +40,28 @@ reports/
 - **Identity notes:** بلاس → Pickalbatros **Palace** (Hurghada = Palace Resort Hurghada; Marsa
   Alam = Palace Hotel Port Ghalib). جيوان → **Gewan** (New Alamein). سان جورج → **Xperience
   St. George**. نعمه باي → Naama Bay Hotel & Resort. بروميناد → Naama Bay Promenade (Accor).
+
+## 2b. Sub-region heroes (rate-hub destinations)
+
+`SPECIAL_DESTINATIONS` in `src/lib/rates/sync.ts` promotes four rate-hub regions to real
+destinations. Each now has its **own** owner-supplied hero — previously El Gouna, Sahl Hasheesh
+and Makadi all borrowed `hurghada.webp`, and Ain Sokhna fell through to the grey placeholder.
+
+| File | Destination | Size |
+|---|---|---|
+| `el-gouna.webp` | الجونة | 700×393 |
+| `sahl-hasheesh.webp` | سهل حشيش | 500×281 |
+| `makadi-bay.webp` | مكادي | 1080×607 |
+| `ain-sokhna.webp` | العين السخنة | 600×337 |
+
+**These are below the 1920×1080 hero spec.** The sources were owner-supplied at these sizes and
+were cover-cropped to 16:9 **without upscaling** — upscaling would fabricate detail and inflate
+file size for no gain. They are sharp at their native size but soften on large screens, and they
+sit under the 1200×630 that link-preview (OG) cards prefer. Replace with higher-resolution
+originals when available; drop them in at the same paths and no code changes are needed.
+
+These files are referenced only from `sync.ts`, never from the static catalog, so they are
+pinned explicitly in `scripts/validate-images.ts` to keep `validate:images` honest.
 
 ## 3. Fallback behaviour (`src/lib/images.ts`)
 

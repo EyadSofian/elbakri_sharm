@@ -38,6 +38,10 @@ const REGION_HINTS: Array<{ destinationSlug: string; hints: string[] }> = [
     hints: ["hurghada", "الغردقه", "الغردقة", "سوما", "soma"],
   },
   {
+    destinationSlug: "ain-sokhna",
+    hints: ["ain sokhna", "ein sokhna", "sokhna", "السخنه", "السخنة"],
+  },
+  {
     destinationSlug: "marsa-alam",
     hints: ["marsa alam", "مرسي علم", "مرسى علم"],
   },
@@ -47,6 +51,19 @@ const REGION_HINTS: Array<{ destinationSlug: string; hints: string[] }> = [
   },
 ];
 
+/**
+ * Regions the storefront must never surface, even when the rate hub ships
+ * packages for them. Marsa Matruh has no bookable inventory, so its hotels are
+ * dropped before any destination shell is created — otherwise it renders as an
+ * empty card with a generic placeholder. Remove the hint to bring it back.
+ */
+const EXCLUDED_REGION_HINTS = ["مطروح", "matruh", "matrouh"];
+
+function isExcludedRegion(region: string): boolean {
+  const key = normalizeName(region);
+  return EXCLUDED_REGION_HINTS.some((hint) => key.includes(normalizeName(hint)));
+}
+
 const SPECIAL_DESTINATIONS: Record<string, Omit<Destination, "hotels" | "categories" | "hotelCount" | "minPrice">> = {
   "sahl-hasheesh": {
     id: "sahl-hasheesh",
@@ -54,7 +71,7 @@ const SPECIAL_DESTINATIONS: Record<string, Omit<Destination, "hotels" | "categor
     nameAr: "سهل حشيش",
     nameEn: "Sahl Hasheesh",
     tagline: "منتجعات هادئة وشواطئ مميزة جنوب الغردقة",
-    image: "/images/destinations/hurghada.webp",
+    image: "/images/destinations/sahl-hasheesh.webp",
   },
   "makadi-bay": {
     id: "makadi-bay",
@@ -62,7 +79,7 @@ const SPECIAL_DESTINATIONS: Record<string, Omit<Destination, "hotels" | "categor
     nameAr: "مكادي",
     nameEn: "Makadi Bay",
     tagline: "خليج هادئ ومنتجعات متكاملة تناسب العائلات",
-    image: "/images/destinations/hurghada.webp",
+    image: "/images/destinations/makadi-bay.webp",
   },
   "el-gouna": {
     id: "el-gouna",
@@ -70,7 +87,15 @@ const SPECIAL_DESTINATIONS: Record<string, Omit<Destination, "hotels" | "categor
     nameAr: "الجونة",
     nameEn: "El Gouna",
     tagline: "لاجونات وشواطئ وتجربة إقامة راقية على البحر الأحمر",
-    image: "/images/destinations/hurghada.webp",
+    image: "/images/destinations/el-gouna.webp",
+  },
+  "ain-sokhna": {
+    id: "ain-sokhna",
+    slug: "ain-sokhna",
+    nameAr: "العين السخنة",
+    nameEn: "Ain Sokhna",
+    tagline: "أقرب شواطئ البحر الأحمر للقاهرة",
+    image: "/images/destinations/ain-sokhna.webp",
   },
 };
 
@@ -217,6 +242,7 @@ export function syncDestinationsFromRatePackages(
 
     for (const rateHotel of pkg.hotels) {
       const region = regionForPackageHotel(pkg, rateHotel);
+      if (isExcludedRegion(region)) continue;
       const knownDestination = baseDestinationForRegion(base, region);
       const shell = destinationShell(base, region);
       const destinationKey = shell.slug;
